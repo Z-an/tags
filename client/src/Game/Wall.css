@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: #fafafa;
 }
 
 .tag {
@@ -7,7 +8,7 @@
   grid-template-columns: 0fr 20fr 2fr 0fr 0fr;
 
   height: 50px;
-  width: 290px;
+  width: 315px;
 
   font-size: 15px;
   font-weight:300;
@@ -18,9 +19,9 @@
   border-style: solid;
   border-width: 1px;
 
-  margin: 0rem auto 2.4rem auto;
+  margin: 0rem auto 2.2rem auto;
   padding: 0 12px;
-  box-shadow: 10px 10px 10px -10px rgba(0,0,0,0.5);
+  box-shadow: 8px 8px 8px -10px rgba(0,0,0,0.5);
   overflow: auto;
 }
 
@@ -63,8 +64,9 @@
 .container{
   display: flex;
   flex-flow: column;
-  padding-bottom: 100px;
+  padding-bottom: 10rem;
   padding-top:0rem;
+  bottom: 0;
 }
 
 .join {

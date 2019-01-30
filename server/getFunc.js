@@ -39,12 +39,19 @@ async function getUser(userId){
 }
 
 async function getTags(merchantId){
+
+  var merchant = await db.collection("merchants").doc(merchantId).get()
+  var hrounds = merchant.data().hrounds
+  var rho = merchant.data().rho
+
   return new Promise((resolve, reject) => {
     const tags = []
     db.collection("merchants").doc(merchantId).collection("tags").where("culled", "==", false).orderBy("ucb", "desc").get()
     .then(result =>{
       result.forEach( tag => {
-        tags.push( {... tag.data(), 'id': tag.id})
+        data = tag.data()
+        newUCB = ops.ucb(data.totalReacts,data.trounds,hrounds,rho)
+        tags.push( {... tag.data(), 'id': tag.id, 'newUCB': newUCB})
       })
       resolve(tags)
     })

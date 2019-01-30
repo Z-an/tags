@@ -61,7 +61,7 @@ async function createTag(merchantId,creatorId,creatorIcon,content){
 
   return new Promise((resolve,reject) => {
     db.collection("merchants").doc(merchantId).collection("tags").add({
-      content: ops.toTitleCase(content),
+      content: content,
       creatorId: creatorId,
       creatorIcon: creatorIcon,
       culled: false,

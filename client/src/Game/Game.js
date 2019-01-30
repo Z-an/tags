@@ -34,7 +34,7 @@ class Game extends Component {
 
     getFirebaseData("/tags/"+this.state.merchant.id)
       .then(tags => tags.json())
-      .then(val => this.setState({tags: val}))
+      .then(val => this.setState({tags: val.sort(this.compare)}))
       .catch(err => console.log(err))
   }
 
@@ -61,6 +61,20 @@ class Game extends Component {
       .catch(err => console.log(err))
     if (props.vote > 0) {this.addScore('upvote')}
     else {this.addScore('downvote')}
+  }
+
+  compare = (a, b) => {
+
+    const ucbA = a.newUCB
+    const ucbB = b.newUCB
+
+    let comparison = 0;
+    if (ucbA > ucbB) {
+      comparison = -1;
+    } else if (ucbA < ucbB) {
+      comparison = 1;
+    }
+    return comparison;
   }
 
   addScore = (props) => {

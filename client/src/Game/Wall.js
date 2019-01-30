@@ -2,7 +2,7 @@ import React from "react"
 //import { ReactComponent as Smile} from './assets2/tongue2.svg'
 import Engager from './Engager.js'
 import {UnmountClosed as Collapse} from 'react-collapse'
-//import Button from "@material-ui/core/Button"
+import Button from "@material-ui/core/Button"
 
 import "./Wall.css"
 
