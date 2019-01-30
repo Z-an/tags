@@ -1,0 +1,28 @@
+.emojis{
+  display: flex;
+  display: row;
+  justify-content: center;
+  height: 50px;
+  padding-bottom: 0.8rem;
+}
+
+.emoji{
+  padding-right: 0.3rem;
+  padding-left: 0.3rem;
+}
+
+.total{
+  padding-top: 0rem;
+  padding-left:1rem;
+  justify-content: right;
+  font-size: 10px;
+  padding-bottom: 1rem;
+}
+
+.details{
+  margin: auto;
+}
+
+.report{
+  padding-bottom: 0rem;
+}

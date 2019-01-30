@@ -1,0 +1,44 @@
+.greeting {
+  display: grid;
+  align-items: center;
+  font-size: 30px;
+  font-style: oblique;
+  font-weight: bold;
+  color: #ff4868;
+  padding-bottom: 2rem;
+}
+
+.earned-container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.3rem;
+}
+
+.navbar-game {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  z-index: 2;
+  height: 3rem;
+  background: white;
+
+}
+
+.circle {
+    background: #ff4868;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    box-shadow: 10px 10px 10px -10px rgba(0,0,0,0.75);
+}
+
+.creator {
+  padding-top: 1rem;
+}
+
+.bottom {
+  position: fixed;
+  bottom: 5%;
+  width: 20%;
+  right: 6px;
+}
