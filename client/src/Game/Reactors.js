@@ -8,10 +8,6 @@ function Reactors (props) {
   if (props.reactors) {
     return(
     <div>
-      <div className="descriptor">
-        Users {props.react || "..."}
-        <div className="cont">"{props.content}"</div>
-      </div>
       <div className="reactors-container">
             {Object.keys(props.reactors).map(r =>
               <Reactor id={r}

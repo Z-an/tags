@@ -22,7 +22,7 @@ class Game extends Component {
     score: 0,
     prior: 0,
     modal: false,
-    expanded: null
+    expanded: null,
 }
 
   async componentDidMount() {

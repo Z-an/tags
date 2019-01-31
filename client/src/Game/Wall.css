@@ -5,16 +5,16 @@
 
 .tag {
   display: grid;
-  grid-template-columns: 0fr 20fr 2fr 0fr 0fr;
+  grid-template-columns: 35fr 0fr;
 
-  height: 50px;
+  height: 70px;
   width: 315px;
 
-  font-size: 15px;
+  font-size: 16px;
   font-weight:300;
   color: #ff4868;
 
-  line-height: 50px;
+  line-height: 45px;
   border-radius: 26px;
   border-style: solid;
   border-width: 1px;
@@ -27,9 +27,8 @@
 
 .tag img {
   position: relative;
-  right: 12px;
-  height: 50px;
-  width: 50px;
+  height: 44px;
+  width: 44px;
   border-radius: 22px;
 
 }
@@ -64,9 +63,11 @@
 .container{
   display: flex;
   flex-flow: column;
+  justify-content: left;
   padding-bottom: 10rem;
   padding-top:0rem;
   bottom: 0;
+  flex-wrap: wrap;
 }
 
 .join {
@@ -145,4 +146,71 @@
   padding-top: 0.9rem;
   display: flex;
   flex-direction: row;
+}
+
+.button {
+  font-size: 16px;
+}
+
+.speech-bubble {
+    background: white;
+    font-size: 1.3rem;
+    line-height: 1.6;
+    margin: 4rem 2rem -7rem 2rem;
+    max-width: 200px;
+    padding-right: 40px;
+    padding-left: 50px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    position: relative;
+
+
+}
+
+
+.wall-row {
+  display: flex;
+  flex-direction: row;
+  margin: 0rem 1rem -6rem 1.5rem;
+
+}
+
+.icons-box {
+  display: flex;
+  flex-direction: row;
+  margin: -1rem 0rem 0rem 2rem;
+}
+
+.icon {
+  position: relative;
+  height: 48px;
+  width: 48px;
+  border-radius: 24px;
+  top: 1rem;
+  z-index: 1;
+  color: #ff4868;
+  border-width: 1px;
+  border-style: solid;
+  margin: -2rem 0 0 0;
+}
+
+.emoji-box {
+  display: flex;
+  flex: row;
+  flex-wrap: wrap;
+  margin: 8rem 0 30px 5rem;
+}
+
+.emoji{
+  padding-right: 0.3rem;
+  padding-left: 0.3rem;
+}
+
+.total{
+  padding-top: 0rem;
+  padding-left:1rem;
+  justify-content: right;
+  font-size: 10px;
+  padding-bottom: 1rem;
+
 }
