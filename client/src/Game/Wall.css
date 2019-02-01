@@ -5,7 +5,7 @@
 
 .tag {
   display: grid;
-  grid-template-columns: 0fr 30fr 2fr 2fr 0fr;
+  grid-template-columns: 0fr 30fr 2fr 0fr 0fr;
 
   height: 50px;
   width: 315px;
@@ -65,7 +65,7 @@
   display: flex;
   flex-flow: column;
   padding-bottom: 10rem;
-  padding-top:0rem;
+  padding-top:3rem;
   bottom: 0;
 }
 
@@ -150,6 +150,7 @@
 .btn {
   height: 18px;
   width: 18px;
+  padding-right: 2px;
 }
 
 .btn:hover {

@@ -191,6 +191,7 @@ class Game extends Component {
                                              merchantId={this.state.merchant.id}
                                              voter={this.voter}
                                              tagId={tag.id}
+                                             treacts={tag.totalReacts}
                                              expanded={this.state.expanded}
                                              expander={this.expander}/> )}
           </div>
