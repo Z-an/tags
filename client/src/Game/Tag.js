@@ -12,12 +12,12 @@ function Tag (props) {
   return (
     <div>
         <div className={"tag col-center background " + random_color}>
-          <img src = {props.icon} alt={props.handle} onClick={() => props.expander(props.handle)}/>
-          <span><font>{props.content}</font></span>
+          <img src = {props.icon} alt={props.handle}/>
+          <span onClick={() => props.expander(props.tagId)}><font>{props.content}</font></span>
           <div className="btn" onClick={() => props.expander(props.tagId)}>
             <Heart/>
           </div>
-          <div>   {props.treacts}</div>
+          <div>{props.treacts}</div>
         </div>
       <Collapse isOpened={props.expanded===props.tagId}>
         <Engager

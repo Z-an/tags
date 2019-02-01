@@ -177,7 +177,7 @@ class Game extends Component {
             <Button
               onClick={() => {this.onRefresh()}}
             >
-              REFRESH
+              ⟳
             </Button>
           </div>
         </Headroom>
