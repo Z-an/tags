@@ -22,7 +22,8 @@ class Game extends Component {
     score: 0,
     prior: 0,
     modal: false,
-    expanded: null
+    expanded: null,
+    tokens: 20,
 }
 
   async componentDidMount() {
@@ -61,6 +62,7 @@ class Game extends Component {
       .catch(err => console.log(err))
     if (props.vote > 0) {this.addScore('upvote')}
     else {this.addScore('downvote')}
+    this.setState({tokens: this.state.tokens-1})
   }
 
   compare = (a, b) => {
@@ -130,6 +132,7 @@ class Game extends Component {
     .catch(err => console.log(err))
 
     this.addScore('creation')
+    this.setState({tokens: this.state.tokens-1})
   }
   toggleCreator = (props) => {
     this.setState({modal: false})
@@ -174,7 +177,7 @@ class Game extends Component {
             <Button
               onClick={() => {this.onRefresh()}}
             >
-              ⟳
+              REFRESH
             </Button>
           </div>
         </Headroom>
@@ -193,7 +196,8 @@ class Game extends Component {
                                              tagId={tag.id}
                                              treacts={tag.totalReacts}
                                              expanded={this.state.expanded}
-                                             expander={this.expander}/> )}
+                                             expander={this.expander}
+                                             tokens={this.state.tokens}/> )}
           </div>
         </div>
         <div className="bottom">

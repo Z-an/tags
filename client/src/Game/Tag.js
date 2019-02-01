@@ -25,7 +25,8 @@ function Tag (props) {
           tagContent={props.content}
           voter={props.voter}
           merchantId={props.merchantId}
-          userId={props.userId}/>
+          userId={props.userId}
+          tokens={props.tokens}/>
       </Collapse>
     </div>
   )

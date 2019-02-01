@@ -24,6 +24,7 @@ class Engager extends Component {
     reactorView: null,
     openReactors: null,
     reactorDesc: null,
+    tokens: this.props.tokens,
 
       angry: 0,
       cry: 0,
@@ -79,6 +80,7 @@ class Engager extends Component {
   }
 
   reactor = (react) => {
+    if (this.state.tokens === 0) {return null}
     this.props.voter({ userId: this.props.userId,
                        tagId: this.props.tagId,
                        vote: react,
@@ -91,6 +93,7 @@ class Engager extends Component {
     else if (react==="tongue")  {this.setState({tongue: this.state.tongue+1})}
     else if (react==="cool")    {this.setState({cool: this.state.cool+1})}
     else if (react==="love")    {this.setState({love: this.state.love+1})}
+    this.setState({tokens: this.state.tokens-1})
   }
 
   render() {
@@ -174,6 +177,8 @@ class Engager extends Component {
                 <Love onClick={func => this.reactor('love')}/>
               </div>
               </div>
+
+        <br></br><div className="tokens">{this.props.tokens} actions left</div>
         </div>
         <Collapse isOpened={this.state.open} hasNestedCollapse={true}>
           <Reactors
