@@ -20,7 +20,7 @@ const styles = theme => ({
       height: 100,
     },
     '&:hover, &$focusVisible': {
-      zIndex: 1,
+      zIndex: 10,
       '& $imageBackdrop': {
         opacity: 0.15,
       },

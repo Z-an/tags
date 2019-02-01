@@ -96,9 +96,9 @@ class MerchantSelect extends Component {
           />
         </div>
         <div className="bottom">
-          <div className="circle">
+          <div className="circle" onClick={()=> this.setState({creator: true})}>
             <div className="creator">
-              <Twitter onClick={()=> this.setState({creator: true})}/>
+              <Twitter/>
             </div>
           </div>
         </div>

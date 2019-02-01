@@ -1,22 +1,54 @@
+.dropdown{
+  display: flex;
+  flex-direction: column;
+  height: 60px;
+}
+
 .emojis{
   display: flex;
   display: row;
   justify-content: center;
-  height: 50px;
-  padding-bottom: 0.8rem;
+  margin: 0 0 -1.5rem 0;
 }
 
 .emoji{
-  padding-right: 0.3rem;
-  padding-left: 0.3rem;
+  height: 24px;
+  width: 24px;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.emoji:hover {
+  cursor: pointer;
+  height: 36px;
+  width: 36px;
+}
+
+.emoji:active{
+  height: 30px;
+  width: 30px;
+}
+
+.total-box{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 1.6rem 0 0.8rem 0;
 }
 
 .total{
-  padding-top: 0rem;
-  padding-left:1rem;
+  padding-left: 2.5rem;
   justify-content: right;
   font-size: 10px;
-  padding-bottom: 1rem;
+}
+
+.total:hover{
+
+}
+
+.total:active{
+  border: thin #ff4868;
+  color: #ff4868;
 }
 
 .details{
@@ -25,4 +57,11 @@
 
 .report{
   padding-bottom: 0rem;
+}
+
+
+.total:hover {
+  cursor: pointer;
+  color: ff4868;
+
 }

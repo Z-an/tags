@@ -5,7 +5,7 @@
 
 .tag {
   display: grid;
-  grid-template-columns: 0fr 20fr 2fr 0fr 0fr;
+  grid-template-columns: 0fr 30fr 2fr 2fr 0fr;
 
   height: 50px;
   width: 315px;
@@ -19,7 +19,7 @@
   border-style: solid;
   border-width: 1px;
 
-  margin: 0rem auto 2.2rem auto;
+  margin: 0rem auto 2.4rem auto;
   padding: 0 12px;
   box-shadow: 8px 8px 8px -10px rgba(0,0,0,0.5);
   overflow: auto;
@@ -145,4 +145,22 @@
   padding-top: 0.9rem;
   display: flex;
   flex-direction: row;
+}
+
+.btn {
+  height: 18px;
+  width: 18px;
+}
+
+.btn:hover {
+    height:20px;
+    width:20px;
+    fill: #ff4868;
+    cursor: pointer;
+}
+
+.btn:active {
+    height:20px;
+    width:20px;
+    fill: #ff4868;
 }

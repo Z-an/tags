@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Wall from './Wall.js'
+import Tag from './Tag.js'
 import Button from '@material-ui/core/Button'
 import getFirebaseData from "./getData"
 import Headroom from 'react-headroom'
@@ -41,7 +41,7 @@ class Game extends Component {
   async onRefresh() {
     getFirebaseData("/tags/"+this.state.merchant.id)
       .then(tags => tags.json())
-      .then(val => this.setState({tags: val}))
+      .then(val => this.setState({tags: val.sort(this.compare)}))
       .catch(err => console.log(err))
   }
 
@@ -181,14 +181,18 @@ class Game extends Component {
         <br></br>
         <div className="greeting"><font size="+5">{this.state.merchant.name}</font></div>
         <div>
-          <Wall
-            userId={this.state.userId}
-            merchantId={this.state.merchant.id}
-            voter={this.voter}
-            tags={this.state.tags}
-            expander={this.expander}
-            expanded={this.state.expanded}
-          />
+          <div className="container">
+            {this.state.tags.map(tag => <Tag handle={tag.creatorHandle}
+                                             icon={tag.creatorIcon}
+                                             content={tag.content}
+                                             key={tag.id}
+                                             userId={this.state.userId}
+                                             merchantId={this.state.merchant.id}
+                                             voter={this.voter}
+                                             tagId={tag.id}
+                                             expanded={this.state.expanded}
+                                             expander={this.expander}/> )}
+          </div>
         </div>
         <div className="bottom">
           <div className="circle">
