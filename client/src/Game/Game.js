@@ -179,7 +179,8 @@ class Game extends Component {
           </div>
         </Headroom>
         <br></br>
-        <div className="greeting"><font size="+5">{this.state.merchant.name}</font></div>
+        <div className="preface">Have your say about...</div>
+        <div className="greeting">{this.state.merchant.name}</div>
         <div>
           <div className="container">
             {this.state.tags.map(tag => <Tag handle={tag.creatorHandle}

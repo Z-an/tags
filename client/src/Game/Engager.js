@@ -187,7 +187,6 @@ class Engager extends Component {
     } else return (
       <div className="dropdown">
         <div className="emojis">
-          ...
         </div>
       </div>
   )
