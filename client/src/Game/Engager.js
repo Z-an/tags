@@ -99,6 +99,57 @@ class Engager extends Component {
         return (
           <div>
           <div className="dropdown">
+            <div className="total-box">
+              <div className="total"
+                  onClick={func => this.showReactors(
+                    { openReactors: this.state.reacts.angry.ids
+                    , descriptor: "aggrieved by"
+                    , react: "angry"})}
+              >{this.state.reacts.angry.total + this.state.angry}
+            </div>
+              <div className="total"
+                  onClick={func => this.showReactors(
+                    { openReactors: this.state.reacts.cry.ids
+                    , descriptor: "saddened by"
+                    , react: "cry"})}
+              >{this.state.reacts.cry.total + this.state.cry}
+            </div>
+              <div className="total"
+                  onClick={func => this.showReactors(
+                    { openReactors: this.state.reacts.sleep.ids
+                    , descriptor: "sent to sleep by"
+                    , react: "sleep"})}
+                >{this.state.reacts.sleep.total + this.state.sleep}
+            </div>
+              <div className="total"
+                  onClick={func => this.showReactors(
+                    { openReactors: this.state.reacts.shocked.ids
+                    , descriptor: "shocked by"
+                    , react: "shocked"})}
+              >{this.state.reacts.shocked.total + this.state.shocked}
+            </div>
+              <div className="total"
+                 onClick={func => this.showReactors(
+                   { openReactors: this.state.reacts.tongue.ids
+                   , descriptor: "who tongued"
+                   , react: "tongue"})}
+              >{this.state.reacts.tongue.total + this.state.tongue}
+            </div>
+              <div className="total"
+                  onClick={func => this.showReactors(
+                    { openReactors: this.state.reacts.cool.ids
+                    , descriptor: "who cool guy'd"
+                    , react: "cool"})}
+              >{this.state.reacts.cool.total + this.state.cool}
+            </div>
+              <div className="total"
+                    onClick={func => this.showReactors(
+                      { openReactors: this.state.reacts.love.ids
+                      , descriptor: "with heart eyes for"
+                      , react: "love"})}
+                >{this.state.reacts.love.total + this.state.love}
+              </div>
+            </div>
             <div className='emojis'>
               <div className='emoji'>
                 <Angry onClick={func => this.reactor('angry')}/>
@@ -122,56 +173,6 @@ class Engager extends Component {
               <div className='emoji'>
                 <Love onClick={func => this.reactor('love')}/>
               </div>
-              </div>
-              <div className="total-box">
-                <div className="total"
-                    onClick={func => this.showReactors(
-                      { openReactors: this.state.reacts.angry.ids
-                      , descriptor: "aggrieved by"
-                      , react: "angry"})}
-                >{this.state.reacts.angry.total + this.state.angry}
-              </div>
-                <div className="total"
-                    onClick={func => this.showReactors(
-                      { openReactors: this.state.reacts.cry.ids
-                      , descriptor: "saddened by"
-                      , react: "cry"})}
-                >{this.state.reacts.cry.total + this.state.cry}
-              </div>
-                <div className="total"
-                    onClick={func => this.showReactors(
-                      { openReactors: this.state.reacts.sleep.ids
-                      , descriptor: "sent to sleep by"
-                      , react: "sleep"})}
-                  >{this.state.reacts.sleep.total + this.state.sleep}
-              </div>
-                <div className="total"
-                    onClick={func => this.showReactors(
-                      { openReactors: this.state.reacts.shocked.ids
-                      , descriptor: "shocked by"
-                      , react: "shocked"})}
-                >{this.state.reacts.shocked.total + this.state.shocked}
-              </div>
-                <div className="total"
-                   onClick={func => this.showReactors(
-                     { openReactors: this.state.reacts.tongue.ids
-                     , descriptor: "who tongued"
-                     , react: "tongue"})}
-                >{this.state.reacts.tongue.total + this.state.tongue}
-              </div>
-                <div className="total"
-                    onClick={func => this.showReactors(
-                      { openReactors: this.state.reacts.cool.ids
-                      , descriptor: "who cool guy'd"
-                      , react: "cool"})}
-                >{this.state.reacts.cool.total + this.state.cool}
-              </div>
-                <div className="total"
-                      onClick={func => this.showReactors(
-                        { openReactors: this.state.reacts.love.ids
-                        , descriptor: "with heart eyes for"
-                        , react: "love"})}
-                  >{this.state.reacts.love.total + this.state.love}</div>
               </div>
         </div>
         <Collapse isOpened={this.state.open} hasNestedCollapse={true}>

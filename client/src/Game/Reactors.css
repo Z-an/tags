@@ -1,7 +1,7 @@
 .descriptor{
   display: flex;
   flex-direction: row;
-  padding-top:0rem;
+  margin-top: -0.5rem;
   font-size: 12px;
   justify-content: center;
 }
@@ -16,7 +16,7 @@
   flex-direction: row;
   flex-flow: wrap;
   justify-content: center;
-  padding-top: 0.4rem;
+  padding-top: 0.6rem;
   margin: 0 0.3rem 0 0.3rem;
   padding-bottom: 0.6rem;
 }
