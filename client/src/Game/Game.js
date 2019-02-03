@@ -24,6 +24,7 @@ class Game extends Component {
     modal: false,
     expanded: null,
     tokens: 20,
+    linearOrder: false,
 }
 
   async componentDidMount() {
@@ -66,18 +67,33 @@ class Game extends Component {
   }
 
   compare = (a, b) => {
+    var valA = 0
+    var valB = 0
 
-    const ucbA = a.newUCB
-    const ucbB = b.newUCB
+    if (!this.state.linearOrder){
+    valA = a.newUCB
+    valB = b.newUCB
+    } else {
+    valA = a.totalReacts
+    valB = b.totalReacts
+    }
+    console.log(valA)
 
     let comparison = 0;
-    if (ucbA > ucbB) {
+    if (valA > valB) {
       comparison = -1;
-    } else if (ucbA < ucbB) {
+    } else if (valA < valB) {
       comparison = 1;
     }
     return comparison;
   }
+
+  toggleOrder = () => {
+    this.setState(prevState => ({linearOrder: !prevState.linearOrder}))
+    console.log(this.state.linearOrder)
+    this.onRefresh()
+  }
+
 
   addScore = (props) => {
     console.log('adding score')
@@ -184,6 +200,7 @@ class Game extends Component {
         <br></br>
         <div className="preface">Have your say about...</div>
         <div className="greeting">{this.state.merchant.name}</div>
+        <Button className="tn" onClick={() => this.toggleOrder()}>Hot / Top</Button>
         <div>
           <div className="container">
             {this.state.tags.map(tag => <Tag handle={tag.creatorHandle}

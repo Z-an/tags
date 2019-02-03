@@ -44,9 +44,18 @@
   padding-top: 1rem;
 }
 
+.creator:hover{
+  cursor: pointer;
+}
+
 .bottom {
   position: fixed;
   bottom: 5%;
   width: 20%;
   right: 6px;
+}
+
+.toggle {
+  left: 9em;
+  margin: -10rem 0 0 0;
 }
