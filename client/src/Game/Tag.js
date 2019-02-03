@@ -17,9 +17,9 @@ function Tag (props) {
           <div className="btn" onClick={() => props.expander(props.tagId)}>
             <Heart/>
           </div>
-          <div>{props.treacts}</div>
+          <div className='btn'>{props.treacts}</div>
         </div>
-      <Collapse isOpened={props.expanded===props.tagId}>
+      <Collapse isOpened={props.expanded === props.tagId}>
         <Engager
           tagId={props.tagId}
           tagContent={props.content}

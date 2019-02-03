@@ -68,7 +68,7 @@ async function createTag(merchantId,creatorId,creatorIcon,content){
       ucb: 1000,
       trounds: hrounds,
       creationDate: new Date().getTime(),
-      totalReacts: 1,
+      totalReacts: 0,
     })
     .then(docRef => {
       console.log("Document written with ID: ", docRef.id)

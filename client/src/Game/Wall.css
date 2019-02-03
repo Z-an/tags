@@ -25,6 +25,13 @@
   overflow: auto;
 }
 
+.tag:hover{
+  cursor: pointer;
+}
+.tag:active{
+  box-shadow: 16px 16px 16px -20px rgba(0,0,0,0.5);
+}
+
 .tag img {
   position: relative;
   right: 12px;
@@ -158,6 +165,7 @@
     width:20px;
     fill: #ff4868;
     cursor: pointer;
+    font-weight: 600;
 }
 
 .btn:active {
