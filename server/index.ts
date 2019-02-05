@@ -38,12 +38,15 @@ interface Merchant {
   rewardsId: string
 }
 
+<<<<<<< HEAD
 interface Reaction {
   id: string
   total: number
   reactors: [string]
 }
 
+=======
+>>>>>>> 827615074cac1c44de2d1996913b8c113194fd93
 const typeDefs = gql`
 
   type Tag {
@@ -77,12 +80,15 @@ const typeDefs = gql`
     tags: [Tag]!
   }
 
+<<<<<<< HEAD
   type Reaction {
     id: String!
     total: Int!
     reactors: [String]!
   }
 
+=======
+>>>>>>> 827615074cac1c44de2d1996913b8c113194fd93
   type Query {
     user(id: String!): User
     tags: [Tag]
@@ -90,7 +96,10 @@ const typeDefs = gql`
   }
 
   type Mutation {
+<<<<<<< HEAD
     react(userId: String!, tagId: String!, reactId: String!): Reaction
+=======
+>>>>>>> 827615074cac1c44de2d1996913b8c113194fd93
     createTag(userId: String!
       , merchantId: String!
       , content: String!
@@ -108,7 +117,10 @@ const resolvers = {
         .get()
       return tags.docs.map(tag => tag.data()) as Tag[];
     },
+<<<<<<< HEAD
 
+=======
+>>>>>>> 827615074cac1c44de2d1996913b8c113194fd93
     async user(_: null, args: { id: string }) {
       try {
         const userDoc = await admin
@@ -121,7 +133,10 @@ const resolvers = {
         throw new ApolloError(error)
       }
     },
+<<<<<<< HEAD
 
+=======
+>>>>>>> 827615074cac1c44de2d1996913b8c113194fd93
     async merchant(_: null, args: { id: string }) {
       try {
         const merchantDoc = await admin
@@ -137,6 +152,7 @@ const resolvers = {
   },
 
   Mutation: {
+<<<<<<< HEAD
     async react(_: null, args: { userId: string
                               , tagId: string
                               , reactId: string }) {
@@ -166,10 +182,17 @@ const resolvers = {
                                   , merchantId: string
                                   , content: string
                                   , hrounds: number}) {
+=======
+    async createTag(_: null, args: {  userId: string
+                                    , merchantId: string
+                                    , content: string
+                                    , hrounds: number}) {
+>>>>>>> 827615074cac1c44de2d1996913b8c113194fd93
       try {
         const tagDoc = await admin
           .firestore()
           .collection("tagsQL")
+<<<<<<< HEAD
           .add({ content: args.content
               , created: null
               , culled: false
@@ -188,11 +211,26 @@ const resolvers = {
 
         return tag || new ValidationError('Tag creation failed')
 
+=======
+          .add({  content: args.content
+                , created: null
+                , culled: false
+                , merchantId: args.merchantId
+                , userId: args.userId
+                , ucb: Infinity
+                , reacts: 0 })
+        const newTag = await tagDoc.get()
+        const tag = newTag.data() as Tag | undefined
+        return tag || new ValidationError('Tag creation failed')
+>>>>>>> 827615074cac1c44de2d1996913b8c113194fd93
       } catch (error) {
         throw new ApolloError(error)
       }
     },
+<<<<<<< HEAD
 
+=======
+>>>>>>> 827615074cac1c44de2d1996913b8c113194fd93
     async addMerchant(_: null, args: {name: string}) {
       try {
         const merchantDoc = await admin
@@ -206,6 +244,7 @@ const resolvers = {
                 rewardsId: null})
 
         const newMerchant = await merchantDoc.get()
+<<<<<<< HEAD
         const id = newMerchant.id
         await merchantDoc.update({id: id})
 
@@ -214,6 +253,10 @@ const resolvers = {
 
         return merchant || new ValidationError('Merchant creation failed')
 
+=======
+        const merchant = newMerchant.data() as Merchant | undefined
+        return merchant || new ValidationError('Merchant creation failed')
+>>>>>>> 827615074cac1c44de2d1996913b8c113194fd93
       } catch (error) {
         throw new ApolloError(error)
       }
@@ -274,5 +317,9 @@ const server = new ApolloServer({
 })
 
 server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
+<<<<<<< HEAD
   console.log(`Server ready at ${url}`)
+=======
+  console.log(`🚀  Server ready at ${url}`)
+>>>>>>> 827615074cac1c44de2d1996913b8c113194fd93
 })
