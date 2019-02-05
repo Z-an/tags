@@ -78,6 +78,10 @@ const typeDefs = gql`
   }
 
   type Mutation {
+    createTag(userId: String!
+      , merchantId: String!
+      , content: String!
+      , hrounds: Int!): Tag!
     addMerchant(name: String!): Merchant!
   }
 `
@@ -116,17 +120,42 @@ const resolvers = {
       }
     }
   },
+
   Mutation: {
+    async createTag(_: null, args: {  userId: string
+                                    , merchantId: string
+                                    , content: string
+                                    , hrounds: number}) {
+      try {
+        const tagDoc = await admin
+          .firestore()
+          .collection("tagsQL")
+          .add({  content: args.content
+                , created: null
+                , culled: false
+                , merchantId: args.merchantId
+                , userId: args.userId
+                , ucb: Infinity
+                , reacts: 0 })
+        const newTag = await tagDoc.get()
+        const tag = newTag.data() as Tag | undefined
+        return tag || new ValidationError('Tag creation failed')
+      } catch (error) {
+        throw new ApolloError(error)
+      }
+    },
     async addMerchant(_: null, args: {name: string}) {
       try {
         const merchantDoc = await admin
-          .firestore().collection("merchantsQL")
+          .firestore()
+          .collection("merchantsQL")
           .add({name: args.name,
                 hrounds: 1,
                 rho: 0.8,
                 url: null,
                 paramsId: null,
                 rewardsId: null})
+
         const newMerchant = await merchantDoc.get()
         const merchant = newMerchant.data() as Merchant | undefined
         return merchant || new ValidationError('Merchant creation failed')
@@ -135,6 +164,7 @@ const resolvers = {
       }
     }
   },
+
   User: {
     async tags(user) {
       try {
@@ -149,6 +179,7 @@ const resolvers = {
       }
     }
   },
+
   Tag: {
     async user(tag) {
       try {
@@ -162,6 +193,7 @@ const resolvers = {
       }
     }
   },
+
   Merchant: {
     async tags(merchant) {
       try {
