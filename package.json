@@ -1,20 +1,26 @@
 {
-    "name": "functions",
+    "name": "tags",
+    "version": "pre-beta",
     "scripts": {
         "build": "tsc",
         "serve": "npm run build && node lib/index.js",
         "start": "node lib/index.js",
-        "deploy": "npm run build && gcloud app deploy"
+        "deploy": "npm run build"
     },
     "main": "lib/index.js",
     "dependencies": {
         "apollo-server": "^2.0.0-rc.8",
         "firebase-admin": "^5.12.1",
         "graphql": "^0.13.2",
-        "graphql-tag": "^2.9.2"
+        "graphql-tag": "^2.9.2",
     },
     "devDependencies": {
-        "tslint": "^5.10.0",
+        "tslint": "^5.12.1",
         "typescript": "^2.9.2"
-    }
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+httpsL//github.com/Z-an/tags.git"
+    },
+    "author": "Zan Thomson"
 }

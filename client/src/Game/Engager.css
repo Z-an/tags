@@ -1,0 +1,69 @@
+.dropdown{
+  display: flex;
+  flex-direction: column;
+  height: 90px;
+  justify-content: center;
+  margin: 0rem 0 0 0;
+}
+
+.emojis{
+  display: flex;
+  display: row;
+  justify-content: center;
+  margin: 0 0 -1rem 0;
+}
+
+.emoji{
+  height: 24px;
+  width: 24px;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.emoji:hover {
+  cursor: pointer;
+  height: 36px;
+  width: 36px;
+}
+
+.emoji:active{
+  height: 30px;
+  width: 30px;
+}
+
+.total-box{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: -2rem 0 0.5rem 0;
+}
+
+.total{
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top:1rem;
+  font-size: 10px;
+}
+
+.total:active{
+  border: thin #ff4868;
+  color: #ff4868;
+}
+
+.details{
+  margin: auto;
+}
+
+.total:hover {
+  cursor: pointer;
+  color: ff4868;
+
+}
+
+.tokens {
+  justify-content: center;
+  margin: 1rem 0 0rem 0;
+  padding-bottom: 20px;
+  font-weight:500;
+
+}

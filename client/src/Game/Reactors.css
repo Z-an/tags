@@ -1,0 +1,40 @@
+.descriptor{
+  display: flex;
+  flex-direction: row;
+  margin-top: 0rem;
+  font-size: 12px;
+  justify-content: center;
+}
+
+.cont{
+  font-size: 12px;
+  font-style: oblique;
+  padding-left: 0.2rem;
+}
+.reactors-container{
+  display: flex;
+  flex-direction: row;
+  flex-flow: wrap;
+  justify-content: center;
+  padding-top: 0.6rem;
+  margin: 0 0.3rem 0 0.3rem;
+  padding-bottom: 0.6rem;
+}
+
+.react-photo{
+  margin: auto;
+  height: 25px;
+
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #ff4868;
+  border-width: thin;
+}
+
+.total-react{
+  padding-top: -1rem;
+  padding-left:1rem;
+  justify-content: right;
+  font-size: 8px;
+  padding-bottom: 0rem;
+}

@@ -1,0 +1,176 @@
+.App {
+  text-align: center;
+  background-color: #fafafa;
+}
+
+.tag {
+  display: grid;
+  grid-template-columns: 0fr 30fr 2fr 0fr 0fr;
+
+  height: 50px;
+  width: 315px;
+
+  font-size: 15px;
+  font-weight:300;
+  color: #ff4868;
+
+  line-height: 50px;
+  border-radius: 26px;
+  border-style: solid;
+  border-width: 1px;
+
+  margin: 0rem auto 2.6rem auto;
+  padding: 0 12px;
+  box-shadow: 8px 8px 8px -10px rgba(0,0,0,0.5);
+  overflow: auto;
+}
+
+.tag:hover{
+  cursor: pointer;
+}
+.tag:active{
+  box-shadow: 16px 16px 16px -20px rgba(0,0,0,0.5);
+}
+
+.tag img {
+  position: relative;
+  right: 12px;
+  height: 50px;
+  width: 50px;
+  border-radius: 22px;
+
+}
+
+.background{
+  background: white;
+}
+
+.color1{
+  color: #2F4858;
+}
+
+.color2{
+  color: #ff4868;
+}
+
+.color3{
+  color: #D6498D;
+}
+
+.color4{
+  color: #9E549E;
+}
+
+.color5{
+  color: #645896;
+}
+
+.color6{
+  color: #39547B;
+}
+.container{
+  display: flex;
+  flex-flow: column;
+  padding-bottom: 10rem;
+  padding-top:1.5rem;
+  bottom: 0;
+}
+
+.join {
+  display: grid;
+  align-items: center;
+  font-size: 1.2em;
+  padding-top:20px
+}
+
+.wrapper {
+  text-align: center;
+  justify-content: center;
+  background-color:  white;
+  font-size: 16px;
+  padding-top: 0rem;
+  padding-bottom: 4px;
+}
+
+.rewards-container {
+  background-color:  white;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 0rem;
+  padding-bottom: 1rem;
+  align: center;
+}
+
+.icons-container {
+  display: flex;
+  flex-direction: row;
+  padding-top: 0.2rem;
+  padding-left: 0.6rem;
+}
+
+.icons {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0.7rem;
+}
+
+.in-tag-icons {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0.3rem;
+}
+
+.in-tag-icons2 {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0.3rem;
+  padding-top: 0rem;
+}
+
+
+.rewards {
+  font-size: 30px;
+  font-style: oblique;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.drop-down {
+  padding-right: 0rem;
+  padding-left: 2.8rem;
+  text-align: left;
+  margin-left: 1rem;
+}
+
+.engage {
+  padding-left: 0rem;
+  padding-top: 0.9rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.btn {
+  height: 18px;
+  width: 18px;
+  padding-right: 2px;
+}
+
+.btn:hover {
+    height:20px;
+    width:20px;
+    fill: #ff4868;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn:active {
+    height:20px;
+    width:20px;
+    fill: #ff4868;
+    font-weight: 600;
+}
