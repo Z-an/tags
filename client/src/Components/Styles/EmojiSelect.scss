@@ -1,0 +1,136 @@
+.react-add-container {
+    position: absolute;
+    margin-top: 5rem;
+    padding-left: 10rem;
+}
+
+.react-add {
+    height: 24px;
+    width: 24px;
+    margin-left: -11.5rem;
+    opacity: 0.5;
+}
+
+.emoji-selected {
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    margin-left: -11rem;
+}
+
+.emoji-select-container {
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+    margin: 5rem -4rem 0rem 0rem;
+    justify-content: baseline;
+}
+
+.emoji-row {
+    position: relative;
+    display: flex;
+    flex-grow: wrap;
+    flex-direction: row;
+    border-radius: 5px;
+
+    width: 380px;
+    justify-content: baseline;
+    box-shadow: 0px 10px 10px #e1e1e5;
+    background-color: white;
+    margin-top: -2rem;
+    z-index: 50;
+}
+
+.emoji {
+    height: 40px;
+    width: 40px;
+    padding: 1.4rem 1rem 1.4rem 1rem;
+    opacity: 0.5;
+}
+
+.emoji:hover {
+    opacity: 1.5;
+
+    -webkit-animation: swing 1s ease;
+    animation: swing 1s ease;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+
+    -webkit-transform: scale(3);
+    -ms-transform: scale(3);
+    transform: scale(3);
+
+    cursor: pointer;
+}
+
+.emoji:active {
+    opacity: 1.5;
+}
+
+
+@-webkit-keyframes swing
+{
+    15%
+    {
+        -webkit-transform: translateX(5px);
+        transform: translateX(5px);
+    }
+    30%
+    {
+        -webkit-transform: translateX(-5px);
+       transform: translateX(-5px);
+    } 
+    50%
+    {
+        -webkit-transform: translateX(3px);
+        transform: translateX(3px);
+    }
+    65%
+    {
+        -webkit-transform: translateX(-3px);
+        transform: translateX(-3px);
+    }
+    80%
+    {
+        -webkit-transform: translateX(2px);
+        transform: translateX(2px);
+    }
+    100%
+    {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+}
+@keyframes swing
+{
+    15%
+    {
+        -webkit-transform: translateX(5px);
+        transform: translateX(5px);
+    }
+    30%
+    {
+        -webkit-transform: translateX(-5px);
+        transform: translateX(-5px);
+    }
+    50%
+    {
+        -webkit-transform: translateX(3px);
+        transform: translateX(3px);
+    }
+    65%
+    {
+        -webkit-transform: translateX(-3px);
+        transform: translateX(-3px);
+    }
+    80%
+    {
+        -webkit-transform: translateX(2px);
+        transform: translateX(2px);
+    }
+    100%
+    {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+}

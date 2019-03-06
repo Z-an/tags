@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react'
-import { GET_USER } from '../Queries'
+import { GET_USER } from '../../../Queries'
 import { Query } from 'react-apollo'
 
 class ReactorIcon extends PureComponent<any> {

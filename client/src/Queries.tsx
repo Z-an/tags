@@ -50,7 +50,6 @@ export const GET_REACTORS = gql`
   query reactors($tagId: String!) {
     reactors(tagId: $tagId) {
       react
-      reactors
       total
     }
   }
@@ -80,11 +79,13 @@ export const REACT = gql`
   mutation react($userId: String!
                , $tagId: String!
                , $merchantId: String!
-               , $reactId: String!) {
+               , $reactId: String!
+               , $unreact: Boolean!) {
     react(userId: $userId
         , tagId: $tagId
         , merchantId: $merchantId
-        , reactId: $reactId) {
+        , reactId: $reactId
+        , unreact: $unreact) {
       userId
     }
   }

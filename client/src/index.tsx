@@ -7,7 +7,6 @@ import { HttpLink } from 'apollo-link-http';
 import { getMainDefinition } from 'apollo-utilities'
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
-import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
 import { ApolloClient } from 'apollo-client'
 
 import AppRouter from './AppRouter';
@@ -37,13 +36,14 @@ const link = split(
 );
 
 const cache = new InMemoryCache()
-const client = new ApolloClient({ link, cache })
+const client = new ApolloClient({
+  link: link,
+  cache: cache,
+})
 
 const App = () => (
   <ApolloProvider client={client}>
-    <ApolloHooksProvider client={client}>
-      <AppRouter />
-    </ApolloHooksProvider>
+    <AppRouter />
   </ApolloProvider>
 )
 

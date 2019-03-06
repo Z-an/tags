@@ -1,13 +1,15 @@
 import React, { useState, Fragment } from "react"
 import UserIcon from './UserIcon'
-import Reactor from './Reactor'
+import Reactor from './Reacts/Reactor'
 import { Subscription } from 'react-apollo'
-import { Reactors } from './Reactors'
-import { REACT_SUBSCRIPTION } from '../Queries'
+import { TopReact } from './Reacts/TopReact'
+import { REACT_SUBSCRIPTION } from '../../Queries'
 import IsVisible from 'react-is-visible' 
-import EmojiSelect from './EmojiSelect'
+import EmojiSelect from './Reacts/EmojiSelect'
+import { Reporter } from './Reporter'
+import { ReactsTotal } from './Reacts/ReactsTotal'
 
-import '../Styles/Feed.scss'
+import '../Styles/Tag.scss'
 
 interface ITagProps {
   tag: {
@@ -20,29 +22,41 @@ interface ITagProps {
       handle: string
     }
   }
-  merchant: string
+  merchantID: string
   color: string
 }
 
 const Tag = (props: ITagProps) =>  {
   const {id, content, reacts, user} = props.tag
-  const merchantID = props.merchant
+  const[totalReacts,setReacts] = useState(reacts)
+  const merchantID = props.merchantID
   const color = props.color
 
     return(
       <Fragment>
         <div className='tag-container'>
-        <div className='tag'>
-          <div className={'tag-content '+color}>{content}</div>
-          <div className='tag-data'>
-            <UserIcon user={user}/>
-            <div className='reacts-total'>+{reacts}</div>
+          <div className='tag'>
+            <div className={'tag-box '+color}>
+              <div className={'tag-content '+color}>
+                {content}
+              </div>
+            </div>
+            <UserIcon color={color} user={user}/>
+            <Reactor reacts={reacts} tagID={id} merchantID={merchantID} color={color}/>
+            <Reporter/>
+            <TopReact tagId={id} reactsTotal={reacts}/>
           </div>
-          </div>
-          <Reactor reacts={reacts} tagID={id} merchantID={merchantID} />
         </div>
-        <EmojiSelect merchantId={merchantID} tagId={id} />
-      </Fragment>
+          <Subscription
+            subscription={REACT_SUBSCRIPTION}
+            variables={{tagId: id, userId: "haha"}}
+            shouldResubscribe={true}
+            onSubscriptionData={() => { setReacts(totalReacts+1)}}>
+              {({data, loading }) => (
+                <div className='dynamic-reaction'>{!loading && data.someoneReacted.user.name}</div>
+              )}
+          </Subscription> 
+        </Fragment>
     )
 }
 

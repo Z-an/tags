@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { Mutation } from 'react-apollo'
 import { useMutation } from 'react-apollo-hooks'
+import { REACT } from '../Queries'
 
 import { ReactComponent as Tongue } from '../../Assets/Emoji/tongue.svg'
 import { ReactComponent as Love } from '../../Assets/Emoji/in-love.svg'

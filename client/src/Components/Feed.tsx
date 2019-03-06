@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react'
 
 import Wall from './Feed/Wall'
-import CreatorButton from './Feed/CreateButton'
-import CreatorForm from './Feed/CreateForm'
+import CreatorButton from './Feed/CreateTag/CreateButton'
+import CreatorForm from './Feed/CreateTag/CreateForm'
 import Header from './Feed/Header'
 import Splash from './Feed/Splash'
 

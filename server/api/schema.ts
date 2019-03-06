@@ -60,7 +60,7 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-    react(userId: String!, tagId: String!, merchantId: String!, reactId: String!): Reaction
+    react(userId: String!, tagId: String!, merchantId: String!, reactId: String!, unreact: Boolean!): Reaction
     createTag(userId: String!, merchantId: String!, content: String!): Tag
     addMerchant(name: String!): Merchant!
     enterFeed(userId: String!, merchantId: String!): User

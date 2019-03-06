@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ButtonBases from './Select/ButtonBases'
 import { Query } from 'react-apollo'
-import { GET_MERCHANTS } from './Queries'
+import { GET_MERCHANTS } from '../Queries'
 
 class Select extends Component<any> {
   state = {

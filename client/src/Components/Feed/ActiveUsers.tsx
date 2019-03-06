@@ -1,6 +1,6 @@
 import React from 'react'
 import { Query } from 'react-apollo'
-import { GET_ACTIVE } from '../Queries'
+import { GET_ACTIVE } from '../../Queries'
 import ActiveUserIcon from './ActiveUserIcon'
 
 export const ActiveUsers = (props) => {

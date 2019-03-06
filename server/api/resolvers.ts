@@ -5,7 +5,6 @@ import * as admin from 'firebase-admin'
 import './types'
 
 import { lapseMerchant, updateUCB, updateReacts, duplicate } from '../cloud/functions'
-import { EventEmitter } from 'events';
 
 const pubsub = new PubSub()
 
@@ -132,6 +131,7 @@ export const resolvers = {
     },
 
     async reactors(_: null, args: {tagId: string}) {
+      console.log('yare yare')
       try {
         const reactsCol = await admin
           .firestore()
@@ -142,6 +142,12 @@ export const resolvers = {
           ({react: react.id
           , reactors: react.data().reactors
           , total: react.data().total})) as Reactors[]
+        console.log('reactors',reactors)
+
+        var reactTotal = reactors.reduce(function(prev, cur) {
+          return prev + cur.total
+        }, 0)
+
         return reactors
       } catch (error) {
         throw new ApolloError(error)
@@ -153,7 +159,8 @@ export const resolvers = {
     async react(_: null, args: { userId: string
                               , tagId: string
                               , merchantId: string
-                              , reactId: string }) {
+                              , reactId: string
+                              , unreact: true }) {
       try {
         const reactDoc = await admin
           .firestore().collection("tagsQL")
