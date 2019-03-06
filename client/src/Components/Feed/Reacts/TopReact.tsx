@@ -14,7 +14,7 @@ export const TopReact: React.FC<any> = (props) => {
 
   let topReact = ''
 
-  let compare = (a, b) => {
+  const compare = (a, b) => {
     const totalA = a.total
     const totalB = b.total
 
