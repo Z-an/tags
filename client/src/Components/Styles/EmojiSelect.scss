@@ -12,10 +12,11 @@
 }
 
 .emoji-selected {
-    height: 40px;
-    width: 40px;
+    height: 24px;
+    width: 24px;
     position: absolute;
-    margin-left: -11rem;
+    margin-left: -11.5rem;
+    opacity: 0.5;
 }
 
 .emoji-select-container {
@@ -42,8 +43,8 @@
 }
 
 .emoji {
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
     padding: 1.4rem 1rem 1.4rem 1rem;
     opacity: 0.5;
 }
