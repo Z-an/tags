@@ -7,25 +7,22 @@ import { ReactComponent as Sleepy } from '../../../Assets/Emoji/sleepy.svg'
 import { ReactComponent as Crying } from '../../../Assets/Emoji/crying.svg'
 import { ReactComponent as Angry } from '../../../Assets/Emoji/angry.svg'
 
-interface Props {
-    emoji: string
-}
-
 class Emoji extends PureComponent<any> {
     emoji = this.props.emoji
+    style = this.props.style
     render() {
         if (this.emoji==='tongue') {
-            return (<Tongue />)
+            return (<Tongue className={this.style}/>)
         } else if (this.emoji==='heart-eyes') {
-            return (<Love />)
-        } else if (this.emoji==='shocked') {
-            return (<Surprised />)
+            return (<Love className={this.style}/>)
+        } else if (this.emoji==='shock') {
+            return (<Surprised className={this.style}/>)
         } else if (this.emoji==='sleep') {
-            return (<Sleepy />)
+            return (<Sleepy className={this.style}/>)
         } else if (this.emoji==='cry') {
-            return (<Crying />)
+            return (<Crying className={this.style}/>)
         } else if (this.emoji==='angry') {
-            return (<Angry />)
+            return (<Angry className={this.style}/>)
         } else return null
     }
 }

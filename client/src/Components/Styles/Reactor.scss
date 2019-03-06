@@ -7,21 +7,19 @@
 }
 
 .reacts-total-container:hover {
-    background-color: #ff4868;
 }
 
 .reacts-total {
     position: absolute;
     margin: 1rem 0rem 0rem 8.8rem;
-    font-size: 30px;
+    font-size: 22px;
     font-weight: lighter;
     display: flex;
     flex-direction: row;
-    z-index: 100;
 }
 
 .reacts-total:hover {
-    color:white;
+    color:#ff4868;
     cursor: pointer;
 }
 

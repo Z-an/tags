@@ -20,7 +20,7 @@ class EmojiSelect extends Component<any,any> {
     open: false,
     reacted: false,
     react: '',
-    emojiList: ['tongue','heart-eyes','shocked','sleep','cry','angry']
+    emojiList: ['tongue','heart-eyes','shock','sleep','cry','angry']
   }
 
   setEmoji = (selected) => {this.setState({emoji: selected})}
@@ -34,6 +34,7 @@ class EmojiSelect extends Component<any,any> {
   }
 
   clicker = () => {
+    console.log('huh')
     this.toggleOpen(false)
     this.toggleReacted(true)
     this.setReact(this.state.emoji)
@@ -57,9 +58,9 @@ class EmojiSelect extends Component<any,any> {
         <Mutation mutation={REACT}>
           { react =>
             <div className='emoji-select-container' onTouchEnd={() => react({variables: this.mutationArgs})} onClick={() => react({variables: this.mutationArgs})}>
-              <div className='emoji-row' onMouseLeave={() => this.toggleOpen(false)}>
+              <div className='emoji-row' onMouseLeave={() => this.toggleOpen(false)} onClick={() => this.clicker()}>
                 {this.state.emojiList.map(emoji =>
-                  <Emoji className='emoji' emoji={emoji} onClick={() => this.clicker()} onMouseEnter={() => this.setEmoji(emoji)} onTouchStart={() => this.setEmoji(emoji)}/>
+                    <Emoji emoji={emoji} style='emoji' onClick={() => this.clicker()} onMouseEnter={() => this.setEmoji(emoji)} onTouchStart={() => this.setEmoji(emoji)}/>
                 )}
               </div>
             </div>

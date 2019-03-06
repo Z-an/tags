@@ -46,7 +46,7 @@ export const TopReact: React.FC<any> = (props) => {
         if (total == 0) return null
         else if (!(typeof topReact === 'undefined')) return (
           <Fragment>
-            <Emoji emoji={topReact} className='top-react'/>
+            <Emoji emoji={topReact} style='top-react'/>
             <div className='top-react-container'>
               {Math.round((data.reactors.sort(compare)[0].total/total)*100)}%
             </div>
