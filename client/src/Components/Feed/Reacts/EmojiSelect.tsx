@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { Mutation } from 'react-apollo'
 import { REACT } from '../../../Queries'
+import Emoji from './Emoji'
 
 import { ReactComponent as Tongue } from '../../../Assets/Emoji/tongue.svg'
 import { ReactComponent as Love } from '../../../Assets/Emoji/in-love.svg'
@@ -18,7 +19,8 @@ class EmojiSelect extends Component<any,any> {
     emoji: '',
     open: false,
     reacted: false,
-    react: ''
+    react: '',
+    emojiList: ['tongue','heart-eyes','shocked','sleep','cry','angry']
   }
 
   setEmoji = (selected) => {this.setState({emoji: selected})}
@@ -70,19 +72,7 @@ class EmojiSelect extends Component<any,any> {
     }
 
     else if (this.state.reacted) {
-      if (this.state.react === 'tongue') {
-        return(<div className='react-add-container' ><Tongue className='emoji-selected' onTouchStart={() => this.unclicker()} onClick={() => this.unclicker()}/></div>)     
-      } else if (this.state.react === 'heart-eyes') {
-        return(<div className='react-add-container' ><Love className='emoji-selected' onClick={() => this.unclicker()}/></div>) 
-      } else if (this.state.react === 'shock') {
-        return(<div className='react-add-container' ><Surprised className='emoji-selected' onClick={() => this.unclicker()}/></div>)
-      } else if (this.state.react === 'sleep') {
-        return(<div className='react-add-container' ><Sleepy className='emoji-selected' onClick={() => this.unclicker()}/></div>)
-      } else if (this.state.react === 'cry') {
-        return(<div className='react-add-container' ><Crying className='emoji-selected' onClick={() => this.unclicker()}/></div>)
-      } else if (this.state.react === 'angry') {
-        return(<div className='react-add-container' ><Angry className='emoji-selected' onClick={() => this.unclicker()}/></div>)
-      }
+        return(<div className='react-add-container' ><Emoji className='emoji-selected' emoji={this.state.react} onTouchStart={() => this.unclicker()} onClick={() => this.unclicker()}/></div>)     
     }
 
     else { 
