@@ -94,7 +94,7 @@ function ButtonBases (props) {
           style={{
             width: '33%',
           }}
-          onClick={() => props.redirector({id: merchant.id, name: merchant.name})}
+          onClick={() => props.redirector(null,{id: merchant.id, name: merchant.name})}
         >
           <span
             className={classes.imageSrc}
@@ -109,7 +109,7 @@ function ButtonBases (props) {
               variant="subtitle1"
               color="inherit"
               className={classes.imageTitle}
-              onClick={() => window.location.href = `/${merchant.name}/${merchant.id}`}
+              onClick={() => props.redirector('now',{id: merchant.id, name: merchant.name})}
             >
               {merchant.name}
               <span className={classes.imageMarked}/>

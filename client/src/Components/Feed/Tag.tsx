@@ -22,16 +22,14 @@ interface ITagProps {
       handle: string
     }
   }
-  merchantID: string
   color: string
 }
 
 const Tag = (props: ITagProps) =>  {
   const {id, content, reacts, user} = props.tag
   const[totalReacts,setReacts] = useState(reacts)
-  const merchantID = props.merchantID
   const color = props.color
-
+  console.log(props)
     return(
       <Fragment>
         <div className='tag-container'>
@@ -41,10 +39,10 @@ const Tag = (props: ITagProps) =>  {
                 {content}
               </div>
             </div>
-            <UserIcon color={color} user={user}/>
-            <Reactor reacts={reacts} tagID={id} merchantID={merchantID} color={color}/>
-            <Reporter/>
-            <TopReact tagId={id} reactsTotal={reacts}/>
+            <UserIcon color={color} user={user} />
+            <Reactor reacts={reacts} tagID={id} color={color} />
+            <Reporter />
+            <TopReact tagId={id} reactsTotal={reacts} />
           </div>
         </div>
           <Subscription

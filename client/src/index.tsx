@@ -12,7 +12,8 @@ import { ApolloClient } from 'apollo-client'
 import AppRouter from './AppRouter';
 
 import { Provider } from 'react-redux'
-import store from './Store/index'
+import { PersistGate } from 'redux-persist/integration/react'
+import { store, persistor } from './Store/index'
 
 import './index.scss'
 
@@ -46,9 +47,11 @@ const client = new ApolloClient({
 
 const App = () => (
   <Provider store={store}>
-      <ApolloProvider client={client}>
+    <ApolloProvider client={client}>
+      <PersistGate loading={null} persistor={persistor}>
         <AppRouter />
-      </ApolloProvider>
+      </PersistGate>
+    </ApolloProvider>
   </Provider>
 )
 

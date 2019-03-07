@@ -8,7 +8,6 @@ import Splash from './Feed/Splash'
 
 import '../Styles/Feed.scss'
 
-
 export class Feed extends Component<any,any> {
   state = {
     formOpen: false,

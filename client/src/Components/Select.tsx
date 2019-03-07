@@ -1,17 +1,31 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
+import { setMerchant } from '../Actions/index'
 import ButtonBases from './Select/ButtonBases'
 import { Query } from 'react-apollo'
 import { GET_MERCHANTS } from '../Queries'
 
-class Select extends Component<any> {
+function mapDispatchToProps(dispatch) {
+  return {
+    setMerchant: merchant => dispatch(setMerchant(merchant))
+  };
+}
+
+class ConnectedSelect extends Component<any> {
   state = {
     highlighted: null
   }
   
-  redirector = (props) => {
-    if (this.state.highlighted === props.id) {
-      window.location.href = `/${props.name}/${props.id}`
-    } else { this.setState({highlighted: props.id}) }
+  redirector = (now,merchant) => {
+    if (now==='now') {
+      this.props.setMerchant(merchant)
+      window.location.href = `/${merchant.name}/${merchant.id}`
+    }
+    else if (this.state.highlighted === merchant.id) {
+      this.props.setMerchant(merchant)
+      window.location.href = `/${merchant.name}/${merchant.id}`
+    } else { this.setState({highlighted: merchant.id}) }
   }
 
   render() {
@@ -30,5 +44,7 @@ class Select extends Component<any> {
     )
   }
 }
+
+const Select = connect(null, mapDispatchToProps)(ConnectedSelect)
 
 export default Select
