@@ -6,10 +6,10 @@ import { TopReact } from './Reacts/TopReact'
 import { REACT_SUBSCRIPTION } from '../../Queries'
 import IsVisible from 'react-is-visible' 
 import EmojiSelect from './Reacts/EmojiSelect'
-import { Reporter } from './Reporter'
+import {Reporter} from './Reporter'
 import { ReactsTotal } from './Reacts/ReactsTotal'
 
-import '../Styles/Tag.scss'
+import '../../Styles/Tag.scss'
 
 interface ITagProps {
   tag: {

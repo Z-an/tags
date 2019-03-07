@@ -6,7 +6,7 @@ import Emoji from './Emoji'
 import { Query } from 'react-apollo'
 import { GET_REACTORS } from '../../../Queries'
 
-import '../../Styles/TopReact.scss'
+import '../../../Styles/TopReact.scss'
 
 export const TopReact: React.FC<any> = (props) => {
   const[reacts, initReacts] = useState({react: 'tongue',total: 0})

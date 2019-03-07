@@ -6,7 +6,7 @@ import CreatorForm from './Feed/CreateTag/CreateForm'
 import Header from './Feed/Header'
 import Splash from './Feed/Splash'
 
-import './Styles/Feed.scss'
+import '../Styles/Feed.scss'
 
 
 export class Feed extends Component<any,any> {

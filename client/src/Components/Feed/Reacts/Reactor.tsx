@@ -7,7 +7,7 @@ import { ReactsTotal } from './ReactsTotal'
 import IsVisible from 'react-is-visible'
 import { Voter } from './Voter'
   
-import '../../Styles/Reactor.scss'
+import '../../../Styles/Reactor.scss'
 
 const Reactor: React.FC<any> = (props) => {
   const [reactsTotal, setReacts] = useState(props.reacts)

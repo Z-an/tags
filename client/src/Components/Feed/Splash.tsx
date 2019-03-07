@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment } from 'react'
-import '../Styles/Feed.scss'
+import '../../Styles/Feed.scss'
 
 const preludes = ['Have your say...','What would you tell your friends...','What resonated most...']
 

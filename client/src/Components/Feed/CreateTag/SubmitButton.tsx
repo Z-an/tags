@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { SUBMIT_TAG } from '../../../Queries'
 import { Mutation } from 'react-apollo'
 
-import '../../Styles/Feed.scss'
+import '../../../Styles/Feed.scss'
 
 export const SubmitButton = (props) => (
   <Mutation mutation={SUBMIT_TAG}>

@@ -11,6 +11,9 @@ import { ApolloClient } from 'apollo-client'
 
 import AppRouter from './AppRouter';
 
+import { Provider } from 'react-redux'
+import store from './Store/index'
+
 import './index.scss'
 
 import * as serviceWorker from './serviceWorker';
@@ -42,9 +45,11 @@ const client = new ApolloClient({
 })
 
 const App = () => (
-  <ApolloProvider client={client}>
-    <AppRouter />
-  </ApolloProvider>
+  <Provider store={store}>
+      <ApolloProvider client={client}>
+        <AppRouter />
+      </ApolloProvider>
+  </Provider>
 )
 
 render(<App />, document.getElementById("root"))

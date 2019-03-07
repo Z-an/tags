@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import '../Styles/Feed.scss'
+import '../../Styles/Feed.scss'
 
 class UserIcon extends PureComponent<any,any>{
     render() {

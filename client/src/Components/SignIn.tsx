@@ -1,9 +1,9 @@
 import React from 'react'
 
-import Reactors from './Feed/ActiveUserIcon'
+import List from './List'
 
 const SignIn = () => (
-  <Reactors tagId={"tglMaKGT75UuhYoPVvI2"}/>
+  <List/>
 )
 
 export default SignIn

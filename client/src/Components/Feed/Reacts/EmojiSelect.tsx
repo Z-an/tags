@@ -5,12 +5,12 @@ import Emoji from './Emoji'
 
 import { ReactComponent as Add} from '../../../Assets/Emoji/react-add.svg'
 
-import '../../Styles/EmojiSelect.scss'
+import '../../../Styles/EmojiSelect.scss'
 
 class EmojiSelect extends Component<any,any> {
 
   state = {
-    emoji: '',
+    emoji: 'heart-eyes',
     open: false,
     reacted: false,
     react: '',
@@ -28,7 +28,6 @@ class EmojiSelect extends Component<any,any> {
   }
 
   clicker = () => {
-    console.log('huh')
     this.toggleOpen(false)
     this.toggleReacted(true)
     this.setReact(this.state.emoji)
@@ -47,7 +46,6 @@ class EmojiSelect extends Component<any,any> {
   }
 
   render() {
-    console.log(this.state)
     if (this.state.open) {
       return (
         <Mutation mutation={REACT}>
@@ -55,7 +53,9 @@ class EmojiSelect extends Component<any,any> {
             <div className='emoji-select-container' onTouchEnd={() => react({variables: this.mutationArgs})} onClick={() => react({variables: this.mutationArgs})}>
               <div className='emoji-row' onMouseLeave={() => this.toggleOpen(false)}>
                 {this.state.emojiList.map(emoji =>
-                    <div onClick={() => this.clicker()} onMouseEnter={() => this.setEmoji(emoji)} onTouchStart={() => this.setEmoji(emoji)}><Emoji emoji={emoji} style='emoji'/></div>
+                    <div onClick={() => this.clicker()} onMouseEnter={() => this.setEmoji(emoji)} onTouchStart={() => this.setEmoji(emoji)}>
+                      <Emoji emoji={emoji} style='emoji'/>
+                    </div>
                 )}
               </div>
             </div>
@@ -63,11 +63,12 @@ class EmojiSelect extends Component<any,any> {
         </Mutation>
       )
     }
-
     else if (this.state.reacted) {
-        return(<div className='react-add-container' onTouchStart={() => this.unclicker()} onClick={() => this.unclicker()}><Emoji style='emoji-selected' emoji={this.state.react}/></div>)     
+        return(
+        <div className='react-add-container' onTouchStart={() => this.unclicker()} onClick={() => this.unclicker()}>
+          <Emoji style='emoji-selected' emoji={this.state.react}/>
+        </div>)     
     }
-
     else { 
       return (
         <div className='react-add-container' onClick={() => this.toggleOpen(true)} onMouseEnter={() => this.toggleOpen(true)} onTouchStart={() => this.toggleOpen(true)}>
