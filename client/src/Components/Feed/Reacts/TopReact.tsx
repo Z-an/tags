@@ -10,7 +10,7 @@ import '../../../Styles/TopReact.scss'
 
 const mapStateToProps = (state,ownProps) => {
   let tagID = ownProps.tagID
-  return {reactors: state.tags[tagID].reactors, reacts: state.tags[tagID].reacts }
+  return {reactors: state.tags[tagID].reactors }
 }
 
 const ConnectedTopReact = (props) => {

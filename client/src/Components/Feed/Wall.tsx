@@ -2,6 +2,7 @@ import React, { useState, Fragment, PureComponent } from 'react'
 import { useQuery } from 'react-apollo-hooks'
 import Tag from './Tag'
 import { GET_TAGS } from '../../Queries'
+import Loading from '../Loading'
 
 import { connect } from 'react-redux'
 import { addTags } from '../../Actions/index'
@@ -46,7 +47,7 @@ const ConnectedWall: React.FC<any> = (props) => {
     if (error) {
       return `Error! ${error.message}`
     } else if (loading) {
-      return <div>Loading...</div>
+      return <Loading />
     } else if (!initialized) {init(true),props.addTags(data.merchantTags)}
 
 

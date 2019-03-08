@@ -12,7 +12,7 @@ class AppRouter extends Component {
                 <Switch>
                     <Route exact path="/signin" component={SignIn} />
                     <Route exact path="/select" component={Select} />
-                    <Route exact path="/:name/:id" component={Feed} />
+                    <Route exact path="/:name" component={Feed} />
                 </Switch>
             </BrowserRouter>
         )

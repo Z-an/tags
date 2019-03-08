@@ -26,7 +26,7 @@ class ConnectedSelect extends Component<any> {
     }
     else if (this.state.highlighted === merchant.id) {
       this.props.setMerchant(merchant)
-      window.location.href = `/${merchant.name}/${merchant.id}`
+      window.location.href = `/${merchant.name}`
     } else { this.setState({highlighted: merchant.id}) }
   }
 

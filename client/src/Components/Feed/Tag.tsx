@@ -1,12 +1,10 @@
 import React, { useState, Fragment } from "react"
 import UserIcon from './UserIcon'
-import Reactor from './Reacts/Reactor'
-import { Subscription } from 'react-apollo'
 import TopReact from './Reacts/TopReact'
 import { REACT_SUBSCRIPTION } from '../../Queries'
-import IsVisible from 'react-is-visible' 
-import EmojiSelect from './Reacts/EmojiSelect'
 import {Reporter} from './Reporter'
+import ReactsTotal from './Reacts/ReactsTotal'
+import EmojiSelect from './Reacts/EmojiSelect'
 
 import '../../Styles/Tag.scss'
 
@@ -29,9 +27,10 @@ const Tag = (props: ITagProps) =>  {
           </div>
         </div>
         <UserIcon tagID={id} color={color}/>
-        <Reactor tagID={id} color={color} />
         <Reporter />
         <TopReact tagID={id} />
+        <ReactsTotal tagID={id} />
+        <EmojiSelect tagId={id} />
       </div>
     </div>
     )

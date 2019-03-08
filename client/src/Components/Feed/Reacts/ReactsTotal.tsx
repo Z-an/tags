@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import '../../../Styles/Reactor.scss'
+
 const mapStateToProps = (state,ownProps) => {
   let tagID = ownProps.tagID
   return {reacts: state.tags[tagID].reacts}
