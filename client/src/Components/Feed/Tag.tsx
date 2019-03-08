@@ -30,7 +30,7 @@ const Tag = (props: ITagProps) =>  {
         <Reporter />
         <TopReact tagID={id} />
         <ReactsTotal tagID={id} />
-        <EmojiSelect tagId={id} />
+        <EmojiSelect tagID={id} />
       </div>
     </div>
     )

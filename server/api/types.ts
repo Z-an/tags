@@ -40,3 +40,9 @@ interface Reactors {
   reactors: [string]
   total: number
 }
+
+interface Report {
+  userId: string,
+  tagId: string,
+  reportId: string
+}

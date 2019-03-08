@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 4000
 const app = express()
 
 const apolloServer = new ApolloServer({typeDefs, resolvers, introspection: true})
-apolloServer.applyMiddleware({ app })
+apolloServer.applyMiddleware({ app, cors: {credentials: true, origin: "http://localhost:3000"}})
 
 const httpServer = createServer(app)
 apolloServer.installSubscriptionHandlers(httpServer)

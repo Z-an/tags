@@ -9,7 +9,6 @@ const mapStateToProps = (state,ownProps) => {
 
 class ConnectedUserIcon extends PureComponent<any,any>{
     render() {
-        console.log(this.props.user)
         return (
             <div onClick={() => alert(this.props.user.name)}>
                 <img className={'tag-user-icon '+this.props.color} src={this.props.user.icon} alt={this.props.user.handle}/>

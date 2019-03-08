@@ -29,7 +29,7 @@ export const GET_ACTIVE = gql`
       handle
     }
   }
-` 
+`
 
 export const GET_MERCHANTS = gql`
   {
@@ -80,22 +80,6 @@ export const SUBMIT_TAG = gql`
   }
 `
 
-export const REACT = gql`
-  mutation react($userId: String!
-               , $tagId: String!
-               , $merchantId: String!
-               , $reactId: String!
-               , $unreact: Boolean!) {
-    react(userId: $userId
-        , tagId: $tagId
-        , merchantId: $merchantId
-        , reactId: $reactId
-        , unreact: $unreact) {
-      userId
-    }
-  }
-`
-
 export const GET_MERCHANT = gql`
   query merchant($id: String!) {
     merchant(id: $id) {
@@ -103,38 +87,6 @@ export const GET_MERCHANT = gql`
       name
       rho
       age
-    }
-  }
-`
-
-export const REACT_SUBSCRIPTION = gql`
-subscription 
-  someoneReacted($tagId: String!, $userId: String!) {
-    someoneReacted(tagId: $tagId, userId: $userId) {
-      userId
-      reactId
-      user {
-        handle
-        name
-        icon
-      }
-    }
-  }
-`
-
-export const TAG_SUBSCRIPTION = gql`
-subscription
-  tagCreated($merchantId: String!) {
-    tagCreated(merchantId: $merchantId) {
-      id
-      content
-      reacts
-      ucb
-      user {
-        id
-        icon
-        handle
-      }
     }
   }
 `

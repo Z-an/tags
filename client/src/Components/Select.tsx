@@ -22,7 +22,7 @@ class ConnectedSelect extends Component<any> {
   redirector = (now,merchant) => {
     if (now==='now') {
       this.props.setMerchant(merchant)
-      window.location.href = `/${merchant.name}/${merchant.id}`
+      window.location.href = `/${merchant.name}`
     }
     else if (this.state.highlighted === merchant.id) {
       this.props.setMerchant(merchant)

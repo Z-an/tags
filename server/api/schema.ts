@@ -47,6 +47,13 @@ export const typeDefs = gql`
     total: Int!
   }
 
+  type Report {
+    userId: String!
+    tagId: String!
+    reportId: String!
+    user: User!
+  }
+
   type Query {
     user(id: String!): User
     tag(id: String!): Tag
@@ -62,6 +69,7 @@ export const typeDefs = gql`
 
   type Mutation {
     react(userId: String!, tagId: String!, merchantId: String!, reactId: String!, unreact: Boolean!): Reaction
+    report(reportId: String!, tagId: String!, userId: String!): Report
     createTag(userId: String!, merchantId: String!, content: String!): Tag
     addMerchant(name: String!): Merchant!
     enterFeed(userId: String!, merchantId: String!): User

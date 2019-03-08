@@ -9,8 +9,9 @@ import { lapseMerchant, updateUCB, updateReacts, duplicate } from '../cloud/func
 const pubsub = new PubSub()
 
 const TAG_CREATED = 'TAG_CREATED'
-const SOMEONE_REACTED = 'SOMEONE_REACTED'
+const NEW_REACT = 'NEW_REACT'
 const NEW_ACTIVE = 'NEW_ACTIVE'
+const NEW_REPORT = 'NEW_REPORT'
 
 export const resolvers = {
   Subscription: {
@@ -28,7 +29,7 @@ export const resolvers = {
     someoneReacted: {
       resolve: (payload) => payload.reaction,
       subscribe: withFilter(
-        () => pubsub.asyncIterator(SOMEONE_REACTED),
+        () => pubsub.asyncIterator(NEW_REACT),
           (payload, variables) => {
             return (payload.reaction.tagId === variables.tagId) && (payload.reaction.userId !== variables.userId)
           }
@@ -159,7 +160,7 @@ export const resolvers = {
                               , tagId: string
                               , merchantId: string
                               , reactId: string
-                              , unreact: true }) {
+                              , unreact: boolean }) {
       try {
         const reactDoc = await admin
           .firestore().collection("tagsQL")
@@ -176,12 +177,12 @@ export const resolvers = {
                             , reactId: args.reactId
                             , userId: args.userId} as Reaction | undefined
 
-            //Publish to subscribed clients.
-            pubsub.publish(SOMEONE_REACTED, {reaction: reaction})
+            pubsub.publish(NEW_REACT, {reaction: reaction})
             
-            //Deploy cloud functions.
-            updateReacts(args.tagId, 1)
+            args.unreact? updateReacts(args.tagId, -1):updateReacts(args.tagId, 1)
+
             lapseMerchant(args.merchantId)
+            updateUCB(args.merchantId)
             
             return transaction.update(reactDoc, {total: newTotal
                                               , reactors: newReactors})
@@ -190,7 +191,6 @@ export const resolvers = {
       } catch (error) {
         throw new ApolloError(error)
       }
-      await updateUCB(args.merchantId)
     },
 
     async createTag(_: null, args: { userId: string
@@ -225,6 +225,11 @@ export const resolvers = {
         tagDoc.collection("reacts").doc("cry").set({total: 0, reactors: [null]})
         tagDoc.collection("reacts").doc("angry").set({total: 0, reactors: [null]})
 
+        tagDoc.collection("reports").doc("abuse").set({total: 0, reporters: [null]})
+        tagDoc.collection("reports").doc("duplicacy").set({total: 0, reporters: [null]})
+        tagDoc.collection("reports").doc("inaccuracy").set({total: 0, reporters: [null]})
+        
+
         const newTag = await tagDoc.get()
         const id = newTag.id
         await tagDoc.update({id: id})
@@ -238,6 +243,34 @@ export const resolvers = {
 
         return tag || new ValidationError('Tag creation failed')
 
+      } catch (error) {
+        throw new ApolloError(error)
+      }
+    },
+
+    async report(_: null, args: {reportId: string, userId: string, tagId: string}) {
+      try {
+        const reportDoc = await admin
+          .firestore().collection("tagsQL")
+          .doc(args.tagId).collection("reports").doc(args.reportId)
+
+// tslint:disable-next-line: no-floating-promises
+        admin.firestore().runTransaction( transaction => {
+          return transaction.get(reportDoc).then( rep => {
+            const data = rep.data()
+            const newTotal = data.total + 1
+            const newReporters = data.reporters.concat([args.userId])
+
+            const report = {tagId: args.tagId
+                            , reportId: args.reportId
+                            , userId: args.userId} as Report | undefined
+
+            pubsub.publish(NEW_REPORT, {report: report})
+            
+            return transaction.update(reportDoc, {total: newTotal
+                                              , reporters: newReporters})
+          })
+        })
       } catch (error) {
         throw new ApolloError(error)
       }

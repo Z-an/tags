@@ -36,6 +36,7 @@ export async function updateUCB(merchantId) {
   const merchant = await admin.firestore().collection("merchantsQL").doc(merchantId).get()
   const age = merchant.data().age
   const rho = merchant.data().rho
+  console.log(age,rho)
 
   await admin.firestore()
     .collection('tagsQL')
@@ -53,10 +54,7 @@ export async function updateUCB(merchantId) {
             else {
               const data = tag.data()
               const newUCB = ucb(data.reacts+1,data.trounds,age,rho)
-
-              if (!(newUCB < 0)) {
-                return transaction.update(doc.ref, {ucb: Infinity})
-              }
+              console.log('data',data,'newUCB',newUCB)
 
               return transaction.update(doc.ref, { ucb: newUCB })
             }

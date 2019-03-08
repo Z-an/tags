@@ -3,7 +3,7 @@ import React, {useState, Fragment} from 'react'
 import Emoji from './Emoji'
 
 import { useQuery } from 'react-apollo-hooks'
-import { GET_REACTORS } from '../../../Queries'
+import { GET_REACTORS } from '../../../Queries/index'
 import { connect } from 'react-redux'
 
 import '../../../Styles/TopReact.scss'
@@ -33,7 +33,6 @@ const ConnectedTopReact = (props) => {
 
   const[top, setTop] = useState(props.reactors.sort(compare)[0])
   const[total, setTotal] = useState(reactTotal)
-  const[initialized,init] = useState(false)
 
   if (total > 0) {
     return (
