@@ -9,13 +9,15 @@ import { GET_MERCHANTS } from '../Queries'
 function mapDispatchToProps(dispatch) {
   return {
     setMerchant: merchant => dispatch(setMerchant(merchant))
-  };
+  }
 }
 
 class ConnectedSelect extends Component<any> {
   state = {
     highlighted: null
   }
+
+  nullify = this.props.setMerchant(null)
   
   redirector = (now,merchant) => {
     if (now==='now') {

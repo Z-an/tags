@@ -12,6 +12,11 @@ export const GET_TAGS = gql`
         icon
         handle
       }
+      reactors {
+        react
+        reactors
+        total
+      }
     }
   }
 `

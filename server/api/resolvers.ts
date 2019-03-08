@@ -142,7 +142,6 @@ export const resolvers = {
           ({react: react.id
           , reactors: react.data().reactors
           , total: react.data().total})) as Reactors[]
-        console.log('reactors',reactors)
 
         var reactTotal = reactors.reduce(function(prev, cur) {
           return prev + cur.total
@@ -235,8 +234,9 @@ export const resolvers = {
 
         //Publish to subscribed clients; return to creator client.
         pubsub.publish(TAG_CREATED, {newTag: tag})
+        console.log('tag',tag)
 
-        return {success: true, tag: tag} || new ValidationError('Tag creation failed')
+        return tag || new ValidationError('Tag creation failed')
 
       } catch (error) {
         throw new ApolloError(error)
@@ -313,6 +313,28 @@ export const resolvers = {
           .doc(`usersQL/${tag.userId}`)
           .get()
         return tagAuthor.data() as User
+      } catch (error) {
+        throw new ApolloError(error)
+      }
+    },
+
+    async reactors(tag) {
+      try {
+        const reactsCol = await admin
+          .firestore()
+          .collection(`tagsQL/${tag.id}/reacts`)
+          .get()
+
+        const reactors = reactsCol.docs.map(react => 
+          ({react: react.id
+          , reactors: react.data().reactors
+          , total: react.data().total})) as Reactors[]
+
+        var reactTotal = reactors.reduce(function(prev, cur) {
+          return prev + cur.total
+        }, 0)
+        return reactors
+
       } catch (error) {
         throw new ApolloError(error)
       }

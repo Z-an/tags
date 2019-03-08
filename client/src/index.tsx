@@ -7,6 +7,7 @@ import { HttpLink } from 'apollo-link-http';
 import { getMainDefinition } from 'apollo-utilities'
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks'
 import { ApolloClient } from 'apollo-client'
 
 import AppRouter from './AppRouter';
@@ -15,7 +16,7 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from './Store/index'
 
-import './index.scss'
+import './Styles/index.scss'
 
 import * as serviceWorker from './serviceWorker';
 
@@ -48,9 +49,11 @@ const client = new ApolloClient({
 const App = () => (
   <Provider store={store}>
     <ApolloProvider client={client}>
-      <PersistGate loading={null} persistor={persistor}>
-        <AppRouter />
-      </PersistGate>
+      <ApolloHooksProvider client={client}>
+        <PersistGate loading={null} persistor={persistor}>
+          <AppRouter />
+        </PersistGate>
+      </ApolloHooksProvider>
     </ApolloProvider>
   </Provider>
 )

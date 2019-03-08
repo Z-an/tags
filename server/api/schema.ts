@@ -11,6 +11,7 @@ export const typeDefs = gql`
     userId: String!
     merchantId: String!
     tround: Int!
+    reactors: [Reactors]
   }
 
   type User {

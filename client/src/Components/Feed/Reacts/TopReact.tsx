@@ -1,18 +1,22 @@
 import React, {useState, Fragment} from 'react'
-import ReactorIcon from './ReactorIcon'
 
 import Emoji from './Emoji'
 
-import { Query } from 'react-apollo'
+import { useQuery } from 'react-apollo-hooks'
 import { GET_REACTORS } from '../../../Queries'
+import { connect } from 'react-redux'
 
 import '../../../Styles/TopReact.scss'
 
-export const TopReact: React.FC<any> = (props) => {
-  const[reacts, initReacts] = useState({react: 'tongue',total: 0})
-  const[total, setTotal] = useState(props.reactTotal)
+const mapStateToProps = (state,ownProps) => {
+  let tagID = ownProps.tagID
+  return {reactors: state.tags[tagID].reactors, reacts: state.tags[tagID].reacts }
+}
 
-  let topReact = ''
+const ConnectedTopReact = (props) => {
+  let reactTotal = props.reactors.reduce(function(prev, cur) {
+    return prev + cur.total
+  }, 0)
 
   const compare = (a, b) => {
     const totalA = a.total
@@ -27,34 +31,22 @@ export const TopReact: React.FC<any> = (props) => {
     return comparison;
   }
 
-  const init = (props) => {
-    initReacts(props)
-    var reactTotal = props.reduce(function(prev, cur) {
-      return prev + cur.total
-    }, 0)
-    setTotal(reactTotal)
-  }
+  const[top, setTop] = useState(props.reactors.sort(compare)[0])
+  const[total, setTotal] = useState(reactTotal)
+  const[initialized,init] = useState(false)
 
-  return (
-    <Query query={GET_REACTORS} variables={{tagId: props.tagId}}>
-      {({ loading, error, data}) => { 
-        if (loading) return null
-        else if (error) return `Error! ${error.message}`
-        else if (data.reactors===[]) return null
-        init(data.reactors.sort(compare))
-        topReact = data.reactors.sort(compare)[0].react
-        if (total == 0) return null
-        else if (!(typeof topReact === 'undefined')) return (
-          <Fragment>
-            <Emoji emoji={topReact} style='top-react'/>
-            <div className='top-react-container'>
-              {Math.round((data.reactors.sort(compare)[0].total/total)*100)}%
-            </div>
-          </Fragment>
-        )
-        else return ( null )
-      }}
-    </Query>
-  )
-  return null
+  if (total > 0) {
+    return (
+      <Fragment>
+        <Emoji emoji={top.react} style='top-react'/>
+        <div className='top-react-container'>
+          {Math.round((top.total/total)*100)}%
+        </div>
+      </Fragment>
+    )
+  } else return null
 }
+
+const TopReact = connect(mapStateToProps)(ConnectedTopReact)
+
+export default TopReact

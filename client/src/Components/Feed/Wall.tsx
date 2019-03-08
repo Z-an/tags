@@ -1,55 +1,62 @@
 import React, { useState, Fragment, PureComponent } from 'react'
-import { Query, Subscription } from 'react-apollo'
+import { useQuery } from 'react-apollo-hooks'
 import Tag from './Tag'
-import { GET_TAGS, TAG_SUBSCRIPTION } from '../../Queries'
+import { GET_TAGS } from '../../Queries'
 
 import { connect } from 'react-redux'
-import { addTag } from '../../Actions/index'
+import { addTags } from '../../Actions/index'
+
+const compare = (a, b) => {
+  const ucbA = a.ucb
+  const ucbB = b.ucb
+
+  let comparison = 0;
+  if (ucbA > ucbB) {
+    comparison = -1;
+  } else {
+    comparison = 1;
+  } return comparison
+}
+
+function orderByRank(hashMap,ucb) {
+  if (ucb) {
+  let values = Object.values(hashMap)
+  return values.sort(compare)
+  }
+  return null
+}
 
 const mapStateToProps = state => {
-  return { merchant: state.merchant,
-          tags: state.tags }
+  let ordered = orderByRank(state.tags,state.ucb)
+  return { merchant: state.merchant, tags: ordered}
 }
 
 function mapDispatchToProps(dispatch) {
-  addTag: tags => dispatch(addTag(tags))
+  return { addTags: tags => dispatch(addTags(tags)) }
 }
 
 const colors = ['color1', 'color2', 'color3', 'color4', 'color5', 'color6']
 
-class ConnectedWall extends PureComponent<any> {
-  render() {
-    console.log(this.props.merchant)
-    return (
-      <div className="wall">    
-        <Subscription 
-          subscription={TAG_SUBSCRIPTION}
-          variables={{merchantId: this.props.merchant.id}}
-          shouldResubscribe={true}>
-          {({data, loading, error }) => {
-            if (loading) return (<div>Loading...</div>)
-            else if (error) return (`Error! ${error.message}`)
-            else return (
-              <Tag tag={data.tagCreated} key={data.tagCreated.id} color={colors[Math.floor(Math.random() * colors.length)]}/>
-            )
-          }}
-        </Subscription>
-        <Query query={GET_TAGS} variables={{id: this.props.merchant.id}} pollInterval={10000}>
-          {({ loading, error, data}) => { 
-            if (loading) return null
-            else if (error) return `Error! ${error.message}`
-            else if (data.merchantTags===[]) return 'Be the first to say something!'
-            addTag(data.merchantTags)
-          return (
-          <div>{ this.props.tags.map((tag: any) => <Tag tag={tag} key={tag.id} color={colors[Math.floor(Math.random() * colors.length)]}/>) }</div>
-          )
-          }}
-        </Query>
-      </div>
-    )
-  }
+const ConnectedWall: React.FC<any> = (props) => {
+  const [initialized,init] = useState(false)
+
+  const nullify = addTags({})
+
+  const { data, error, loading } = useQuery(GET_TAGS, {variables: {id: props.merchant.id}})
+    if (error) {
+      return `Error! ${error.message}`
+    } else if (loading) {
+      return <div>Loading...</div>
+    } else if (!initialized) {init(true),props.addTags(data.merchantTags)}
+
+
+  return (
+      props.tags.map((tag: any) => 
+        <Tag tagID={tag.id} content={tag.content} key={tag.id} color={colors[Math.floor(Math.random() * colors.length)]}/>
+      )
+  )
 }
 
-const Wall = connect(mapStateToProps)(ConnectedWall)
+const Wall = connect(mapStateToProps, mapDispatchToProps)(ConnectedWall)
 
 export default Wall
