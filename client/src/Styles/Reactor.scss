@@ -6,8 +6,6 @@
     flex-direction: row;
 }
 
-.reacts-total-container:hover {
-}
 
 .reacts-total {
     position: absolute;
@@ -16,7 +14,7 @@
     font-weight: lighter;
     display: flex;
     flex-direction: row;
-    z-index: 100;
+    z-index: 3;
     opacity:0.5;
 }
 

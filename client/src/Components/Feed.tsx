@@ -1,49 +1,35 @@
-import React, { Component, Fragment } from 'react'
+import React, { useState, Fragment } from 'react'
+import { connect } from 'react-redux'
 
 import Wall from './Feed/Wall'
-import CreatorButton from './Feed/CreateTag/CreateButton'
-import CreatorForm from './Feed/CreateTag/CreateForm'
 import Header from './Feed/Header'
 import Splash from './Feed/Splash'
 import { WhatsHot } from './Feed/WhatsHot'
 
+import { Waypoint } from 'react-waypoint';
+
 import '../Styles/Feed.scss'
 
-export class Feed extends Component<any,any> {
-  state = {
-    formOpen: false,
-    ucb: true,
-    merchant: { id: this.props.match.params.id
-              , name: this.props.match.params.name },
-    rewards: {react: 0, create: 0, moderate: 0},
-    active: [],
-    tags: []
-  }
-
-  toggleForm = () => {
-    this.setState(prevState => ({formOpen: !prevState.formOpen}))
-  }
-  toggleUcb = () => {
-    this.setState(prevState => ({ucb: !prevState.ucb}))
-  }
-  addActive = (user) => {
-    this.setState(prevState => ({active: prevState.active.concat(user)}))
-  }
-
-  render() {
-    return (
-      <Fragment>
-        <Header merchant={this.state.merchant}/>
-        <Splash merchant={this.state.merchant} />
-        <div className='background'>
-          <WhatsHot merchant={this.state.merchant} />
-          <Wall />
-          <CreatorButton toggle={this.toggleForm} />
-          <CreatorForm toggle={this.toggleForm}
-                        open={this.state.formOpen}
-                        merchantID={this.state.merchant.id} />
-        </div>
-      </Fragment>
-    )
-  }
+const mapStateToProps = (state,ownProps) => {
+  return {merchant: {name: ownProps.match.params.name} }
 }
+
+const ConnectedFeed: React.FC<any> = (props) => {
+  const[docked,toggleHeader] = useState(false)
+  return (
+    <Fragment>
+      <Header docked={docked}/>
+      <Waypoint onEnter={() => toggleHeader(false)} onLeave={() => toggleHeader(true)}>
+      <div><Splash/></div>
+      </Waypoint>
+      <div className='background'>
+        <WhatsHot merchant={props.merchant} />
+        <Wall />
+      </div>
+    </Fragment>
+  )
+}
+
+const Feed = connect(mapStateToProps)(ConnectedFeed)
+
+export default Feed

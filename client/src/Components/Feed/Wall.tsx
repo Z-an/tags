@@ -19,7 +19,7 @@ const compare = (a, b) => {
   } return comparison
 }
 
-function orderByRank(hashMap,ucb) {
+function orderByUCB(hashMap,ucb) {
   if (ucb) {
   let values = Object.values(hashMap)
   return values.sort(compare)
@@ -28,8 +28,8 @@ function orderByRank(hashMap,ucb) {
 }
 
 const mapStateToProps = state => {
-  let ordered = orderByRank(state.tags,state.ucb)
-  return { merchant: state.merchant, tags: ordered}
+  let ordered = orderByUCB(state.tags,state.ucb)
+  return { merchant: state.merchant, tags: ordered }
 }
 
 function mapDispatchToProps(dispatch) {

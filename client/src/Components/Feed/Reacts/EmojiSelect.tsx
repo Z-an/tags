@@ -1,9 +1,8 @@
-import React, {PureComponent, useState} from 'react'
+import React, {useState} from 'react'
 import { useMutation } from 'react-apollo-hooks'
 import { connect } from 'react-redux'
 import { REACT } from '../../../Mutations/index'
 import Emoji from './Emoji'
-import Button from '@material-ui/core/Button'
 
 import { ReactComponent as Add} from '../../../Assets/Emoji/react-add.svg'
 

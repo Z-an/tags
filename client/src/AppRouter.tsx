@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom"
 
 import SignIn from './Components/SignIn'
 import Select from './Components/Select'
-import { Feed } from './Components/Feed'
+import Feed from './Components/Feed'
 
 class AppRouter extends Component {
     render() {
