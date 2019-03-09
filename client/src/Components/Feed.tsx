@@ -15,12 +15,12 @@ const mapStateToProps = (state,ownProps) => {
 }
 
 const ConnectedFeed: React.FC<any> = (props) => {
-  const[docked,toggleHeader] = useState(false)
+  const[docked,toggleDocked] = useState(false)
   return (
     <Fragment>
       <Header docked={docked}/>
-      <Waypoint onEnter={() => toggleHeader(false)} onLeave={() => toggleHeader(true)}>
-      <div><Splash/></div>
+      <Waypoint onEnter={() => toggleDocked(false)} onLeave={() => toggleDocked(true)}>
+        <div><Splash/></div>
       </Waypoint>
       <div className='background'>
         <WhatsHot merchant={props.merchant} />

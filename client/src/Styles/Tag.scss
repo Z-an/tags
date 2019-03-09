@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    animation: fade-in-right ease 0.6s forwards;
 }
 
 .tag-user-icon {
@@ -71,4 +72,15 @@
   
   .color6{
     color: #39547B;
+  }
+
+  @keyframes fade-in-right {
+    from {
+      opacity: 0;
+      transform: translateY(-15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }

@@ -5,6 +5,12 @@
   background: -webkit-gradient(#e66465, #ff4868 15%, #9198e5);
   background: -moz-linear-gradient(#e66465, #ff4868 15%, #9198e5);
 }
+
+.merchant-name-container {
+  display:flex;
+  justify-content:center;
+}
+
 .merchant-name {
 font-style: Futura;
 font-weight: bold;
@@ -14,6 +20,9 @@ text-align: center;
 opacity: 1.6;
 color: white;
 margin-bottom: 3rem;
+margin-top: -2.5rem;
+z-index: 10;
+position: absolute;
 }
 
 .header {
@@ -71,6 +80,13 @@ margin-bottom: 3rem;
   justify-content: center;
 }
 
+.init-loading-container {
+  display: flex;
+  justify-content: center;
+  margin-top:5rem;
+  height: 2000px;
+}
+
 .loading-container {
   display: flex;
   justify-content: center;
@@ -91,6 +107,7 @@ margin-bottom: 3rem;
   justify-content: center;
   align-items: center;
   margin-bottom: 1.5rem;
+  padding-top: 5rem;
 }
 
 .wall {

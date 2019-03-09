@@ -3,6 +3,7 @@ import { useQuery } from 'react-apollo-hooks'
 import Tag from './Tag'
 import { GET_TAGS } from '../../Queries'
 import Loading from '../Loading'
+import { Waypoint } from 'react-waypoint';
 
 import { connect } from 'react-redux'
 import { addTags } from '../../Actions/index'
@@ -40,38 +41,39 @@ const colors = ['color1', 'color2', 'color3', 'color4', 'color5', 'color6']
 
 const ConnectedWall = (props) => {
   const [initialized,init] = useState(false)
-
-  const nullify = addTags({})
-
-  const tagIDs = props.tags.map( tag => {return tag.id})
+  const [moreToGet,reachedEnd] = useState(true)
 
   const { data, error, loading, fetchMore } = useQuery(GET_TAGS, {variables: {id: props.merchant.id}})
     if (error) {
       return `Error! ${error.message}`
     } else if (loading) {
-      return <div className='loading-container'><Loading style={'wall-loading'}/></div>
+      return <div className='init-loading-container'><Loading style={'wall-loading'}/></div>
     } else if (!initialized) {init(true),props.addTags(data.merchantTags)}
-
 
   return (
     <Fragment>
       {props.tags.map((tag: any) => 
         <Tag tagID={tag.id} content={tag.content} key={tag.id} color={colors[Math.floor(Math.random() * colors.length)]}/>
       )}
-      <div onClick={() => fetchMore({ variables: {id: props.merchant.id}, 
-        updateQuery: (previousResult, { fetchMoreResult }) => {
-          if (!fetchMoreResult) { return previousResult }
-          return {
-            ...previousResult,
-            merchantTags: {
-              ...previousResult.merchantTags,
-              ...fetchMoreResult.merchantTags,
+      { moreToGet && 
+        <div onClick={() => fetchMore({ variables: {id: props.merchant.id}, 
+          updateQuery: (previousResult, { fetchMoreResult }) => {
+            if (!fetchMoreResult) { return previousResult }
+            return {
+              ...previousResult,
+              merchantTags: {
+                ...previousResult.merchantTags,
+                ...fetchMoreResult.merchantTags,
+              }
             }
           }
-        }
-      })}>
-        <div className='loading-container'><Loading style={'wall-loading'}/></div>
-      </div>
+        })}>
+          <Waypoint onEnter={() => reachedEnd(true)} onLeave={() => reachedEnd(false)}>
+            <div className='loading-container'>
+              <Loading style={'wall-loading'}/>
+            </div>
+          </Waypoint>
+        </div> }
     </Fragment> 
   )
 }
