@@ -1,7 +1,6 @@
 import React, { PureComponent, Fragment } from 'react'
 import '../../Styles/Splash.scss'
 import { connect } from 'react-redux'
-const preludes = ['Have your say...','What would you tell your friends...','What resonated most...']
 
 import { ReactComponent as BackArrow } from '../../Assets/back-arrow.svg'
 import { ReactComponent as Leaderboard } from '../../Assets/leaderboard.svg'

@@ -38,12 +38,14 @@ function mapDispatchToProps(dispatch) {
 
 const colors = ['color1', 'color2', 'color3', 'color4', 'color5', 'color6']
 
-const ConnectedWall: React.FC<any> = (props) => {
+const ConnectedWall = (props) => {
   const [initialized,init] = useState(false)
 
   const nullify = addTags({})
 
-  const { data, error, loading } = useQuery(GET_TAGS, {variables: {id: props.merchant.id}})
+  const tagIDs = props.tags.map( tag => {return tag.id})
+
+  const { data, error, loading, fetchMore } = useQuery(GET_TAGS, {variables: {id: props.merchant.id}})
     if (error) {
       return `Error! ${error.message}`
     } else if (loading) {
@@ -52,9 +54,25 @@ const ConnectedWall: React.FC<any> = (props) => {
 
 
   return (
-      props.tags.map((tag: any) => 
+    <Fragment>
+      {props.tags.map((tag: any) => 
         <Tag tagID={tag.id} content={tag.content} key={tag.id} color={colors[Math.floor(Math.random() * colors.length)]}/>
-      )
+      )}
+      <div onClick={() => fetchMore({ variables: {id: props.merchant.id}, 
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+          if (!fetchMoreResult) { return previousResult }
+          return {
+            ...previousResult,
+            merchantTags: {
+              ...previousResult.merchantTags,
+              ...fetchMoreResult.merchantTags,
+            }
+          }
+        }
+      })}>
+        <div className='loading-container'><Loading style={'wall-loading'}/></div>
+      </div>
+    </Fragment> 
   )
 }
 
