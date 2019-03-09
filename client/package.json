@@ -31,8 +31,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-persist": "^5.10.0",
     "subscriptions-transport-ws": "^0.9.15",
-    "typescript": "3.3.3333",
-    "with-react-hooks": "^2.0.1"
+    "typescript": "3.3.3333"
   },
   "scripts": {
     "start": "react-scripts start",

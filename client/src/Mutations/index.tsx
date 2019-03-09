@@ -15,3 +15,11 @@ export const REACT = gql`
     }
   }
 `
+
+export const REPORT = gql`
+  mutation report($userId: String!, $tagId: String!, $reportId: String!) {
+    report(userId: $userId, tagId: $tagId, reportId: $reportId) {
+          reportId
+    }
+  }
+`

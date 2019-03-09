@@ -26,12 +26,6 @@ const ConnectedEmojiSelect = ({merchantID, tagID, emojiList}) => {
     toggleReacted(true)
     setReact(emoji)
   }
-
-  console.log({ userId: "61usaCJd3YBqpmFOdbS8"
-  , merchantId: merchantID
-  , tagId: tagID
-  , reactId: emoji
-  , unreact: reacted })
   
   const toggleReact = useMutation(REACT, {variables: { userId: "61usaCJd3YBqpmFOdbS8"
                                 , merchantId: merchantID

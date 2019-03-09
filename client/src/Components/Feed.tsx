@@ -33,11 +33,14 @@ export class Feed extends Component<any,any> {
     return (
       <Fragment>
         <Splash merchant={this.state.merchant} />
+        <div className='background'>
+        <div className='merchant-name'>{this.state.merchant.name}</div><br></br><br></br>
         <Wall />
         <CreatorButton toggle={this.toggleForm} />
         <CreatorForm toggle={this.toggleForm}
                       open={this.state.formOpen}
                       merchantID={this.state.merchant.id} />
+        </div>
       </Fragment>
     )
   }

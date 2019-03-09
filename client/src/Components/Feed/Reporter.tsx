@@ -2,10 +2,28 @@ import React, {useState, Fragment} from 'react'
 import Button from '@material-ui/core/Button'
 
 import '../../Styles/Reporter.scss'
+import { useMutation } from 'react-apollo-hooks'
+import { REPORT } from '../../Mutations/index'
+import { connect } from 'react-redux'
 
-export const Reporter: React.FC<any> = () => {
+const mapStateToProps = (state,ownProps) => {
+    //return whether or not the signed-in user has reported.
+    return { tagID: ownProps.tagID, tag: state.tags[ownProps.tagID].content }
+}
+
+export const ConnectedReporter: React.FC<any> = (props) => {
     const[open,toggleOpen] = useState(false)
-    const[cause,setCause] = useState('')
+    const[report,setReport] = useState('')
+
+    const sendReport = useMutation(REPORT, {variables: { userId: "61usaCJd3YBqpmFOdbS8"
+                                                        , tagId: props.tagID
+                                                        , reportId: report } })
+    
+    const clickhandler = (report) => {
+        setReport(report)
+        toggleOpen(false)
+        sendReport()
+    }
 
     if (!open) {
         return (
@@ -22,9 +40,12 @@ export const Reporter: React.FC<any> = () => {
                 </div>
                 <div className='report-container' onMouseLeave={()=>{toggleOpen(false)}}>
                     <div className='report-select'>
-                        <div className='this-is'>This comment is... <div className='cause'>abusive</div></div>
-                        <div className='this-is'><br></br><div className='cause'>inaccurate</div></div>
-                        <div className='this-is'><br></br><div className='cause'>a duplicate</div></div>
+                        <div className='this-is'>"{props.tag}" is... </div>
+                        <div className='cause-container'>
+                            <div className='cause' onClick={() => clickhandler('abuse')}>abusive</div>
+                            <div className='cause' onClick={() => clickhandler('inaccuracy')}>inaccurate</div>
+                            <div className='cause' onClick={() => clickhandler('duplicacy')}>a duplicate</div>
+                        </div>
                     </div>
                 </div>
             </Fragment>
@@ -32,3 +53,7 @@ export const Reporter: React.FC<any> = () => {
     }
     return (null)
 }
+
+const Reporter = connect(mapStateToProps)(ConnectedReporter)
+
+export default Reporter

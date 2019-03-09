@@ -24,6 +24,15 @@
     color: #ff4868;
     cursor: pointer;
     opacity: 1.5;
+    -webkit-transform: scale(2);
+    -ms-transform: scale(2);
+    transform: scale(2);
+}
+
+.reacts-total:after{
+    -webkit-transform: scale(2);
+    -ms-transform: scale(2);
+    transform: scale(2);
 }
 
 .reacts-plus {

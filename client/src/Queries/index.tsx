@@ -37,6 +37,7 @@ export const GET_MERCHANTS = gql`
         id
         name
         url
+        splash
     }
   }
 `

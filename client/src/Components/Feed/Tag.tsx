@@ -1,8 +1,8 @@
 import React, { useState, Fragment } from "react"
 import UserIcon from './UserIcon'
 import TopReact from './Reacts/TopReact'
-import { REACT_SUBSCRIPTION } from '../../Queries'
-import {Reporter} from './Reporter'
+import { REACT_SUBSCRIPTION } from '../../Subscriptions/index'
+import Reporter from './Reporter'
 import ReactsTotal from './Reacts/ReactsTotal'
 import EmojiSelect from './Reacts/EmojiSelect'
 
@@ -27,7 +27,7 @@ const Tag = (props: ITagProps) =>  {
           </div>
         </div>
         <UserIcon tagID={id} color={color}/>
-        <Reporter />
+        <Reporter tagID={id}/>
         <TopReact tagID={id} />
         <ReactsTotal tagID={id} />
         <EmojiSelect tagID={id} />
