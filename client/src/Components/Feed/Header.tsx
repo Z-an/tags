@@ -1,21 +1,12 @@
 import React from 'react'
 import Headroom from 'react-headroom'
 import { ActiveUsers } from './ActiveUsers'
+import Button from '@material-ui/core/Button'
+
 
 const Header = (props) => (
-  <Headroom upTolerance={25} style={{
-    background: 'white',
-    border: "thin outset",
-  }}>
-  <div className='header-feed'>
-    <div className='btn'
-      onClick={() => {window.location.href = "/select"}}
-    >
-      ⟵
-    </div>
-    <ActiveUsers merchantID={props.merchant.id}/>
+  <div className='header'>
   </div>
-  </Headroom>
 )
 
 export default Header

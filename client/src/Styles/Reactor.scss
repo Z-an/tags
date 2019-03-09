@@ -11,7 +11,7 @@
 
 .reacts-total {
     position: absolute;
-    margin: 1rem 0rem 0rem 8.8rem;
+    margin: 1.3rem 0rem 0rem 9rem;
     font-size: 20px;
     font-weight: lighter;
     display: flex;
@@ -24,15 +24,9 @@
     color: #ff4868;
     cursor: pointer;
     opacity: 1.5;
-    -webkit-transform: scale(2);
-    -ms-transform: scale(2);
-    transform: scale(2);
-}
-
-.reacts-total:after{
-    -webkit-transform: scale(2);
-    -ms-transform: scale(2);
-    transform: scale(2);
+    -webkit-transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    transform: scale(1.5);
 }
 
 .reacts-plus {

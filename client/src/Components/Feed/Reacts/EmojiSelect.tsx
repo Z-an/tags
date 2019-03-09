@@ -3,6 +3,7 @@ import { useMutation } from 'react-apollo-hooks'
 import { connect } from 'react-redux'
 import { REACT } from '../../../Mutations/index'
 import Emoji from './Emoji'
+import Button from '@material-ui/core/Button'
 
 import { ReactComponent as Add} from '../../../Assets/Emoji/react-add.svg'
 
@@ -59,7 +60,7 @@ const ConnectedEmojiSelect = ({merchantID, tagID, emojiList}) => {
   }
   else {
     return (
-      <div className='react-add-container' onClick={() => toggleOpen(true)} onMouseEnter={() => toggleOpen(true)} onTouchStart={() => toggleOpen(true)}>
+      <div className='react-add-container' onClick={() => toggleOpen(true)} onTouchStart={() => toggleOpen(true)}>
         <Add className='react-add' />
       </div>
     )

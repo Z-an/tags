@@ -10,11 +10,16 @@
 
 .top-react {
     position: absolute;
-    height: 24px;
-    width: 24px;
-    margin-top: 4rem; 
-    margin-left: 7rem;
+    height: 36px;
+    width: 36px;
+    margin-top: 3.6rem; 
+    margin-left: 6.6rem;
     box-shadow: 0px 4px 4px rgba(0,0,0,0.3);
-    border-radius: 50%
+    border-radius: 50%;
+    filter: grayscale(40%)
+}
 
+.top-react:hover {
+    filter: grayscale(0%);
+    cursor: pointer;
 }

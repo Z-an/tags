@@ -1,28 +1,37 @@
 .react-add-container {
     position: absolute;
     margin-top: 4.7rem;
-    padding-left: 10rem;
+    margin-left: -5.9rem;
+}
+
+.react-add-container:hover {
+    opacity: 1.5;
+    cursor: pointer;
 }
 
 .react-add {
-    height: 18px;
-    width: 18px;
-    margin-left: -11.5rem;
+    height: 20px;
+    width: 20px;
     opacity: 0.5;
+}
+
+.react-add:hover {
+    opacity: 1.5;
+    cursor: pointer;
 }
 
 .emoji-selected {
     height: 24px;
     width: 24px;
     position: absolute;
-    margin-left: -11.5rem;
-    opacity: 0.5;
+    margin-left: -0.6rem;
 }
 
-.emoji-selected:hover {
+.emoji-selected:active {
     cursor: pointer;
     opacity: 1.5;
 }
+
 
 .emoji-select-container {
     display: flex;
@@ -40,7 +49,7 @@
     border-radius: 5px;
 
     justify-content: baseline;
-    box-shadow: 0px 10px 10px #e1e1e5;
+    box-shadow: 0px 10px 10px rgba(0,0,0,0.3);
     background-color: white;
     margin-top: -2rem;
     z-index: 50;

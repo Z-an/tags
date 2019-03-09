@@ -60,6 +60,6 @@ const App = () => (
 
 render(<App />, document.getElementById("root"))
 
-serviceWorker.unregister()
+serviceWorker.register()
 
 export default App

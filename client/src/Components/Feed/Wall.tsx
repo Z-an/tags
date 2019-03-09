@@ -47,7 +47,7 @@ const ConnectedWall: React.FC<any> = (props) => {
     if (error) {
       return `Error! ${error.message}`
     } else if (loading) {
-      return <Loading />
+      return <div className='loading-container'><Loading style={'wall-loading'}/></div>
     } else if (!initialized) {init(true),props.addTags(data.merchantTags)}
 
 

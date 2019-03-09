@@ -5,6 +5,7 @@ import CreatorButton from './Feed/CreateTag/CreateButton'
 import CreatorForm from './Feed/CreateTag/CreateForm'
 import Header from './Feed/Header'
 import Splash from './Feed/Splash'
+import { WhatsHot } from './Feed/WhatsHot'
 
 import '../Styles/Feed.scss'
 
@@ -32,14 +33,15 @@ export class Feed extends Component<any,any> {
   render() {
     return (
       <Fragment>
+        <Header merchant={this.state.merchant}/>
         <Splash merchant={this.state.merchant} />
         <div className='background'>
-        <div className='merchant-name'>{this.state.merchant.name}</div><br></br><br></br>
-        <Wall />
-        <CreatorButton toggle={this.toggleForm} />
-        <CreatorForm toggle={this.toggleForm}
-                      open={this.state.formOpen}
-                      merchantID={this.state.merchant.id} />
+          <WhatsHot merchant={this.state.merchant} />
+          <Wall />
+          <CreatorButton toggle={this.toggleForm} />
+          <CreatorForm toggle={this.toggleForm}
+                        open={this.state.formOpen}
+                        merchantID={this.state.merchant.id} />
         </div>
       </Fragment>
     )
