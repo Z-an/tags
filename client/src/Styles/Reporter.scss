@@ -1,7 +1,7 @@
 
 .report-button {
     position: absolute;
-    margin-top: 4.2rem;
+    margin-top: 4rem;
     margin-left: -2rem;
     opacity: 0.5;
     z-index:2;
@@ -38,10 +38,10 @@
     width: 360px;
     z-index: 100;
     border-radius: 5px;
-    margin-top: 80px;
+    margin-top: 65px;
 
     animation: fade-in-right ease 0.2s forwards;
-    z-index: 3;
+    z-index: 10;
 }
 
 .this-is {
