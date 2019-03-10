@@ -8,6 +8,9 @@ import { WhatsHot } from './Feed/WhatsHot'
 
 import { Waypoint } from 'react-waypoint';
 
+import CreatorButton from './Feed/CreatorButton'
+import { CreatorPanel } from './Feed/CreatorPanel'
+
 import '../Styles/Feed.scss'
 
 const mapStateToProps = (state,ownProps) => {
@@ -19,12 +22,14 @@ const ConnectedFeed: React.FC<any> = (props) => {
   return (
     <Fragment>
       <Header docked={docked}/>
+      <CreatorPanel docked={docked}/>
       <Waypoint onEnter={() => toggleDocked(false)} onLeave={() => toggleDocked(true)}>
         <div><Splash/></div>
       </Waypoint>
       <div className='background'>
         <WhatsHot merchant={props.merchant} />
         <Wall />
+        <br></br>
       </div>
     </Fragment>
   )

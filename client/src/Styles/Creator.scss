@@ -1,0 +1,38 @@
+.circle {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: white;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 100;
+}
+
+.twitter {
+  height: 30px;
+  width: 30px;
+  fill: #ff4868;
+  margin-top: 0.5rem;
+  margin-left:0.5rem;
+}
+
+.creator-panel {
+  height: 50px;
+  width:100%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.6675) 1.33%, rgba(255, 255, 255, 0.89) 29.61%, rgba(255, 255, 255, 0.89) 100%);  bottom: 0px;
+  position: fixed;
+  z-index: 5000;
+  animation: fade-in-bottom ease 0.6s backwards;
+}
+
+@keyframes fade-in-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

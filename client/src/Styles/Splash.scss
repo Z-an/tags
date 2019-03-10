@@ -2,9 +2,9 @@
 .leaderboard-icon {
   height: 48px;
   width: 48px;
-  margin-top:0.3rem;
-  position: fixed;
-  right: 1rem;
+  margin-top:0.3em;
+  position: absolute;
+  right: 3rem;
 }
 
 .leaderboard-icon:hover {
@@ -15,15 +15,15 @@
 .icons-container {
   display: flex;
   flex-direction: row;
-  position: absolute;
   width: 100%;
-  position: fixed;
+  position: absolute;
   z-index: 30;
+  margin-top:0.2rem;
 }
 
 .left-arrow {
-  height: 30px;
-  width: 30px;
+  height: 40px;
+  width: 40px;
   margin-top: 0.5rem;
   margin-left: 1rem;
 }
@@ -41,14 +41,18 @@
   background: -moz-linear-gradient(270deg, #000000 0%, rgba(6, 4, 4, 0) 0.01%, rgba(255, 72, 104, 0) 6  80.72%, #e66465 100%);
   height: 30vh;
   width: 100%;
-  z-index:1;
+  z-index:-1;
   overflow: auto;
+}
+
+.img-container::-webkit-scrollbar {
+  display: none;
 }
 
 .splash-img {
   height: 30vh;
-  z-index:-1;
-  opacity: 0.80;
+  z-index:-21;
+  opacity:0.8;
 }
 
 .splash-img:hover {
