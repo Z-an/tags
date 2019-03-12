@@ -1,20 +1,22 @@
 import React, { useState, Fragment } from "react"
-import UserIcon from './UserIcon'
+import UserIcon from './TagUserIcon'
 import TopReact from './Reacts/TopReact'
 import { REACT_SUBSCRIPTION } from '../../Subscriptions/index'
 import Reporter from './Reporter'
 import ReactsTotal from './Reacts/ReactsTotal'
 import EmojiSelect from './Reacts/EmojiSelect'
+import {Voter} from './Reacts/Voter'
+import { increment, decrement } from '../../Actions/index'
+import { connect } from 'react-redux'
 
 import '../../Styles/Tag.scss'
 
-interface ITagProps {
-  tagID: string,
-  color: string,
-  content: string,
+function mapDispatchToProps(dispatch) {
+  return { increment: tagID => { dispatch(increment(tagID))}
+        , decrement: tagID => { dispatch(decrement(tagID))}}
 }
 
-const Tag = (props: ITagProps) =>  {
+const ConnectedTag = (props) =>  {
   const id = props.tagID
   const color = props.color
 
@@ -25,15 +27,18 @@ const Tag = (props: ITagProps) =>  {
           <div className={'tag-content '+color}>
             {props.content}
           </div>
+          <Voter tagID={id} increment={props.increment} decrement={props.decrement}/>
+          <ReactsTotal tagID={id} />
         </div>
         <UserIcon tagID={id} color={color}/>
         <Reporter tagID={id}/>
         <TopReact tagID={id} />
-        <ReactsTotal tagID={id} />
         <EmojiSelect tagID={id} />
       </div>
     </div>
-    )
+  )
 }
+
+const Tag = connect(null,mapDispatchToProps)(ConnectedTag)
 
 export default Tag

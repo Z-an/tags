@@ -23,3 +23,13 @@ export const REPORT = gql`
     }
   }
 `
+
+export const SIGN_IN = gql`
+  mutation signIn($ID: String!, $name: String!, $icon: String, $authProvider: String) {
+    signIn(ID: $ID, name: $name, icon: $icon, authProvider: $authProvider) {
+      id
+      name
+      icon
+    }
+  }
+`

@@ -43,16 +43,26 @@
   width: 100%;
   z-index:-1;
   overflow: auto;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: scroll;
 }
 
 .img-container::-webkit-scrollbar {
   display: none;
 }
 
+.img {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
 .splash-img {
   height: 30vh;
   z-index:-21;
   opacity:0.8;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 .splash-img:hover {

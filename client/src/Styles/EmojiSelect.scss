@@ -80,7 +80,7 @@
     cursor: pointer;
 }
 
-.emoji:focus {
+.emoji:hover {
     opacity: 1.5;
 
     -webkit-animation: swing 1s ease;
@@ -91,6 +91,11 @@
     -webkit-transform: scale(3);
     -ms-transform: scale(3);
     transform: scale(3);
+
+    cursor: pointer;
+}
+
+.emoji:focus {
 }
 
 .emoji:active {

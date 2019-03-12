@@ -21,9 +21,9 @@
     display: flex;
     
     width: 340px;
-    height: 65px;
+    height: 60px;
 
-    font-size: 18px;
+    font-size: 16px;
     border-radius: 50px;
     background-color: white;
     opacity: 0.9;
@@ -42,7 +42,7 @@
       display: flex;
       flex-direction: row;
       justify-content: center;
-      margin-bottom: 5rem;
+      margin-bottom: 4.3rem;
   }
 
   .tag-box:hover {
@@ -84,3 +84,5 @@
       transform: translateY(0);
     }
   }
+
+  

@@ -15,7 +15,7 @@ const mapStateToProps = (state,ownProps) => {
       }
 }
 
-const ConnectedEmojiSelect = ({merchantID, tagID, emojiList}) => {
+const ConnectedEmojiSelect: React.FC<any> = ({merchantID, tagID, emojiList}) => {
   const[emoji,setEmoji] = useState('heart-eyes')
   const[open,toggleOpen] = useState(false)
   const[reacted,toggleReacted] = useState(false)
@@ -59,12 +59,13 @@ const ConnectedEmojiSelect = ({merchantID, tagID, emojiList}) => {
   }
   else {
     return (
-      <div className='react-add-container' onClick={() => toggleOpen(true)} onTouchStart={() => toggleOpen(true)}>
+      <div className='react-add-container' onClick={() => toggleOpen(true)}>
         <Add className='react-add' />
       </div>
     )
   }
 }
+
 
 const EmojiSelect = connect(mapStateToProps)(ConnectedEmojiSelect)
 

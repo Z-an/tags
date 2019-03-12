@@ -17,13 +17,31 @@
   margin-left:0.5rem;
 }
 
+.creator-user-icon {
+  height:40px;
+  width: 40px;
+  border-radius: 50px;
+  margin-right: 1rem;
+  margin-top: 0.5rem
+}
+
+.creator-tag {
+  width: 350px;
+  height: 40px;
+  position: absolute;
+  align-items: center;
+  margin-top:-0.5rem;
+}
+
 .creator-panel {
-  height: 50px;
+  height: 40px;
   width:100%;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.6675) 1.33%, rgba(255, 255, 255, 0.89) 69.61%, rgba(255, 255, 255, 0.89) 100%);  bottom: 0px;
   position: fixed;
-  z-index: 5000;
+  z-index: 1000;
   animation: fade-in-bottom ease 0.6s backwards;
+  display: flex;
+  justify-content: center;
 }
 
 @keyframes fade-in-bottom {
@@ -35,4 +53,15 @@
     opacity: 1;
     transform: translateY(-0.3px);
   }
+}
+
+.text-field{
+  width: 230px;
+}
+
+.post {
+  font-size: 16px;
+  margin-right: -19rem;
+  margin-top:0.8rem;
+  color:  #03A4FF;
 }
