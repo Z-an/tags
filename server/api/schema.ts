@@ -5,7 +5,7 @@ export const typeDefs = gql`
     id: String!
     content: String!
     reacts: Int!
-    ucb: Float!
+    ucb: Float
     culled: Boolean!
     user: User!
     userId: String!
@@ -21,12 +21,16 @@ export const typeDefs = gql`
     icon: String!
     banned: Boolean!
     tags: [Tag]!
+    facebookID: String
+    googleID: String
+    onFeed: String
   }
 
   type Merchant {
     id: String!
     name: String!
     url: String
+    splash: [String]!
     rho: Float!
     age: Int!
     paramsId: String
@@ -39,6 +43,7 @@ export const typeDefs = gql`
     tagId: String!
     reactId: String!
     user: User!
+    unreact: Boolean!
   }
 
   type Reactors {
@@ -73,6 +78,7 @@ export const typeDefs = gql`
     createTag(userId: String!, merchantId: String!, content: String!): Tag
     addMerchant(name: String!): Merchant!
     enterFeed(userId: String!, merchantId: String!): User
+    signIn(ID: String!, name: String!, icon: String, authProvider: String): User
   }
 
   type Subscription {

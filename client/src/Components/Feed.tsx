@@ -5,6 +5,7 @@ import Wall from './Feed/Wall'
 import Header from './Feed/Header'
 import Splash from './Feed/Splash'
 import { WhatsHot } from './Feed/WhatsHot'
+import { TagView } from './Feed/TagView'
 
 import { Waypoint } from 'react-waypoint';
 
@@ -31,6 +32,7 @@ const ConnectedFeed: React.FC<any> = (props) => {
         <Wall />
         <br></br>
       </div>
+      <TagView />
     </Fragment>
   )
 }

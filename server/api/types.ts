@@ -4,6 +4,9 @@ interface User {
   handle: string
   icon: string
   banned: boolean
+  facebookID: string
+  googleID: string
+  onFeed: string
 }
 
 interface Tag {
@@ -27,12 +30,14 @@ interface Merchant {
   paramsId: string
   rewardsId: string
   age: number
+  splash: [string]
 }
 
 interface Reaction {
   userId: string
   tagId: string
   reactId: string
+  unreact: boolean
 }
 
 interface Reactors {

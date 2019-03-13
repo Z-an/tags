@@ -9,8 +9,8 @@ import { connect } from 'react-redux'
 import { addTags } from '../../Actions/index'
 
 const compare = (a, b) => {
-  const ucbA = a.ucb
-  const ucbB = b.ucb
+  const ucbA = a.ucb===null? 1000:a.ucb
+  const ucbB = b.ucb===null? 1000:b.ucb
 
   let comparison = 0;
   if (ucbA > ucbB) {
@@ -18,6 +18,7 @@ const compare = (a, b) => {
   } else {
     comparison = 1;
   } return comparison
+
 }
 
 function orderByUCB(hashMap,ucb) {
@@ -43,9 +44,8 @@ const ConnectedWall = (props) => {
   const [initialized,init] = useState(false)
   const [moreToGet,reachedEnd] = useState(true)
 
-  const { data, error, loading, fetchMore } = useQuery(GET_TAGS, {variables: {id: props.merchant.id}})
-    if (error) {
-      return `Error! ${error.message}`
+  const { data, error, loading, startPolling, stopPolling, fetchMore } = useQuery(GET_TAGS, {variables: {id: props.merchant.id}/*, pollInterval: 500*/})
+    if (error) { console.log(`Error! ${error.message}`)
     } else if (loading) {
       return <div className='init-loading-container'><Loading style={'wall-loading'}/></div>
     } else if (!initialized) {init(true),props.addTags(data.merchantTags)}

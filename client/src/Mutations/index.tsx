@@ -33,3 +33,23 @@ export const SIGN_IN = gql`
     }
   }
 `
+
+export const SUBMIT_TAG = gql`
+  mutation createTag( $userId: String!
+          , $merchantId: String!
+          , $content: String!) {
+    
+    createTag(userId: $userId
+          , merchantId: $merchantId
+          , content: $content) {
+            id
+            content
+            reacts
+            user {
+              id
+              icon
+              handle
+            }
+    }
+  }
+`

@@ -1,10 +1,11 @@
 import {ApolloError, ValidationError, UserInputError, PubSub, withFilter } from 'apollo-server'
 
-import * as admin from 'firebase-admin'
+const firebase = require("firebase")
+const db = firebase.firestore()
 
 import './types'
 
-import { lapseMerchant, updateUCB, updateReacts, duplicate } from '../cloud/functions'
+import { lapseMerchant, updateUCB, updateReacts, duplicate, getUserDoc } from '../cloud/functions'
 
 const pubsub = new PubSub()
 
@@ -48,8 +49,8 @@ export const resolvers = {
 
   Query: {
     async tags() {
-      const tags = await admin
-        .firestore()
+      const tags = await 
+        db
         .collection('tagsQL')
         .get()
       return tags.docs.map(tag => tag.data()) as Tag[];
@@ -57,8 +58,8 @@ export const resolvers = {
 
     async merchant(_: null, args: { id: string }) {
       try {
-        const merchantDoc = await admin
-          .firestore()
+        const merchantDoc = await 
+          db
           .doc(`merchantsQL/${args.id}`)
           .get()
         const merchant = merchantDoc.data() as Merchant | undefined
@@ -70,8 +71,8 @@ export const resolvers = {
 
     async merchantTags(_: null, args: {id: string}) {
       try {
-        const merchantTags = await admin
-          .firestore()
+        const merchantTags = await 
+          db
           .collection('tagsQL')
           .where('merchantId', '==', args.id)
           .where('culled', '==', false)
@@ -84,8 +85,8 @@ export const resolvers = {
     },
 
     async merchants() {
-      const merchants = await admin
-        .firestore()
+      const merchants = await 
+        db
         .collection('merchantsQL')
         .get()
       return merchants.docs.map(merchant => merchant.data()) as Merchant[]
@@ -93,8 +94,8 @@ export const resolvers = {
 
     async tag(_: null, args: {id: string}) {
       try {
-        const tagDoc = await admin
-          .firestore()
+        const tagDoc = await 
+          db
           .doc(`tagsQL/${args.id}`)
           .get()
         const tag = tagDoc.data() as Tag | undefined
@@ -105,10 +106,9 @@ export const resolvers = {
     },
 
     async user(_: null, args: { id: string }) {
-      console.log('yare yare')
       try {
-        const userDoc = await admin
-          .firestore()
+        const userDoc = await 
+          db
           .doc(`usersQL/${args.id}`)
           .get()
         const user = userDoc.data() as User | undefined
@@ -120,8 +120,8 @@ export const resolvers = {
 
     async activeUsers(_: null, args: {merchantId: string}) {
       try {
-        const activeUsers = await admin
-          .firestore()
+        const activeUsers = await 
+          db
           .collection('usersQL')
           .where('onFeed', '==', args.merchantId)
           .get()
@@ -132,10 +132,9 @@ export const resolvers = {
     },
 
     async reactors(_: null, args: {tagId: string}) {
-      console.log('yare yare')
       try {
-        const reactsCol = await admin
-          .firestore()
+        const reactsCol = await 
+          db
           .collection(`tagsQL/${args.tagId}/reacts`)
           .get()
 
@@ -152,22 +151,24 @@ export const resolvers = {
       } catch (error) {
         throw new ApolloError(error)
       }
-    }
+    },
   },
 
   Mutation: {
+
     async react(_: null, args: { userId: string
                               , tagId: string
                               , merchantId: string
                               , reactId: string
                               , unreact: boolean }) {
+      console.log('reacting',args.tagId,' with ',args.reactId)
       try {
-        const reactDoc = await admin
-          .firestore().collection("tagsQL")
+        const reactDoc = await 
+          db.collection("tagsQL")
           .doc(args.tagId).collection("reacts").doc(args.reactId)
 
 // tslint:disable-next-line: no-floating-promises
-        admin.firestore().runTransaction( transaction => {
+        db.runTransaction( transaction => {
           return transaction.get(reactDoc).then( react => {
             const data = react.data()
             const newTotal = data.total + 1
@@ -175,7 +176,8 @@ export const resolvers = {
 
             const reaction = {tagId: args.tagId
                             , reactId: args.reactId
-                            , userId: args.userId} as Reaction | undefined
+                            , userId: args.userId
+                            , unreact: args.unreact } as Reaction | undefined
 
             pubsub.publish(NEW_REACT, {reaction: reaction})
             
@@ -196,25 +198,27 @@ export const resolvers = {
     async createTag(_: null, args: { userId: string
                                   , merchantId: string
                                   , content: string}) {
+
+      console.log('creating ',args.content)
                                     
       const verdict = await duplicate(args.content,args.merchantId)
       if (verdict.outcome === true) {
         return new UserInputError('Tag not unique', {match: verdict.tag} )
       }
 
-      const merchant = await admin.firestore().collection("merchantsQL").doc(args.merchantId).get()
+      const merchant = await db.collection("merchantsQL").doc(args.merchantId).get()
       const age = merchant.data().age
 
       try {
-        const tagDoc = await admin
-          .firestore()
+        const tagDoc = await 
+          db
           .collection("tagsQL")
           .add({ content: args.content
               , created: null
               , culled: false
               , merchantId: args.merchantId
               , userId: args.userId
-              , ucb: Infinity
+              , ucb: 1000
               , reacts: 0
               , trounds: age })
         tagDoc.collection("reacts").doc("fire").set({total: 0, reactors: [null]})
@@ -224,6 +228,7 @@ export const resolvers = {
         tagDoc.collection("reacts").doc("sleep").set({total: 0, reactors: [null]})
         tagDoc.collection("reacts").doc("cry").set({total: 0, reactors: [null]})
         tagDoc.collection("reacts").doc("angry").set({total: 0, reactors: [null]})
+        tagDoc.collection("reacts").doc("up").set({total: 0, reactors: [null]})
 
         tagDoc.collection("reports").doc("abuse").set({total: 0, reporters: [null]})
         tagDoc.collection("reports").doc("duplicacy").set({total: 0, reporters: [null]})
@@ -239,7 +244,6 @@ export const resolvers = {
 
         //Publish to subscribed clients; return to creator client.
         pubsub.publish(TAG_CREATED, {newTag: tag})
-        console.log('tag',tag)
 
         return tag || new ValidationError('Tag creation failed')
 
@@ -248,14 +252,26 @@ export const resolvers = {
       }
     },
 
+    async signIn(_: null, args: {ID: any, name: string, icon: string, authProvider: string}) {
+      try {
+        const userDoc = await getUserDoc(args.ID, args.name, args.icon, args.authProvider)
+        const userData = await userDoc.get()
+        const user = userData.data() as User | undefined
+        return user || new ValidationError('Something went wrong; please try again.')
+      } 
+      catch (error) {
+        throw new ApolloError(error)
+      }
+    },
+
     async report(_: null, args: {reportId: string, userId: string, tagId: string}) {
       try {
-        const reportDoc = await admin
-          .firestore().collection("tagsQL")
+        const reportDoc = await 
+          db.collection("tagsQL")
           .doc(args.tagId).collection("reports").doc(args.reportId)
 
 // tslint:disable-next-line: no-floating-promises
-        admin.firestore().runTransaction( transaction => {
+        db.runTransaction( transaction => {
           return transaction.get(reportDoc).then( rep => {
             const data = rep.data()
             const newTotal = data.total + 1
@@ -278,8 +294,8 @@ export const resolvers = {
 
     async addMerchant(_: null, args: {name: string}) {
       try {
-        const merchantDoc = await admin
-          .firestore()
+        const merchantDoc = await 
+          db
           .collection("merchantsQL")
           .add({name: args.name,
                 hrounds: 1,
@@ -305,11 +321,11 @@ export const resolvers = {
 
     async enterFeed(_: null, args: {userId: string, merchantId: string}) {
       try {
-        const userDoc = await admin
-          .firestore().collection("usersQL").doc(args.userId)
+        const userDoc = await 
+          db.collection("usersQL").doc(args.userId)
 
         // tslint:disable-next-line: no-floating-promises
-        admin.firestore().runTransaction( transaction => {
+        db.runTransaction( transaction => {
           return transaction.get(userDoc).then( user => {
 
             pubsub.publish(NEW_ACTIVE, {user: user.data()})
@@ -326,8 +342,8 @@ export const resolvers = {
   User: {
     async tags(user) {
       try {
-        const userTags = await admin
-          .firestore()
+        const userTags = await 
+          db
           .collection('tagsQL')
           .where('userId', '==', user.id)
           .get()
@@ -341,8 +357,8 @@ export const resolvers = {
   Tag: {
     async user(tag) {
       try {
-        const tagAuthor = await admin
-          .firestore()
+        const tagAuthor = await 
+          db
           .doc(`usersQL/${tag.userId}`)
           .get()
         return tagAuthor.data() as User
@@ -353,8 +369,8 @@ export const resolvers = {
 
     async reactors(tag) {
       try {
-        const reactsCol = await admin
-          .firestore()
+        const reactsCol = await 
+          db
           .collection(`tagsQL/${tag.id}/reacts`)
           .get()
 
@@ -377,8 +393,8 @@ export const resolvers = {
   Merchant: {
     async tags(merchant) {
       try {
-        const merchantTags = await admin
-          .firestore()
+        const merchantTags = await 
+          db
           .collection('tagsQL')
           .where('merchantId', '==', merchant.id)
           .where('culled', '==', false)
@@ -394,8 +410,8 @@ export const resolvers = {
   Reaction: {
     async user(reaction) {
       try {
-        const reactorData = await admin
-          .firestore()
+        const reactorData = await 
+          db
           .collection('usersQL')
           .doc(reaction.userId)
           .get()

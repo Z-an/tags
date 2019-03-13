@@ -64,4 +64,9 @@
   margin-right: -19rem;
   margin-top:0.8rem;
   color:  #03A4FF;
+  z-index: 5000;
+}
+
+.post:hover {
+  cursor: pointer;
 }

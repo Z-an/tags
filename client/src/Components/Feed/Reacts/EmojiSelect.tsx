@@ -3,19 +3,27 @@ import { useMutation } from 'react-apollo-hooks'
 import { connect } from 'react-redux'
 import { REACT } from '../../../Mutations/index'
 import Emoji from './Emoji'
+import {increment,decrement} from '../../../Actions/index'
 
 import { ReactComponent as Add} from '../../../Assets/Emoji/react-add.svg'
 
 import '../../../Styles/EmojiSelect.scss'
+import { stat } from 'fs';
 
 const mapStateToProps = (state,ownProps) => {
   return {merchantID: state.merchant.id
         , tagID: ownProps.tagID
+        , userID: state.user.id
         , emojiList: ['tongue','heart-eyes','shock','sleep','cry','angry']
       }
 }
 
-const ConnectedEmojiSelect: React.FC<any> = ({merchantID, tagID, emojiList}) => {
+function mapDispatchToProps(dispatch) {
+  return { increment: tagID => { dispatch(increment(tagID))}
+          , decrement: tagID => { dispatch(decrement(tagID))}}
+}
+
+const ConnectedEmojiSelect: React.FC<any> = ({merchantID, tagID, userID, emojiList, increment, decrement}) => {
   const[emoji,setEmoji] = useState('heart-eyes')
   const[open,toggleOpen] = useState(false)
   const[reacted,toggleReacted] = useState(false)
@@ -25,9 +33,10 @@ const ConnectedEmojiSelect: React.FC<any> = ({merchantID, tagID, emojiList}) => 
     toggleOpen(false)
     toggleReacted(true)
     setReact(emoji)
+    increment(tagID)
   }
   
-  const toggleReact = useMutation(REACT, {variables: { userId: "61usaCJd3YBqpmFOdbS8"
+  const toggleReact = useMutation(REACT, {variables: { userId: userID
                                 , merchantId: merchantID
                                 , tagId: tagID
                                 , reactId: emoji
@@ -35,6 +44,7 @@ const ConnectedEmojiSelect: React.FC<any> = ({merchantID, tagID, emojiList}) => 
 
   const unclicker = () => {
     toggleReacted(false)
+    decrement(tagID)
     setReact('')
   }
 

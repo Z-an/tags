@@ -5,6 +5,7 @@ const initialState = {
     rewards: null,
     ucb: true,
     live: true,
+    openModal: null,
 }
 
 function rootReducer(state = initialState, action) {
@@ -29,6 +30,37 @@ function rootReducer(state = initialState, action) {
     else if (action.type === 'SIGN_OUT') {
         return Object.assign({}, state, {
             user: null
+        })
+    }
+    else if (action.type === 'INCREMENT') {
+        return {
+            ...state,
+            tags: {
+                ...state.tags,
+                [action.payload]: {
+                    ...state.tags[action.payload],
+                    reacts: state.tags[action.payload].reacts + 1,
+                    voted: true,
+                }
+            }
+        }
+    }
+    else if (action.type === 'DECREMENT') {
+        return {
+            ...state,
+            tags: {
+                ...state.tags,
+                [action.payload]: {
+                    ...state.tags[action.payload],
+                    reacts: state.tags[action.payload].reacts - 1,
+                    voted: false
+                }
+            }
+        }
+    }
+    else if (action.type === 'OPEN_MODAL') {
+        return Object.assign({}, state, {
+            openModal: action.payload
         })
     }
     return state

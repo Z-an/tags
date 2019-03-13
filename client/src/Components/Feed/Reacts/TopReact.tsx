@@ -34,7 +34,7 @@ const ConnectedTopReact = (props) => {
   const[top, setTop] = useState(props.reactors.sort(compare)[0])
   const[total, setTotal] = useState(reactTotal)
 
-  if (total > 0) {
+  if (total > 0 && top.react!=='up') {
     return (
       <Fragment>
         <Emoji emoji={top.react} style='top-react'/>

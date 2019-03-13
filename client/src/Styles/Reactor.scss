@@ -33,6 +33,7 @@
     margin-top:0.3rem;
     position: absolute;
     opacity: 0.2;
+    font-size: 24px;
 }
 
 .voter:hover{
@@ -41,7 +42,14 @@
     opacity: 1.8;
 }
 
-.voter:focus {
+.voted {
+    margin-left: 19rem;
+    margin-top:0.3rem;
+    position: absolute;
     opacity: 1.8;
-    color: black;
+    font-size: 24px;
+}
+
+.voted:hover{
+    cursor:pointer;
 }

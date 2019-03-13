@@ -19,7 +19,6 @@ import { ReactComponent as Search } from '../../Assets/search.svg'
 import { ReactComponent as Filter } from '../../Assets/filter.svg'
 import { ReactComponent as BackArrow } from '../../Assets/back-arrow.svg'
 
-
 const ConnectedHeader = (props) => {
   const signOut = () => {
     props.signOut()
@@ -42,9 +41,11 @@ const ConnectedHeader = (props) => {
           <Search className='search-button'/>
           </div>
         </div>
+        
         <div className='second-row'>
           { headerType==='social' && 
             <div className='social-header'>
+              <div className='social'>Friends who have eaten here</div>
               <ActiveUsers />
             </div>
           } { headerType==='score' &&

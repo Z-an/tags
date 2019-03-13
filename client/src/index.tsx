@@ -18,16 +18,17 @@ import { store, persistor } from './Store/index'
 
 import './Styles/index.scss'
 
-const ip = {address: '10.0.49.32'}
+const work = {address: '10.0.49.32'}
+const home = {address: `localhost`}
 
 import * as serviceWorker from './serviceWorker';
 
 const httpLink = new HttpLink({
-  uri: `http://${ip.address}:4000/graphql`
+  uri: `http://${home.address}:4000/graphql`
 });
 
 const wsLink = new WebSocketLink({
-  uri: `ws://${ip.address}:4000/graphql`,
+  uri: `ws://${home.address}:4000/graphql`,
   options: {
     reconnect: true
   }

@@ -1,14 +1,8 @@
 const express = require('express')
 import { createServer } from 'http'
 import { ApolloServer } from 'apollo-server-express'
-
-import * as admin from 'firebase-admin'
-
-const serviceAccount = require('../../service-account.json')
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-})
+const cors = require('cors');
+require('./config')
 
 import { typeDefs } from './schema'
 import { resolvers } from './resolvers'
@@ -16,11 +10,13 @@ import { resolvers } from './resolvers'
 const PORT = process.env.PORT || 4000
 
 const app = express()
+app.use(cors())
 
 const apolloServer = new ApolloServer({typeDefs, resolvers, introspection: true})
-apolloServer.applyMiddleware({ app, cors: {credentials: true, origin: "http://localhost:3000"}})
+apolloServer.applyMiddleware({ app })
 
 const httpServer = createServer(app)
+
 apolloServer.installSubscriptionHandlers(httpServer)
 
 httpServer.listen({ port: PORT }, () => {

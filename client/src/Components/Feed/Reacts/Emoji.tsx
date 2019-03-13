@@ -11,6 +11,7 @@ class Emoji extends PureComponent<any> {
     emoji = this.props.emoji
     style = this.props.style
     render() {
+        console.log(this.emoji)
         if (this.emoji==='tongue') {
             return (<Tongue className={this.style}/>)
         } else if (this.emoji==='heart-eyes') {
@@ -23,6 +24,8 @@ class Emoji extends PureComponent<any> {
             return (<Crying className={this.style}/>)
         } else if (this.emoji==='angry') {
             return (<Angry className={this.style}/>)
+        } else if (this.emoji==='up') {
+            return <div className={this.style}>+1</div>
         } else return null
     }
 }

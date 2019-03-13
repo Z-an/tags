@@ -8,9 +8,11 @@
     },
     "main": "lib/index.js",
     "dependencies": {
+        "@firebase/firestore": "^1.0.6",
         "apollo-server": "^2.3.3",
         "apollo-server-express": "^2.3.3",
         "express": "^4.16.4",
+        "firebase": "^5.8.6",
         "firebase-admin": "^5.12.1",
         "graphql": "^0.13.2",
         "graphql-tag": "^2.9.2",
@@ -21,8 +23,8 @@
     },
     "devDependencies": {
         "@types/graphql": "^14.0.5",
-        "@types/node": "^10.12.24",
+        "@types/node": "^10.12.30",
         "tslint": "^5.10.0",
-        "typescript": "^2.9.2"
+        "typescript": "^3.3.3333"
     }
 }

@@ -18,7 +18,7 @@ class ConnectedSplash extends PureComponent<any> {
         <BackArrow className='left-arrow' onClick={() => {window.location.href = "/"}}/>
       </div>
       <div className='img-container'>
-          {this.props.merchant.splash.map(url => <img className='splash-img' src={url}/>)}
+          {this.props.merchant.splash.map(url => <img key={url} className='splash-img' src={url}/>)}
       </div>
       </Fragment>
     )

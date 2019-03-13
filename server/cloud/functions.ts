@@ -1,4 +1,7 @@
-const admin = require('firebase-admin')
+const firebase = require("firebase")
+const db = firebase.firestore()
+import {ApolloError} from 'apollo-server'
+
 const levenshtein = require('js-levenshtein')
 
 export async function duplicate(input, merchantId) {
@@ -7,15 +10,14 @@ export async function duplicate(input, merchantId) {
   let verdict = false
   
   try {
-    const merchantTags = await admin
-      .firestore()
+    const merchantTags = await 
+      db
       .collection('tagsQL')
       .where('merchantId', '==', merchantId)
       .get()
     tags = merchantTags.docs.map(tag => tag.data().content) as Tag[]
 
     tags.forEach(tag => {
-      console.log(input,tag,levenshtein(input,tag))
       let min = 3
       if (levenshtein(input, tag) < min) {
         match = tag
@@ -33,12 +35,11 @@ export async function duplicate(input, merchantId) {
 }
 
 export async function updateUCB(merchantId) {
-  const merchant = await admin.firestore().collection("merchantsQL").doc(merchantId).get()
+  const merchant = await db.collection("merchantsQL").doc(merchantId).get()
   const age = merchant.data().age
   const rho = merchant.data().rho
-  console.log(age,rho)
 
-  await admin.firestore()
+  await db
     .collection('tagsQL')
     .where('merchantId', '==', merchant.id)
     .where('culled', '==', false)
@@ -46,15 +47,17 @@ export async function updateUCB(merchantId) {
     .get()
     .then( snapshot => {
       snapshot.docs.forEach (doc => {
-        admin.firestore().runTransaction( transaction => {
+        db.runTransaction( transaction => {
           return transaction.get(doc.ref).then( tag => {
             if (!tag.exists) {
               throw "Document does not exist"
             }
             else {
               const data = tag.data()
-              const newUCB = ucb(data.reacts+1,data.trounds,age,rho)
-              console.log('data',data,'newUCB',newUCB)
+              let newUCB = ucb(data.reacts,data.trounds,age,rho)
+              if (newUCB===Infinity||newUCB===null||newUCB < 0||newUCB===NaN) {
+                newUCB = 1000
+              }
 
               return transaction.update(doc.ref, { ucb: newUCB })
             }
@@ -66,9 +69,9 @@ export async function updateUCB(merchantId) {
 }
 
 export async function lapseMerchant(merchantId) {
-  const merchantDocRef = await admin.firestore().collection("merchantsQL").doc(merchantId)
+  const merchantDocRef = await db.collection("merchantsQL").doc(merchantId)
   
-  await admin.firestore().runTransaction( transaction => {
+  await db.runTransaction( transaction => {
     return transaction.get(merchantDocRef).then( merchant => {
       if (!merchant.exists) {
         throw "Document does not exist"
@@ -82,9 +85,9 @@ export async function lapseMerchant(merchantId) {
 }
 
 export async function updateReacts(tagId, increment) {
-  const tagDocRef = await admin.firestore().collection("tagsQL").doc(tagId)
+  const tagDocRef = await db.collection("tagsQL").doc(tagId)
 
-  await admin.firestore().runTransaction( transaction => {
+  await db.runTransaction( transaction => {
     return transaction.get(tagDocRef).then( tag => {
       if (!tag.exists) {
         throw "Tag document does not exist"
@@ -97,6 +100,41 @@ export async function updateReacts(tagId, increment) {
       transaction.update(tagDocRef, { reacts: newReacts, trounds: newTrounds })
     })
   })
+}
+
+export async function getUserDoc(ID,name,icon,authProvider) {
+  let userDoc = null
+  try {
+    
+    if (authProvider==='google') {
+      userDoc = await 
+        db.collection('usersQL').where('googleID', '==', ID).get()
+    } else if (authProvider==='facebook') {
+      userDoc = await 
+        db.collection('usersQL').where('facebookID', '==', ID).get()
+    }
+    
+    if (userDoc===null||!userDoc.exists) {
+        userDoc = await 
+        db
+        .collection('usersQL').add({
+          name: name,
+          handle: null,
+          googleID: (authProvider==='google'? ID:null),
+          facebookID: (authProvider==='facebook'? ID:null),
+          icon: icon+'?height=500',
+          banned: false,
+          onFeed: ''})
+
+        const newUser = await userDoc.get()
+        const id = newUser.id
+        await userDoc.update({id: id})
+        return userDoc
+    }
+    else { return userDoc}
+  } catch (error) {
+      throw new ApolloError(error)
+  }
 }
 
 export function toTitleCase(str) {
@@ -115,4 +153,5 @@ module.exports = { updateReacts
                 , lapseMerchant
                 , updateUCB
                 , toTitleCase
-                , duplicate }
+                , duplicate
+                , getUserDoc }
