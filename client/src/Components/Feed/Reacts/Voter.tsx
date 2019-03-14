@@ -5,7 +5,7 @@ import { REACT } from '../../../Mutations/index'
 import Emoji from './Emoji'
 import {increment,decrement} from '../../..//Actions/index'
 
-import '../../../Styles/Reactor.scss'
+import '../../../Styles/Reactor.css'
 
 const mapStateToProps = (state,ownProps) => {
     const userID = state.user.id

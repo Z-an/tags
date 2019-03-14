@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { REACT_SUBSCRIPTION } from '../../Subscriptions/index'
 import { Subscription } from 'react-apollo'
 import { useSubscription } from 'react-apollo-hooks'
-import '../../Styles/Tag.scss'
+import '../../Styles/Tag.css'
 import Emoji from './Reacts/Emoji'
 import { NewReact } from './NewReact'
 

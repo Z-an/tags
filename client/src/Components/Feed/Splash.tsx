@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment } from 'react'
-import '../../Styles/Splash.scss'
+import '../../Styles/Splash.css'
 import { connect } from 'react-redux'
 
 import { ReactComponent as BackArrow } from '../../Assets/back-arrow.svg'

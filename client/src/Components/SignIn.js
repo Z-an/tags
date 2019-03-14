@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase';
-import '../Styles/SignIn.scss'
+import '../Styles/SignIn.css'
 import { Mutation } from 'react-apollo'
 
 import { SIGN_IN } from '../Mutations/index'

@@ -1,6 +1,6 @@
 import React from 'react'
 import ActiveUsers from './ActiveUsers'
-import '../../Styles/Header.scss'
+import '../../Styles/Header.css'
 
 export const SocialHeader = (
   <div className='social-header'>

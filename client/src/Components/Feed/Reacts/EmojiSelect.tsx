@@ -7,7 +7,7 @@ import {increment,decrement} from '../../../Actions/index'
 
 import { ReactComponent as Add} from '../../../Assets/Emoji/react-add.svg'
 
-import '../../../Styles/EmojiSelect.scss'
+import '../../../Styles/EmojiSelect.css'
 
 const mapStateToProps = (state,ownProps) => {
   let reacts = state.tags[ownProps.tagID].reactors.map( doc => doc.reactors.includes(state.user.id)? doc.react:false)

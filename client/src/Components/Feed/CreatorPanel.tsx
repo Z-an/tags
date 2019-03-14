@@ -4,8 +4,7 @@ import { SUBMIT_TAG } from '../../Mutations/index'
 import { Mutation } from 'react-apollo'
 import TextField from '@material-ui/core/TextField';
 
-import '../../Styles/Creator.scss'
-import { userInfo } from 'os';
+import '../../Styles/Creator.css'
 
 const mapStateToProps = state => {
   return {user: state.user,

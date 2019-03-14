@@ -13,7 +13,7 @@ import CreatorButton from './Feed/CreatorButton'
 import { CreatorPanel } from './Feed/CreatorPanel'
 import { Reporter } from './Feed/Reporter'
 
-import '../Styles/Feed.scss'
+import '../Styles/Feed.css'
 
 const mapStateToProps = (state,ownProps) => {
   return {merchant: {name: ownProps.match.params.name} }

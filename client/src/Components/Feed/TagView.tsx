@@ -1,6 +1,6 @@
 import React, {useState, Fragment} from 'react'
 import { connect } from 'react-redux'
-import '../../Styles/TagView.scss'
+import '../../Styles/TagView.css'
 import Modal from 'react-awesome-modal'
 import Emoji from './Reacts/Emoji'
 import { openModal } from '../../Actions/index'

@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button'
 import Headroom from 'react-headroom'
 import {signOut} from '../../Actions/index'
 
-import '../../Styles/Header.scss'
+import '../../Styles/Header.css'
 
 const mapStateToProps = (state) => {
   return {merchant: state.merchant}

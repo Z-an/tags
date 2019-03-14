@@ -1,7 +1,7 @@
 import React, {useState, Fragment} from 'react'
 import Button from '@material-ui/core/Button'
 
-import '../../Styles/Reporter.scss'
+import '../../Styles/Reporter.css'
 import { useMutation } from 'react-apollo-hooks'
 import { REPORT } from '../../Mutations/index'
 import { connect } from 'react-redux'

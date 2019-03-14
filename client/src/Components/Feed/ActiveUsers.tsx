@@ -4,7 +4,7 @@ import { Query } from 'react-apollo'
 import { GET_ACTIVE } from '../../Queries'
 import ActiveUserIcon from './ActiveUserIcon'
 import Loading from '../Loading'
-import '../../Styles/Header.scss'
+import '../../Styles/Header.css'
 
 const mapStateToProps = (state) => {
   return {merchantID: state.merchant.id}

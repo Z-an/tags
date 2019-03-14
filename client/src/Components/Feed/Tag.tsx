@@ -9,7 +9,7 @@ import { increment, decrement, openModal } from '../../Actions/index'
 import { connect } from 'react-redux'
 import { NewReactIndicator } from './NewReactIndicator'
 
-import '../../Styles/Tag.scss'
+import '../../Styles/Tag.css'
 
 const mapStateToProps = (state,ownProps) => {
   return { user: state.user }

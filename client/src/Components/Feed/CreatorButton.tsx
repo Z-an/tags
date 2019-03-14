@@ -1,6 +1,6 @@
 import React from 'react'
 
-import '../../Styles/Creator.scss'
+import '../../Styles/Creator.css'
 
 import { ReactComponent as Twitter } from '../../Assets/twitter.svg'
 

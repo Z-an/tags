@@ -5,7 +5,7 @@ import { setMerchant } from '../Actions/index'
 import ButtonBases from './Select/ButtonBases'
 import { Query } from 'react-apollo'
 import { GET_MERCHANTS } from '../Queries'
-import '../Styles/Feed.scss'
+import '../Styles/Feed.css'
 import Loading from './Loading'
 
 function mapDispatchToProps(dispatch) {

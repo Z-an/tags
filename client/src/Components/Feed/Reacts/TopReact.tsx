@@ -6,7 +6,7 @@ import { useQuery } from 'react-apollo-hooks'
 import { GET_REACTORS } from '../../../Queries/index'
 import { connect } from 'react-redux'
 
-import '../../../Styles/TopReact.scss'
+import '../../../Styles/TopReact.css'
 
 const mapStateToProps = (state,ownProps) => {
   let tagID = ownProps.tagID
