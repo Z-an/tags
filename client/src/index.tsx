@@ -16,7 +16,7 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from './Store/index'
 
-import './Styles/index.scss'
+import './Styles/index.css'
 
 const work = {address: '10.0.49.32'}
 const home = {address: `localhost`}
