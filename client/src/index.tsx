@@ -20,15 +20,16 @@ import './Styles/index.scss'
 
 const work = {address: '10.0.49.32'}
 const home = {address: `localhost`}
+const linux = {address: `157.230.150.123`}
 
 import * as serviceWorker from './serviceWorker';
 
 const httpLink = new HttpLink({
-  uri: `http://${work.address}:4000/graphql`
+  uri: `http://${linux.address}:3000/graphql`
 });
 
 const wsLink = new WebSocketLink({
-  uri: `ws://${work.address}:4000/graphql`,
+  uri: `ws://${linux.address}:3000/graphql`,
   options: {
     reconnect: true
   }

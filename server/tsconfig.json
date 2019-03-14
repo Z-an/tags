@@ -9,6 +9,6 @@
     "target": "es2017"
   },
   "compileOnSave": true,
-  "include": ["api"],
+  "include": ["api", "index.ts"],
   "types": ["node"]
 }
