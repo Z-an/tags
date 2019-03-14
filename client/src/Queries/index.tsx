@@ -92,3 +92,13 @@ export const TAG = gql`
     }
   }
 `
+
+export const REACTORS = gql`
+  query reactors($tagId: String!) {
+    reactors(tagId: $tagId){
+      react
+      reactors
+      total
+    }
+  }
+`

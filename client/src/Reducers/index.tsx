@@ -18,12 +18,23 @@ function rootReducer(state = initialState, action) {
         })
     }
     else if (action.type === 'NEW_TAG') {
-        console.log('new_tag reducer')
         return {
             ...state,
             tags: {
                 ...state.tags,
                 [action.payload.id]: action.payload
+            }
+        }
+    }
+    else if (action.type == 'UPDATE_REACTORS') {
+        return {
+            ...state,
+            tags: {
+                ...state.tags,
+                [action.payload]: {
+                    ...state.tags[action.payload.tagID],
+                    reactors: action.payload.reactors
+                }
             }
         }
     }

@@ -28,7 +28,7 @@ const ConnectedFeed: React.FC<any> = (props) => {
       <Waypoint onEnter={() => toggleDocked(false)} onLeave={() => toggleDocked(true)}>
         <div><Splash/></div>
       </Waypoint>
-      <div className='background'>
+      <div className='background-tags'>
         <WhatsHot merchant={props.merchant} />
         <Wall />
         <br></br>

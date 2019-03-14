@@ -2,11 +2,16 @@ import React from 'react'
 import { Query } from 'react-apollo'
 import Loading from '../Loading'
 import { GET_USER } from '../../Queries/index'
+import { connect } from 'react-redux'
 
-export const ReactorsList = (props) => (
+const mapStateToProps = (state,ownProps) => {
+  return {reactors: state.tags[ownProps.tagID].reactors}
+}
+
+export const ConnectedReactorsList = (props) => (
   <div className='reactors-container'>
     <div>
-      { props.tag.reactors.map( reactDoc =>
+      { props.reactors.map( reactDoc =>
         reactDoc.react===props.view? (reactDoc.reactors.map( userID => (
           <Query query={GET_USER} variables={{id: userID}}>
             {({ loading, error, data}) => {
@@ -25,3 +30,5 @@ export const ReactorsList = (props) => (
     </div>
   </div>
 )
+
+export const ReactorsList = connect(mapStateToProps)(ConnectedReactorsList)

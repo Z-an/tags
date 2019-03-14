@@ -15,12 +15,44 @@
   font-size: 36px;
   letter-spacing: -3px;
   word-spacing: 0px;
-  color: #FF4868;
+  color: white;
   font-weight: 400;
   font-style: normal;
   font-variant: normal;
   text-transform: none;
   padding-bottom: 1.4rem;
+  margin-top:5rem;
+}
+
+.enter {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 36px;
+  letter-spacing: -3px;
+  word-spacing: 0px;
+  color: white;
+  font-weight: 400;
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none;
+  padding-bottom: 1.4rem;
+  margin-top:15rem;
+  border-radius: 50px;
+  padding: 1rem;
+  border: thin solid white;
+  height: 40px;
+  padding-top:0.5rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
+  padding-bottom: 1rem;
+}
+
+.enter {
+  cursor: pointer;  
+}
+
+.tags:hover {
+  cursor:pointer;
+  transform: scale(1.1);
 }
 
 .photo{
@@ -60,4 +92,14 @@
   opacity: 0.8;
   border-style: solid thin;
   text-decoration-color: white;
+}
+
+.background {
+  background: linear-gradient(#e66465, #ff4868 15%, #9198e5);
+  background: -webkit-gradient(#e66465, #ff4868 15%, #9198e5);
+  background: -moz-linear-gradient(#e66465, #ff4868 15%, #9198e5);
+  min-height: 2000px;
+  padding-bottom: 100px;
+  display: flex;
+  justify-content: center;
 }

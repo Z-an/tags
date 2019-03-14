@@ -6,6 +6,7 @@ const SIGN_OUT = 'SIGN_OUT'
 const INCREMENT = 'INCREMENT'
 const DECREMENT = 'DECREMENT'
 const OPEN_MODAL = 'OPEN_MODAL'
+const UPDATE_REACTORS= 'UPDATE_REACTORS'
 
 export function setMerchant(payload) {
     return { type: SET_MERCHANT, payload }
@@ -17,6 +18,10 @@ export function addTags(payload) {
 
 export function signIn(payload) {
     return { type: SIGN_IN, payload }
+}
+
+export function updateReactors(payload) {
+    return {type: UPDATE_REACTORS, payload}
 }
 
 export function signOut(payload) {

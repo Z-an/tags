@@ -42,9 +42,11 @@ const ConnectedSignIn = (props) => {
 
   if (user===null) {
     return (
-      <div className='notsignedin'> 
-        <div className='tags'>Tags</div>
-        <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
+      <div className='background'>
+        <div className='notsignedin'> 
+          <div className='tags'>Tags</div>
+          <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
+        </div>
       </div>
     )
   }
@@ -57,8 +59,10 @@ const ConnectedSignIn = (props) => {
     return (
       <Mutation mutation={SIGN_IN} update={(proxy,mutationResult) => props.signIn(mutationResult.data.signIn)}>
         { signIn => (
-          <div onClick={() => signIn({variables: variables})}>
+          <div className='background'>
+            <div className='enter' onClick={() => signIn({variables: variables})}>
             Enter
+          </div>
           </div>
         )}
       </Mutation>
