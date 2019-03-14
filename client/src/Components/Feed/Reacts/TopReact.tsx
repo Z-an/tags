@@ -31,14 +31,14 @@ const ConnectedTopReact = (props) => {
     return comparison;
   }
 
-  const[top, setTop] = useState(props.reactors.sort(compare)[0])
+  const[top, setTop] = useState(props.reactors.sort(compare)[0].react==='up'? props.reactors.sort(compare)[1]:props.reactors.sort(compare)[0])
   const[total, setTotal] = useState(reactTotal)
 
   if (total > 0 && top.react!=='up') {
     return (
       <Fragment>
         <Emoji emoji={top.react} style='top-react'/>
-        <div className='top-react-container'>
+        <div className='top-react-container' onClick={() => props.openModal({tagID: props.tagID, type: 'tagview'})}>
           {Math.round((top.total/total)*100)}%
         </div>
       </Fragment>

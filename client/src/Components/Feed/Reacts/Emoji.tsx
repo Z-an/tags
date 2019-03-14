@@ -6,6 +6,7 @@ import { ReactComponent as Surprised } from '../../../Assets/Emoji/surprised.svg
 import { ReactComponent as Sleepy } from '../../../Assets/Emoji/sleepy.svg'
 import { ReactComponent as Crying } from '../../../Assets/Emoji/crying.svg'
 import { ReactComponent as Angry } from '../../../Assets/Emoji/angry.svg'
+import { ReactComponent as Up } from '../../../Assets/Emoji/arrow-up.svg'
 
 class Emoji extends PureComponent<any> {
     emoji = this.props.emoji
@@ -25,7 +26,7 @@ class Emoji extends PureComponent<any> {
         } else if (this.emoji==='angry') {
             return (<Angry className={this.style}/>)
         } else if (this.emoji==='up') {
-            return <div className={this.style}>+1</div>
+            return (<Up className={this.style}/>)
         } else return null
     }
 }

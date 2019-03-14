@@ -22,7 +22,8 @@
   width: 40px;
   border-radius: 50px;
   margin-right: 1rem;
-  margin-top: 0.5rem
+  margin-top: 0.5rem;
+  z-index: 1000;
 }
 
 .creator-tag {
@@ -30,11 +31,11 @@
   height: 40px;
   position: absolute;
   align-items: center;
-  margin-top:-0.5rem;
+  margin-top:0rem;
 }
 
 .creator-panel {
-  height: 40px;
+  height: 60px;
   width:100%;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.6675) 1.33%, rgba(255, 255, 255, 0.89) 69.61%, rgba(255, 255, 255, 0.89) 100%);  bottom: 0px;
   position: fixed;
@@ -62,7 +63,7 @@
 .post {
   font-size: 16px;
   margin-right: -19rem;
-  margin-top:0.8rem;
+  margin-top:1.5rem;
   color:  #03A4FF;
   z-index: 5000;
 }

@@ -20,6 +20,12 @@
     color: black;
 }
 
+.reactor-image{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
+
 .reacts-total:hover {
     cursor: pointer;
     opacity: 1.5;
@@ -32,14 +38,15 @@
     margin-left: 19rem;
     margin-top:0.3rem;
     position: absolute;
-    opacity: 0.2;
-    font-size: 24px;
+    opacity: 0.3;
+    height: 12px;
+    width: 12px;
 }
 
 .voter:hover{
     cursor: pointer;
-    color: #ff4868;
-    opacity: 1.8;
+    opacity: 0.4;
+
 }
 
 .voted {
@@ -47,9 +54,23 @@
     margin-top:0.3rem;
     position: absolute;
     opacity: 1.8;
-    font-size: 24px;
+    height: 12px;
+    width: 12px;
+    fill: #ff4868;
 }
 
 .voted:hover{
     cursor:pointer;
+}
+
+.loading-reactor {
+    height: 20px;
+    width: 20px;
+}
+
+.up-emoji {
+    height: 20px;
+    width: 20px;
+    margin-left: 0rem;
+    margin-top:0.3rem;
 }

@@ -1,12 +1,14 @@
 import React, { useState, Fragment, PureComponent } from 'react'
-import { useQuery } from 'react-apollo-hooks'
+import { useQuery, useSubscription } from 'react-apollo-hooks'
 import Tag from './Tag'
 import { GET_TAGS } from '../../Queries'
+import { TAG_SUBSCRIPTION } from '../../Subscriptions'
 import Loading from '../Loading'
 import { Waypoint } from 'react-waypoint';
+import { TagListener } from './TagListener'
 
 import { connect } from 'react-redux'
-import { addTags } from '../../Actions/index'
+import { addTags, newTag } from '../../Actions/index'
 
 const compare = (a, b) => {
   const ucbA = a.ucb===null? 1000:a.ucb
@@ -35,16 +37,20 @@ const mapStateToProps = state => {
 }
 
 function mapDispatchToProps(dispatch) {
-  return { addTags: tags => dispatch(addTags(tags)) }
+  return { addTags: tags => dispatch(addTags(tags))
+        , newTag: tag => dispatch(newTag(tag)) }
 }
 
 const colors = ['color1', 'color2', 'color3', 'color4', 'color5', 'color6']
 
+
+
 const ConnectedWall = (props) => {
   const [initialized,init] = useState(false)
   const [moreToGet,reachedEnd] = useState(true)
+  const [tags, setTags] = useState([])
 
-  const { data, error, loading, startPolling, stopPolling, fetchMore } = useQuery(GET_TAGS, {variables: {id: props.merchant.id}/*, pollInterval: 500*/})
+  const { data, error, loading, fetchMore } = useQuery(GET_TAGS, {variables: {id: props.merchant.id}, pollInterval: 20000})
     if (error) { console.log(`Error! ${error.message}`)
     } else if (loading) {
       return <div className='init-loading-container'><Loading style={'wall-loading'}/></div>
@@ -74,6 +80,7 @@ const ConnectedWall = (props) => {
             </div>
           </Waypoint>
         </div> }
+      <TagListener merchantID={props.merchant.id}/>
     </Fragment> 
   )
 }

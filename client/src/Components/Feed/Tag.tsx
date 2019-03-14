@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from "react"
 import UserIcon from './TagUserIcon'
 import TopReact from './Reacts/TopReact'
-import Reporter from './Reporter'
+import ReporterButton from './ReporterButton'
 import ReactsTotal from './Reacts/ReactsTotal'
 import EmojiSelect from './Reacts/EmojiSelect'
 import {Voter} from './Reacts/Voter'
@@ -24,24 +24,24 @@ function mapDispatchToProps(dispatch) {
 const ConnectedTag: React.FC<any> = (props) =>  {
   const id = props.tagID
   const color = props.color
-  const topReact = true
+  const topReact = false
 
   return(
     <Fragment>
       <div className='tag-container'>
         <div className='tag'>
-          <div className={'tag-box '+color} onClick={() => props.openModal({tagID: id, type: 'tagview'})}>
-            <div className={'tag-content '+color}>
+          <div className={'tag-box '+color} >
+            <div className={'tag-content '+color} onClick={() => props.openModal({tagID: id, type: 'tagview'})}>
               {props.content}
             </div>
-            <Voter tagID={id} increment={props.increment} decrement={props.decrement}/>
-            <ReactsTotal tagID={id} />
+            <Voter tagID={id}/>
+            <ReactsTotal tagID={id} openModal={props.openModal}/>
           </div>
           <UserIcon tagID={id} color={color}/>
-          <Reporter tagID={id}/>
-          {topReact && <TopReact tagID={id} />}
-          <EmojiSelect tagID={id} increment={props.increment} decrement={props.decrement}/>
-          <NewReactIndicator userID={props.user.id} tagID={id}/>
+          <ReporterButton tagID={id} toggleModal={props.openModal}/>
+          {topReact && <TopReact tagID={id} openModal={props.openModal}/>}
+          <EmojiSelect tagID={id} increment={props.increment} decrement={props.decrement} toggleModal={props.openModal}/>
+          <NewReactIndicator tagID={id} decrement={props.decrement} increment={props.increment} />
         </div>
       </div>
     </Fragment>

@@ -19,13 +19,15 @@ export const ConnectedCreatorPanel = (props) => {
     setText(e.target.value)
   }
 
+  console.log('creator user',props.user.icon)
+
   if (props.docked) {
     return (
       <Mutation mutation={SUBMIT_TAG}>
       { createTag  => (
         <div className='creator-panel'>
           <div className='creator-tag'>
-            <img className='creator-user-icon' src={props.user.icon} alt={props.user.name}/>
+            <img className='creator-user-icon' src={props.user.icon} alt={'your face'}/>
             <TextField
               id="standard-with-placeholder"
               label=''

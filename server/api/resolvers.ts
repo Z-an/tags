@@ -243,6 +243,7 @@ export const resolvers = {
         const tag = tagWithId.data() as Tag | undefined
 
         //Publish to subscribed clients; return to creator client.
+        console.log('newtag',tag)
         pubsub.publish(TAG_CREATED, {newTag: tag})
 
         return tag || new ValidationError('Tag creation failed')

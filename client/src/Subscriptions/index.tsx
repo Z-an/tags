@@ -21,14 +21,6 @@ subscription
   tagCreated($merchantId: String!) {
     tagCreated(merchantId: $merchantId) {
       id
-      content
-      reacts
-      ucb
-      user {
-        id
-        icon
-        handle
-      }
     }
   }
 `

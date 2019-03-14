@@ -11,6 +11,7 @@ import { Waypoint } from 'react-waypoint';
 
 import CreatorButton from './Feed/CreatorButton'
 import { CreatorPanel } from './Feed/CreatorPanel'
+import { Reporter } from './Feed/Reporter'
 
 import '../Styles/Feed.scss'
 
@@ -23,7 +24,7 @@ const ConnectedFeed: React.FC<any> = (props) => {
   return (
     <Fragment>
       <Header docked={docked}/>
-      <CreatorPanel docked={docked}/>
+      <CreatorPanel docked={true}/>
       <Waypoint onEnter={() => toggleDocked(false)} onLeave={() => toggleDocked(true)}>
         <div><Splash/></div>
       </Waypoint>
@@ -33,6 +34,7 @@ const ConnectedFeed: React.FC<any> = (props) => {
         <br></br>
       </div>
       <TagView />
+      <Reporter />
     </Fragment>
   )
 }

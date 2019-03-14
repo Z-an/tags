@@ -71,3 +71,24 @@ export const GET_MERCHANT = gql`
     }
   }
 `
+
+export const TAG = gql`
+  query tag($id: String!) {
+    tag(id: $id) {
+      id
+      content
+      reacts
+      ucb
+      user {
+        id
+        icon
+        handle
+      }
+      reactors {
+        react
+        reactors
+        total
+      }
+    }
+  }
+`

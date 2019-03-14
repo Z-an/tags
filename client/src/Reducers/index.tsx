@@ -17,6 +17,16 @@ function rootReducer(state = initialState, action) {
             }, {})
         })
     }
+    else if (action.type === 'NEW_TAG') {
+        console.log('new_tag reducer')
+        return {
+            ...state,
+            tags: {
+                ...state.tags,
+                [action.payload.id]: action.payload
+            }
+        }
+    }
     else if (action.type === 'SET_MERCHANT') {
         return Object.assign({}, state, {
             merchant: action.payload

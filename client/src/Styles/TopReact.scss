@@ -8,6 +8,11 @@
     flex-direction: row;
 }
 
+.top-react-container:hover {
+    cursor:pointer;
+    font-size: 11px;
+}
+
 .top-react {
     position: absolute;
     height: 24px;

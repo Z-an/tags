@@ -2,17 +2,24 @@ import React, {useState} from 'react'
 import { connect } from 'react-redux'
 import { useMutation } from 'react-apollo-hooks'
 import { REACT } from '../../../Mutations/index'
+import Emoji from './Emoji'
+import {increment,decrement} from '../../..//Actions/index'
 
 import '../../../Styles/Reactor.scss'
 
 const mapStateToProps = (state,ownProps) => {
     const userID = state.user.id
-    let reacts = state.tags[ownProps.tagID].reactors.map( doc => doc.reactors.includes(state.user.id))
+    let reacts = state.tags[ownProps.tagID].reactors.map( doc => doc.reactors.includes(state.user.id) )
     const voted = reacts.includes(true)
     return { voted: voted
             , userID: state.user.id
             , tagID: ownProps.tagID
             , merchantID: state.merchant.id }
+}
+
+function mapDispatchToProps(dispatch) {
+    return { increment: tagID => { dispatch(increment(tagID))}
+            , decrement: tagID => { dispatch(decrement(tagID))} }
 }
 
 const ConnectedVoter = (props) => {
@@ -26,15 +33,14 @@ const ConnectedVoter = (props) => {
         , unreact: voted }})
 
     return (
-
         <div className={style} onClick={()=> voted? props.decrement(props.tagID):props.increment(props.tagID)}>
             <div onClick={()=>setVoted(!voted)}>
                 <div onClick={()=>toggleVote()}>
-                    ⬆
+                    <Emoji emoji={'up'} style={'up-emoji'} onClick={()=> voted? props.decrement(props.tagID):props.increment(props.tagID)}/>
                 </div>
             </div>
         </div>
     )
 }
 
-export const Voter = connect(mapStateToProps)(ConnectedVoter)
+export const Voter = connect(mapStateToProps, mapDispatchToProps)(ConnectedVoter)

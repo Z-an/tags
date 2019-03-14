@@ -1,59 +1,51 @@
-import React, {useState, Fragment} from 'react'
-import Button from '@material-ui/core/Button'
-
-import '../../Styles/Reporter.scss'
+import React, { useState } from 'react'
+import Modal from 'react-awesome-modal'
 import { useMutation } from 'react-apollo-hooks'
-import { REPORT } from '../../Mutations/index'
+import { REPORT } from '../../Mutations'
 import { connect } from 'react-redux'
+import { openModal } from '../../Actions'
 
-const mapStateToProps = (state,ownProps) => {
-    //return whether or not the signed-in user has reported.
-    return { tagID: ownProps.tagID, tag: state.tags[ownProps.tagID].content }
+const mapStateToProps = (state) => {
+  let open = false
+  if (state.openModal!==null) {
+    open = state.openModal.type==='report'? true:false
+    console.log('open reporter',open)
+    return {open: open, tag: state.tags[state.openModal.tagID], userID: state.user.id}
+  } 
+  else return ( {open: false, tag: {id: ''}, userID: null})
 }
 
-export const ConnectedReporter: React.FC<any> = (props) => {
-    const[open,toggleOpen] = useState(false)
-    const[report,setReport] = useState('')
+function mapDispatchToProps(dispatch) {
+  return { openModal: payload => { dispatch(openModal(payload)) }}
+}
+export const ConnectedReporter = (props) => {
 
-    const sendReport = useMutation(REPORT, {variables: { userId: "61usaCJd3YBqpmFOdbS8"
-                                                        , tagId: props.tagID
-                                                        , reportId: report } })
-    
-    const clickhandler = (report) => {
-        setReport(report)
-        toggleOpen(false)
-        sendReport()
-    }
+  const[report,setReport] = useState('')
 
-    if (!open) {
-        return (
-            <div className='report-button'>
-                <Button onClick={() => {toggleOpen(true)}}>REPORT</Button>
+  const sendReport = useMutation(REPORT, {variables: { userId: "61usaCJd3YBqpmFOdbS8"
+                                                      , tagId: props.tag.id
+                                                      , reportId: report } })
+  
+  const clickhandler = (report) => {
+      props.openModal(null)
+      sendReport()
+  }
+
+  if (props.open) {
+    return (
+      <Modal visible={open} width="350" height="200" effect="fadeInUp" onClickOutside={()=>props.openModal(null)}>
+        <div className='report-select'>
+            <div className='this-is'>"{props.tag.content}" is... </div>
+            <div className='cause-container'>
+                <div className='cause' onClick={() => clickhandler('abuse')}>abusive</div>
+                <div className='cause' onClick={() => clickhandler('inaccuracy')}>inaccurate</div>
+                <div className='cause' onClick={() => clickhandler('duplicacy')}>a duplicate</div>
             </div>
-        )
-    }
-    else {
-        return (
-            <Fragment>
-                <div className='report-button'>
-                    <Button onClick={() => {toggleOpen(true)}}>REPORT</Button>
-                </div>
-                <div className='report-container' onMouseLeave={()=>{toggleOpen(false)}}>
-                    <div className='report-select'>
-                        <div className='this-is'>"{props.tag}" is... </div>
-                        <div className='cause-container'>
-                            <div className='cause' onClick={() => clickhandler('abuse')}>abusive</div>
-                            <div className='cause' onClick={() => clickhandler('inaccuracy')}>inaccurate</div>
-                            <div className='cause' onClick={() => clickhandler('duplicacy')}>a duplicate</div>
-                        </div>
-                    </div>
-                </div>
-            </Fragment>
-        )
-    }
-    return (null)
+            <div className='none' onClick={() => props.openModal(null)}>none of the above</div>
+        </div>
+      </Modal>
+    )
+  } else return null
 }
 
-const Reporter = connect(mapStateToProps)(ConnectedReporter)
-
-export default Reporter
+  export const Reporter = connect(mapStateToProps,mapDispatchToProps)(ConnectedReporter)
