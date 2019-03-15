@@ -1,7 +1,7 @@
 import React from 'react'
 import { Query } from 'react-apollo'
-import Loading from '../Loading'
-import { GET_USER } from '../../Queries/index'
+import Loading from '../../Loading'
+import { GET_USER } from '../../../Queries/index'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state,ownProps) => {
@@ -19,8 +19,8 @@ export const ConnectedReactorsList = (props) => (
               else if (error) {return null}
               else { return (
                 <div className='reactor'>
-                <img className='reactor-image' src={data.user.icon} alt={data.user.name}/>
-                <div className='name'>{data.user.name}</div> 
+                  <img className='reactor-image' src={data.user.icon} alt={data.user.name}/>
+                  <div className='reactor-name'>{data.user.name}</div> 
                 </div>
               )
             }}}

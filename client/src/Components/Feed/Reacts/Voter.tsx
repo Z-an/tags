@@ -14,7 +14,7 @@ const mapStateToProps = (state,ownProps) => {
     return { voted: voted
             , userID: state.user.id
             , tagID: ownProps.tagID
-            , merchantID: state.merchant.id }
+            , merchant: state.merchant }
 }
 
 function mapDispatchToProps(dispatch) {
@@ -26,6 +26,8 @@ const ConnectedVoter = (props) => {
     const[voted,setVoted] = useState(props.voted)
     const style = voted? 'voted':'voter'
 
+    const actionProps = {tagID: props.tagID, age: props.merchant.age, rho: props.merchant.rho}
+
     const toggleVote = useMutation(REACT, {variables: { userId: props.userID
         , merchantId: props.merchantID
         , tagId: props.tagID
@@ -33,10 +35,10 @@ const ConnectedVoter = (props) => {
         , unreact: voted }})
 
     return (
-        <div className={style} onClick={()=> voted? props.decrement(props.tagID):props.increment(props.tagID)}>
+        <div className={style} onClick={()=> voted? props.decrement(actionProps):props.increment(actionProps)}>
             <div onClick={()=>setVoted(!voted)}>
                 <div onClick={()=>toggleVote()}>
-                    <Emoji emoji={'up'} style={'up-emoji'} onClick={()=> voted? props.decrement(props.tagID):props.increment(props.tagID)}/>
+                    <Emoji emoji={'up'} style={'up-emoji'} onClick={()=> voted? props.decrement(actionProps):props.increment(actionProps)}/>
                 </div>
             </div>
         </div>

@@ -8,6 +8,7 @@ const DECREMENT = 'DECREMENT'
 const OPEN_MODAL = 'OPEN_MODAL'
 const UPDATE_REACTORS= 'UPDATE_REACTORS'
 
+
 export function setMerchant(payload) {
     return { type: SET_MERCHANT, payload }
 }

@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
 import Modal from 'react-awesome-modal'
 import { useMutation } from 'react-apollo-hooks'
-import { REPORT } from '../../Mutations'
+import { REPORT } from '../../../Mutations'
 import { connect } from 'react-redux'
-import { openModal } from '../../Actions'
+import { openModal } from '../../../Actions'
 
 const mapStateToProps = (state) => {
   let open = false
   if (state.openModal!==null) {
     open = state.openModal.type==='report'? true:false
-    console.log('open reporter',open)
     return {open: open, tag: state.tags[state.openModal.tagID], userID: state.user.id}
   } 
   else return ( {open: false, tag: {id: ''}, userID: null})
@@ -33,7 +32,7 @@ export const ConnectedReporter = (props) => {
 
   if (props.open) {
     return (
-      <Modal visible={open} width="350" height="200" effect="fadeInUp" onClickOutside={()=>props.openModal(null)}>
+      <Modal visible={open} width="350" height="200" effect="fadeInUp">
         <div className='report-select'>
             <div className='this-is'>"{props.tag.content}" is... </div>
             <div className='cause-container'>

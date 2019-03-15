@@ -1,5 +1,5 @@
 import React from 'react'
-import Emoji from './Reacts/Emoji'
+import Emoji from './Emoji'
 
 export const NewReact = (props) => {
   return (

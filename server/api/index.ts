@@ -8,7 +8,7 @@ require('./config')
 import { typeDefs } from './schema'
 import { resolvers } from './resolvers'
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 4000
 const path = require("path")
 
 const app = express()
@@ -26,11 +26,11 @@ const httpServer = createServer(app)
 
 apolloServer.installSubscriptionHandlers(httpServer)
 
-app.use(express.static(path.join(__dirname, "../../../client/build")))
+//app.use(express.static(path.join(__dirname, "../../../client/build")))
 
-app.get("*", function(req, res) {
-    res.sendFile(path.join(__dirname, "../../../client/build", "index.html"))
-})
+//app.get("*", function(req, res) {
+//    res.sendFile(path.join(__dirname, "../../../client/build", "index.html"))
+//})
 
 httpServer.listen({ port: PORT }, () => {
   console.log(`Server ready at http://localhost:${PORT}${apolloServer.graphqlPath}`)

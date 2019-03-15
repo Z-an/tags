@@ -82,7 +82,6 @@ const styles = theme => ({
 function ButtonBases (props) {
 
   const { classes } = props;
-  console.log(props.merchants)
   return (
     <div className={classes.root}>
       {props.merchants.map(merchant => (
@@ -94,7 +93,7 @@ function ButtonBases (props) {
           style={{
             width: '33%',
           }}
-          onClick={() => props.redirector(null,{id: merchant.id, name: merchant.name, url: merchant.url, splash: merchant.splash})}
+          onClick={() => props.redirector(null,{id: merchant.id, name: merchant.name, url: merchant.url, splash: merchant.splash, age: merchant.age, rho: merchant.rho})}
         >
           <span
             className={classes.imageSrc}
@@ -109,7 +108,7 @@ function ButtonBases (props) {
               variant="subtitle1"
               color="inherit"
               className={classes.imageTitle}
-              onClick={() => props.redirector('now',{id: merchant.id, name: merchant.name, url: merchant.url, splash: merchant.splash})}
+              onClick={() => props.redirector('now',{id: merchant.id, name: merchant.name, url: merchant.url, splash: merchant.splash, age: merchant.age, rho: merchant.rho})}
             >
               {merchant.name}
               <span className={classes.imageMarked}/>

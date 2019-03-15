@@ -11,21 +11,22 @@
 }
 
 .tags{
-  font-family: Verdana, Geneva, sans-serif;
+  font-family: Futura;
+
   font-size: 36px;
   letter-spacing: -3px;
   word-spacing: 0px;
   color: white;
-  font-weight: 400;
+  font-weight: 200;
   font-style: normal;
   font-variant: normal;
   text-transform: none;
   padding-bottom: 1.4rem;
-  margin-top:5rem;
+  margin-top:8rem;
 }
 
 .enter {
-  font-family: Verdana, Geneva, sans-serif;
+  font-family: Futura;
   font-size: 36px;
   letter-spacing: -3px;
   word-spacing: 0px;
@@ -98,7 +99,7 @@
   background: linear-gradient(#e66465, #ff4868 15%, #9198e5);
   background: -webkit-gradient(#e66465, #ff4868 15%, #9198e5);
   background: -moz-linear-gradient(#e66465, #ff4868 15%, #9198e5);
-  min-height: 2000px;
+  height: 100vh;
   padding-bottom: 100px;
   display: flex;
   justify-content: center;

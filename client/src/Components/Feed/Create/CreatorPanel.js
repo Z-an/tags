@@ -1,10 +1,10 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import { SUBMIT_TAG } from '../../Mutations/index'
+import { SUBMIT_TAG } from '../../../Mutations/index'
 import { Mutation } from 'react-apollo'
 import TextField from '@material-ui/core/TextField';
 
-import '../../Styles/Creator.css'
+import '../../../Styles/Creator.css'
 
 const mapStateToProps = state => {
   return {user: state.user,
@@ -12,13 +12,10 @@ const mapStateToProps = state => {
 }
 
 export const ConnectedCreatorPanel = (props) => {
-  const[text,setText] = useState('')
 
   const keyPress = (e) => {
-    setText(e.target.value)
+    return(null)
   }
-
-  console.log('creator user',props.user.icon)
 
   if (props.docked) {
     return (
@@ -28,15 +25,16 @@ export const ConnectedCreatorPanel = (props) => {
           <div className='creator-tag'>
             <img className='creator-user-icon' src={props.user.icon} alt={'your face'}/>
             <TextField
-              id="standard-with-placeholder"
+              id="new-tag-input"
               label=''
               placeholder="Share something new"
               className='text-field'
               onKeyDown={keyPress}
               margin="normal"
+              onChange={keyPress}
             />
           </div>
-        <div className='post' onClick={() => createTag({variables: {userId: props.user.id, merchantId: props.merchant.id, content: text}})}>POST</div>
+        <div className='post' onClick={() => createTag({variables: {userId: props.user.id, merchantId: props.merchant.id, content: document.getElementById("new-tag-input").value}})}>POST</div>
       </div>
       )}
     </Mutation>

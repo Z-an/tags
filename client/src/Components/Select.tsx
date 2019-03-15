@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { setMerchant } from '../Actions/index'
 import ButtonBases from './Select/ButtonBases'
 import { Query } from 'react-apollo'
-import { GET_MERCHANTS } from '../Queries'
+import { GET_MERCHANTS } from '../Queries/index'
 import '../Styles/Feed.css'
 import Loading from './Loading'
 
@@ -38,6 +38,7 @@ class ConnectedSelect extends Component<any> {
         {({ loading, error, data}) => {
           if (loading) return <div className='background'><div className='padding'><Loading /></div></div>
           if (error) return `Error! ${error.message}`
+          console.log(data.merchants)
         
           return (
             <div className='background'>

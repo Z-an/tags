@@ -5,13 +5,13 @@ import Wall from './Feed/Wall'
 import Header from './Feed/Header'
 import Splash from './Feed/Splash'
 import { WhatsHot } from './Feed/WhatsHot'
-import { TagView } from './Feed/TagView'
+import { TagView } from './Feed/TagView/TagView'
 
 import { Waypoint } from 'react-waypoint';
 
-import CreatorButton from './Feed/CreatorButton'
-import { CreatorPanel } from './Feed/CreatorPanel'
-import { Reporter } from './Feed/Reporter'
+import CreatorButton from './Feed/Create/CreatorButton'
+import { CreatorPanel } from './Feed/Create/CreatorPanel'
+import { Reporter } from './Feed/Report/Reporter'
 
 import '../Styles/Feed.css'
 

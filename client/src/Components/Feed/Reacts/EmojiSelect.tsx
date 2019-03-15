@@ -16,7 +16,7 @@ const mapStateToProps = (state,ownProps) => {
   console.log(voted)
 
   return { openModal: state.openModal
-        , merchantID: state.merchant.id
+        , merchant: state.merchant
         , tagID: ownProps.tagID
         , userID: state.user.id
         , emojiList: ['tongue','heart-eyes','shock','sleep','cry','angry']
@@ -29,7 +29,7 @@ function mapDispatchToProps(dispatch) {
           , decrement: tagID => { dispatch(decrement(tagID))}}
 }
 
-const ConnectedEmojiSelect: React.FC<any> = ({openModal, voted, merchantID, tagID, userID, emojiList, increment, decrement}) => {
+const ConnectedEmojiSelect: React.FC<any> = ({openModal, voted, merchant, tagID, userID, emojiList, increment, decrement}) => {
   const[emoji,setEmoji] = useState('heart-eyes')
   const[open,toggleOpen] = useState(false)
   const[reacted,toggleReacted] = useState(voted===null? false:true)
@@ -39,19 +39,19 @@ const ConnectedEmojiSelect: React.FC<any> = ({openModal, voted, merchantID, tagI
     toggleOpen(false)
     toggleReacted(true)
     setReact(emoji)
-    increment(tagID)
+    increment({tagID: tagID, age: merchant.age, rho: merchant.rho})
   }
 
   
   const toggleReact = useMutation(REACT, {variables: { userId: userID
-                                , merchantId: merchantID
+                                , merchantId: merchant.id
                                 , tagId: tagID
                                 , reactId: emoji
                                 , unreact: reacted }})
 
   const unclicker = () => {
     toggleReacted(false)
-    decrement(tagID)
+    decrement({tagID: tagID, age: merchant.age, rho: merchant.rho})
     setReact('')
   }
 
@@ -76,7 +76,6 @@ const ConnectedEmojiSelect: React.FC<any> = ({openModal, voted, merchantID, tagI
       </div>)     
   }
   else {
-    console.log('what',tagID)
     return (
       <div className='react-add-container' onClick={() => toggleOpen(true)}>
         <Add className='react-add' onClick={() => toggleOpen(true)}/>

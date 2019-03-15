@@ -1,11 +1,11 @@
 import React, { useState, Fragment, PureComponent } from 'react'
 import { useQuery, useSubscription } from 'react-apollo-hooks'
 import Tag from './Tag'
-import { GET_TAGS } from '../../Queries'
+import { GET_TAGS } from '../../Queries/index'
 import { TAG_SUBSCRIPTION } from '../../Subscriptions'
 import Loading from '../Loading'
 import { Waypoint } from 'react-waypoint';
-import { TagListener } from './TagListener'
+import { TagListener } from './Tag/TagListener'
 
 import { connect } from 'react-redux'
 import { addTags, newTag } from '../../Actions/index'
@@ -50,7 +50,7 @@ const ConnectedWall = (props) => {
   const [moreToGet,reachedEnd] = useState(true)
   const [tags, setTags] = useState([])
 
-  const { data, error, loading, fetchMore } = useQuery(GET_TAGS, {variables: {id: props.merchant.id}, pollInterval: 20000})
+  const { data, error, loading, fetchMore } = useQuery(GET_TAGS, {variables: {id: props.merchant.id}, pollInterval: 200000})
     if (error) { console.log(`Error! ${error.message}`)
     } else if (loading) {
       return <div className='init-loading-container'><Loading style={'wall-loading'}/></div>

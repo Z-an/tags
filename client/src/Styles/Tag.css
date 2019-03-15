@@ -8,6 +8,7 @@
 .tag-user-icon {
     position: absolute;
     height: 45px;
+    width: 45px;
     border-radius: 50%;
     margin-top: 2.8rem;
     margin-left: -22rem;
@@ -23,7 +24,7 @@
     width: 340px;
     height: 60px;
 
-    font-size: 16px;
+    font-size: 17px;
     border-radius: 50px;
     background-color: white;
     opacity: 0.9;
@@ -88,10 +89,10 @@
 
   .react-notification {
     position: absolute;
-    -webkit-animation: swirl-in-fwd 0.3s ease-out both, fade-out 3s ease-out both;
-    animation: swirl-in-fwd 0.3s ease-out both, fade-out 3s ease-out both;
-    -webkit-animation-delay: 0s, 0.3s;
-    animation-delay: 0s, 0.3s;
+    -webkit-animation: bounce-in-top 1s ease-out both, fade-out 3s ease-out both;
+    animation: bounce-in-top 1s ease-out both, fade-out 3s ease-out both;
+    -webkit-animation-delay: 0s, 1.5s;
+    animation-delay: 0s, 1.5s;
   }
 
   .invisible {
@@ -113,8 +114,8 @@
     margin-left: 14rem;
     margin-top: -6rem;
 
-    opacity: 0.1;
-    z-index: 499;
+    opacity: 0.8;
+    z-index: 5;
   }
 
  @-webkit-keyframes bounce-in-top {

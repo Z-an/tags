@@ -7,10 +7,12 @@ export const GET_TAGS = gql`
       content
       reacts
       ucb
+      trounds
       user {
         id
         icon
         handle
+        name
       }
       reactors {
         react
@@ -38,6 +40,8 @@ export const GET_MERCHANTS = gql`
         name
         url
         splash
+        age
+        rho
     }
   }
 `
@@ -68,6 +72,7 @@ export const GET_MERCHANT = gql`
       name
       rho
       age
+
     }
   }
 `
@@ -79,6 +84,7 @@ export const TAG = gql`
       content
       reacts
       ucb
+      trounds
       user {
         id
         icon

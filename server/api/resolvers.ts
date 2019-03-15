@@ -302,8 +302,9 @@ export const resolvers = {
                 hrounds: 1,
                 rho: 0.8,
                 url: null,
-                paramsId: null,
-                rewardsId: null})
+                paramsId: 'default',
+                rewardsId: 'default',
+                splash: [null]})
 
         const newMerchant = await merchantDoc.get()
 

@@ -11,7 +11,7 @@ const mapStateToProps = (state,ownProps) => {
 const ConnectedReactsTotal = (props) => (
   <div className='reacts-total' onClick={() => props.openModal({tagID: props.tagID, type: 'tagview'})}>
     <div className='reacts-total-container'>
-    <div className='reacts-plus'>+  </div>
+      <div className='reacts-plus'>+  </div>
     <div>{props.reacts}</div>
   </div>
   </div>

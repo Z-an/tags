@@ -1,6 +1,6 @@
 import React, {Fragment, useState} from 'react'
 import { connect } from 'react-redux'
-import ActiveUsers from './ActiveUsers'
+import ActiveUsers from './Header/ActiveUsers'
 import Button from '@material-ui/core/Button'
 import Headroom from 'react-headroom'
 import {signOut} from '../../Actions/index'

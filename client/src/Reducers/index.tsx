@@ -8,8 +8,15 @@ const initialState = {
     openModal: null,
 }
 
+function ucb(reacts,trounds,age,rho) {
+    const theta = reacts / (age-trounds)
+    const sigma = Math.sqrt(rho * Math.log(trounds)) / (age-trounds)
+    return theta+sigma
+  }
+
 function rootReducer(state = initialState, action) {
     if (action.type === 'ADD_TAGS') {
+        console.log(action.payload)
         return Object.assign({}, state, {
             tags: action.payload.reduce(function(map, obj) {
                 map[obj.id] = obj
@@ -27,11 +34,12 @@ function rootReducer(state = initialState, action) {
         }
     }
     else if (action.type == 'UPDATE_REACTORS') {
+        console.log('hello,hello',action.payload)
         return {
             ...state,
             tags: {
                 ...state.tags,
-                [action.payload]: {
+                [action.payload.tagID]: {
                     ...state.tags[action.payload.tagID],
                     reactors: action.payload.reactors
                 }
@@ -54,27 +62,41 @@ function rootReducer(state = initialState, action) {
         })
     }
     else if (action.type === 'INCREMENT') {
+        const tag = state.tags[action.payload.tagID]
+        const newUCB = (ucb(tag.reacts + 1,tag.trounds,action.payload.age,action.payload.rho))
         return {
             ...state,
             tags: {
                 ...state.tags,
-                [action.payload]: {
-                    ...state.tags[action.payload],
-                    reacts: state.tags[action.payload].reacts + 1,
+                [action.payload.tagID]: {
+                    id: tag.id,
+                    reactors: tag.reactors,
+                    user: tag.user,
+                    trounds: tag.trounds,
+                    content: tag.content,
+                    reacts: tag.reacts +1 ,
                     voted: true,
+                    ucb: (newUCB)<0? 1000:newUCB
                 }
             }
         }
     }
     else if (action.type === 'DECREMENT') {
+        const tag = state.tags[action.payload.tagID]
+        const newUCB = (ucb(tag.reacts - 1,tag.trounds,action.payload.age,action.payload.rho))
         return {
             ...state,
             tags: {
                 ...state.tags,
-                [action.payload]: {
-                    ...state.tags[action.payload],
-                    reacts: state.tags[action.payload].reacts - 1,
-                    voted: false
+                [action.payload.tagID]: {
+                    id: tag.id,
+                    reactors: tag.reactors,
+                    user: tag.user,
+                    trounds: tag.trounds,
+                    content: tag.content,
+                    reacts: tag.reacts -1 ,
+                    voted: true,
+                    ucb: (newUCB)<0? 1000:newUCB
                 }
             }
         }

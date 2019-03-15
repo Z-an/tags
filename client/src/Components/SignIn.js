@@ -44,7 +44,7 @@ const ConnectedSignIn = (props) => {
     return (
       <div className='background'>
         <div className='notsignedin'> 
-          <div className='tags'>Tags</div>
+          <div className='tags'>Live(n)</div>
           <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
         </div>
       </div>

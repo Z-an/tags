@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import '../../Styles/Feed.css'
+import '../../../Styles/Feed.css'
 
 const mapStateToProps = (state,ownProps) => {
     let tagID: string = ownProps.tagID
