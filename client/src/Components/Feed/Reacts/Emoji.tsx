@@ -8,6 +8,7 @@ import { ReactComponent as Crying } from '../../../Assets/Emoji/crying.svg'
 import { ReactComponent as Angry } from '../../../Assets/Emoji/angry.svg'
 import { ReactComponent as Up } from '../../../Assets/Emoji/arrow-up.svg'
 import { ReactComponent as Comment } from '../../../Assets/Emoji/comment.svg'
+import { ReactComponent as Fire } from '../../../Assets/Emoji/flame.svg'
 
 class Emoji extends PureComponent<any> {
     emoji = this.props.emoji
@@ -16,6 +17,8 @@ class Emoji extends PureComponent<any> {
         console.log(this.emoji)
         if (this.emoji==='tongue') {
             return (<Tongue className={this.style}/>)
+        } else if (this.emoji==='fire') {
+            return(<Fire className={this.style}/>)
         } else if (this.emoji==='comment') {
             return (<Comment className={this.style}/>)
         } else if (this.emoji==='heart-eyes') {

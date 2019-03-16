@@ -4,10 +4,11 @@ import TopReact from './Reacts/TopReact'
 import ReporterButton from './Report/ReporterButton'
 import ReactsTotal from './Reacts/ReactsTotal'
 import EmojiSelect from './Reacts/EmojiSelect'
-import {Voter} from './Reacts/Voter'
+import { Voter } from './Reacts/UpVoter'
 import { increment, decrement, openModal } from '../../Actions/index'
 import { connect } from 'react-redux'
 import { NewReactIndicator } from './Reacts/NewReactIndicator'
+import { UsersCarousel } from './Tag/UsersCarousel'
 
 import '../../Styles/Tag.css'
 
@@ -26,20 +27,31 @@ const ConnectedTag: React.FC<any> = (props) =>  {
   const color = props.color
   const showTopReact = false
   const showUpVote = false
+  const showReport = false
+  const[clicked,toggleClick] = useState(false)
+
+  const toggler = () => {
+    if (clicked) {
+      props.openModal({tagID: id, type: 'tagview'})
+      toggleClick(!clicked)
+    } else {
+      toggleClick(!clicked)
+    }
+  }
 
   return(
     <Fragment>
       <div className='tag-container'>
         <div className='tag'>
-          <div className={'tag-box '+color} >
-            <div className={'tag-content '+color} onClick={() => props.openModal({tagID: id, type: 'tagview'})}>
+          <div className={'tag-box '+color} onClick={() => toggler()}>
+            <div className={'tag-content '+color} onClick={() => toggler()}>
               {props.content}
             </div>
             { showUpVote && <Voter tagID={id}/>}
-            <ReactsTotal tagID={id} openModal={props.openModal}/>
+            <div className='tag-metadata'><ReactsTotal tagID={id} openModal={props.openModal}/><UsersCarousel tagID={id} style={'recent-reactors'}/>⠀...</div>
           </div>
           <UserIcon tagID={id} color={color}/>
-          <ReporterButton tagID={id} toggleModal={props.openModal}/>
+          { showReport && <ReporterButton tagID={id} toggleModal={props.openModal}/> }
           { showTopReact && <TopReact tagID={id} openModal={props.openModal}/>}
           <EmojiSelect tagID={id} increment={props.increment} decrement={props.decrement} toggleModal={props.openModal}/>
           <NewReactIndicator tagID={id} decrement={props.decrement} increment={props.increment} />

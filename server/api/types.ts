@@ -17,7 +17,7 @@ interface Tag {
   handle: string
   icon: string
   culled: boolean
-  created: string
+  created: number
   userId: string
 }
 
@@ -40,14 +40,19 @@ interface Reaction {
   unreact: boolean
 }
 
-interface Reactors {
-  react: string,
+interface EmojiReactors {
+  react: string
   reactors: [string]
   total: number
 }
 
+interface TagReactor {
+  react: string
+  user: [User]
+}
+
 interface Report {
-  userId: string,
-  tagId: string,
+  userId: string
+  tagId: string
   reportId: string
 }

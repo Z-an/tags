@@ -11,14 +11,15 @@ const mapStateToProps = (state,ownProps) => {
 
 export const ConnectedNewReactIndicator = (props) => {
   const [render,toggleRender] = useState(false)
-  const [reactData,setReact] = useState({reactId: '', user: {icon: '',name:''}})
-  const actionProps = {tagID: props.tagID, age: props.merchant.age, rho: props.merchant.rho}
+  const [reactData,setReact] = useState({reactId: '', userId: '', user: {icon: '',name:''}})
+  const actionProps = {tagID: props.tagID, age: props.merchant.age, rho: props.merchant.rho, reactor: {}}
   const { data, error, loading } = useSubscription(REACT_SUBSCRIPTION, {
     variables: {tagId: props.tagID, userId: 'ahah'},
     onSubscriptionData: ({client,subscriptionData}) => {
       setReact(subscriptionData.data.someoneReacted)
-      subscriptionData.data.someoneReacted.unreact? props.decrement(actionProps):props.increment(actionProps)
-      toggleRender(true)
+      var reactor = {userId: subscriptionData.data.someoneReacted.userId, reactId: subscriptionData.data.someoneReacted.reactId}
+      subscriptionData.data.someoneReacted.unreact? props.decrement({...actionProps, reactor: reactor}):props.increment(actionProps)
+      subscriptionData.data.someoneReacted.unreact? toggleRender(false):toggleRender(true)
     }
   })
 if (render) {return <NewReact reactData={reactData} /> }

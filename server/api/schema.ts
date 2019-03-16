@@ -11,7 +11,8 @@ export const typeDefs = gql`
     userId: String!
     merchantId: String!
     trounds: Int!
-    reactors: [Reactors]
+    reactors: [EmojiReactors]
+    recentReactors: [TagReactor]
   }
 
   type User {
@@ -46,10 +47,15 @@ export const typeDefs = gql`
     unreact: Boolean!
   }
 
-  type Reactors {
+  type EmojiReactors {
     react: String!
     reactors: [String]!
     total: Int!
+  }
+
+  type TagReactor {
+    reactId: String!
+    userId: String!
   }
 
   type Report {
@@ -67,7 +73,8 @@ export const typeDefs = gql`
     merchantTags(id: String!): [Tag]!
     activeUsers(merchantId: String!): [User]!
 
-    reactors(tagId: String!): [Reactors]
+    emojiReactors(tagId: String!): [EmojiReactors]
+    tagReactors(tagId: String!): [TagReactor]
     tags: [Tag]
     merchants: [Merchant]
   }

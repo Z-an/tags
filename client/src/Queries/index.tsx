@@ -19,6 +19,10 @@ export const GET_TAGS = gql`
         reactors
         total
       }
+      recentReactors {
+        reactId
+        userId
+      }
     }
   }
 `
@@ -95,6 +99,7 @@ export const TAG = gql`
         reactors
         total
       }
+      recentReactors
     }
   }
 `

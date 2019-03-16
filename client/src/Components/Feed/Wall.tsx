@@ -41,7 +41,7 @@ function mapDispatchToProps(dispatch) {
         , newTag: tag => dispatch(newTag(tag)) }
 }
 
-const colors = ['color1', 'color2', 'color3', 'color4', 'color5', 'color6']
+const colors = ['color2', 'color3', 'color4', 'color5', 'color6']
 
 
 
@@ -50,7 +50,7 @@ const ConnectedWall = (props) => {
   const [moreToGet,reachedEnd] = useState(true)
   const [tags, setTags] = useState([])
 
-  const { data, error, loading, fetchMore } = useQuery(GET_TAGS, {variables: {id: props.merchant.id}, pollInterval: 200000})
+  const { data, error, loading, fetchMore } = useQuery(GET_TAGS, {variables: {id: props.merchant.id}, pollInterval: 20000})
     if (error) { console.log(`Error! ${error.message}`)
     } else if (loading) {
       return <div className='init-loading-container'><Loading style={'wall-loading'}/></div>

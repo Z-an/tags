@@ -5,7 +5,7 @@ const db = firebase.firestore()
 
 import './types'
 
-import { lapseMerchant, updateUCB, updateReacts, duplicate, getUserDoc } from '../cloud/functions'
+import { lapseMerchant, updateUCB, updateReacts, duplicate, getUserDoc, updateRecentReactors } from '../cloud/functions'
 
 const pubsub = new PubSub()
 
@@ -131,7 +131,7 @@ export const resolvers = {
       }
     },
 
-    async reactors(_: null, args: {tagId: string}) {
+    async emojiReactors(_: null, args: {tagId: string}) {
       try {
         const reactsCol = await 
           db
@@ -141,7 +141,7 @@ export const resolvers = {
         const reactors = reactsCol.docs.map(react => 
           ({react: react.id
           , reactors: react.data().reactors
-          , total: react.data().total})) as Reactors[]
+          , total: react.data().total})) as EmojiReactors[]
 
         var reactTotal = reactors.reduce(function(prev, cur) {
           return prev + cur.total
@@ -181,7 +181,10 @@ export const resolvers = {
 
             pubsub.publish(NEW_REACT, {reaction: reaction})
             
-            args.unreact? updateReacts(args.tagId, -1):updateReacts(args.tagId, 1)
+            args.unreact? updateReacts(args.tagId, -1):
+                          updateReacts(args.tagId, 1)
+                          
+            updateRecentReactors(args.tagId, args.reactId, args.userId, args.unreact)
 
             lapseMerchant(args.merchantId)
             updateUCB(args.merchantId)
@@ -201,10 +204,10 @@ export const resolvers = {
 
       console.log('creating ',args.content)
                                     
-      const verdict = await duplicate(args.content,args.merchantId)
-      if (verdict.outcome === true) {
-        return new UserInputError('Tag not unique', {match: verdict.tag} )
-      }
+      //const verdict = await duplicate(args.content,args.merchantId)
+      //if (verdict.outcome === true) {
+      //  return new UserInputError('Tag not unique', {match: verdict.tag} )
+      //}
 
       const merchant = await db.collection("merchantsQL").doc(args.merchantId).get()
       const age = merchant.data().age
@@ -214,13 +217,14 @@ export const resolvers = {
           db
           .collection("tagsQL")
           .add({ content: args.content
-              , created: null
               , culled: false
               , merchantId: args.merchantId
               , userId: args.userId
               , ucb: 1000
               , reacts: 0
-              , trounds: age })
+              , recentReactors: [null]
+              , trounds: age
+              , created: new Date().getTime() })
         tagDoc.collection("reacts").doc("fire").set({total: 0, reactors: [null]})
         tagDoc.collection("reacts").doc("tongue").set({total: 0, reactors: [null]})
         tagDoc.collection("reacts").doc("heart-eyes").set({total: 0, reactors: [null]})
@@ -379,7 +383,7 @@ export const resolvers = {
         const reactors = reactsCol.docs.map(react => 
           ({react: react.id
           , reactors: react.data().reactors
-          , total: react.data().total})) as Reactors[]
+          , total: react.data().total})) as EmojiReactors[]
 
         var reactTotal = reactors.reduce(function(prev, cur) {
           return prev + cur.total

@@ -1,6 +1,5 @@
 import React, {Fragment, useState} from 'react'
 import { connect } from 'react-redux'
-import ActiveUsers from './Header/ActiveUsers'
 import Button from '@material-ui/core/Button'
 import Headroom from 'react-headroom'
 import {signOut} from '../../Actions/index'
@@ -40,19 +39,6 @@ const ConnectedHeader = (props) => {
           <Filter className='filter-button'/>
           <Search className='search-button'/>
           </div>
-        </div>
-        
-        <div className='second-row'>
-          { headerType==='social' && 
-            <div className='social-header'>
-              <div className='social'>Friends who have eaten here</div>
-              <ActiveUsers />
-            </div>
-          } { headerType==='score' &&
-            <div className='score-header'>
-              yare yare daze
-            </div>
-          }
         </div>
       </div>
     </Fragment>

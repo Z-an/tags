@@ -84,7 +84,7 @@ export async function lapseMerchant(merchantId) {
   })
 }
 
-export async function updateReacts(tagId, increment) {
+export async function updateReacts(tagId,increment) {
   const tagDocRef = await db.collection("tagsQL").doc(tagId)
 
   await db.runTransaction( transaction => {
@@ -94,10 +94,38 @@ export async function updateReacts(tagId, increment) {
       }
 
       const data = tag.data()
-      const newTrounds = data.trounds + 1
       const newReacts = tag.data().reacts + increment
 
-      transaction.update(tagDocRef, { reacts: newReacts, trounds: newTrounds })
+      transaction.update(tagDocRef, { reacts: newReacts })
+    })
+  })
+}
+
+export async function updateRecentReactors(tagId, reactId, userId, unreact) {
+  const tagDocRef = await db.collection("tagsQL").doc(tagId)
+
+  await db.runTransaction( transaction => {
+    return transaction.get(tagDocRef).then( tag => {
+      if (!tag.exists) {
+        throw "Tag document does not exist"
+      }
+      const data = tag.data()
+      let newRecentReactors = []
+      const oldRecentReactors = data.recentReactors
+
+      if (unreact) {
+        newRecentReactors = oldRecentReactors.filter(obj => obj.userId!==userId)
+      }
+      else {
+        if (oldRecentReactors===null || oldRecentReactors===[null]) {
+          newRecentReactors = [{userId: userId, reactId: reactId}]
+        } else {
+          newRecentReactors = [{userId: userId, reactId: reactId}].concat(oldRecentReactors)
+        } if (newRecentReactors.length>15) { 
+          newRecentReactors = newRecentReactors[20]
+        }
+      }
+      transaction.update(tagDocRef, { recentReactors: newRecentReactors })
     })
   })
 }
@@ -154,4 +182,5 @@ module.exports = { updateReacts
                 , updateUCB
                 , toTitleCase
                 , duplicate
-                , getUserDoc }
+                , getUserDoc
+                , updateRecentReactors }

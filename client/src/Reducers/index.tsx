@@ -64,6 +64,8 @@ function rootReducer(state = initialState, action) {
     else if (action.type === 'INCREMENT') {
         const tag = state.tags[action.payload.tagID]
         const newUCB = (ucb(tag.reacts + 1,tag.trounds,action.payload.age,action.payload.rho))
+        const newRecentReactors = tag.recentReactors===[null]? [action.payload.reactor]:[action.payload.reactor].concat(tag.recentReactors)
+        console.log(action.payload.reactor)
         return {
             ...state,
             tags: {
@@ -76,7 +78,8 @@ function rootReducer(state = initialState, action) {
                     content: tag.content,
                     reacts: tag.reacts +1 ,
                     voted: true,
-                    ucb: (newUCB)<0? 1000:newUCB
+                    ucb: (newUCB)<0? 1000:newUCB,
+                    recentReactors: newRecentReactors
                 }
             }
         }
@@ -84,6 +87,7 @@ function rootReducer(state = initialState, action) {
     else if (action.type === 'DECREMENT') {
         const tag = state.tags[action.payload.tagID]
         const newUCB = (ucb(tag.reacts - 1,tag.trounds,action.payload.age,action.payload.rho))
+        const newRecentReactors = tag.recentReactors===[null]? [action.payload.reactor]:tag.recentReactors.filter(obj => ((obj.userId)!==(action.payload.reactor.userId)))
         return {
             ...state,
             tags: {
@@ -96,7 +100,8 @@ function rootReducer(state = initialState, action) {
                     content: tag.content,
                     reacts: tag.reacts -1 ,
                     voted: true,
-                    ucb: (newUCB)<0? 1000:newUCB
+                    ucb: (newUCB)<0? 1000:newUCB,
+                    recentReactors: newRecentReactors
                 }
             }
         }

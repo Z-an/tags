@@ -6,9 +6,11 @@ import Emoji from '../Reacts/Emoji'
 import { openModal } from '../../../Actions/index'
 import { updateReactors } from '../../../Actions'
 import ReactorUpdate from './ReactorUpdate'
+import { timeSince } from './timeSince'
 
 import Button from '@material-ui/core/Button'
 import { ReactorsList } from './ReactorsList'
+import { UsersCarousel } from '../Tag/UsersCarousel'
 
 const mapStateToProps = (state) => {
   if (state.openModal===null) {return { open: false } } 
@@ -17,7 +19,7 @@ const mapStateToProps = (state) => {
   const open = (state.openModal.type==='tagview' && state.openModal.tagID===tagID)
   return {open: open
         , tag: {id: tagID, content: state.tags[tagID].content, user: state.tags[tagID].user, reacts: state.tags[tagID].reacts}
-        , emojis: ['tongue','heart-eyes','shock','sleep','cry','angry','comment']}
+        , emojis: [,'angry','cry','shock','heart-eyes','tongue','fire','comment']}
   }
 }
 
@@ -38,25 +40,27 @@ const ConnectedTagView = (props) => {
       <Fragment>
         <ReactorUpdate tagID={tag.id} updater={props.updateReactors}/>
 
-        <Modal visible={open} width="340" height="500" effect="fadeInUp">
+        <Modal visible={open} width="370" height="600" effect="fadeInUp">
           <div className='modal-container'>
             <div className='top'>
               <div className='header'>
                 <img className='image' src={tag.user.icon} alt={tag.user.name}/>
                 <div className='user'>
+                  <div className='name'>{ tag.user.name }</div>
                   <div className='handle'>@{'handle' || tag.user.handle}</div>
-                  <div className='name'>{ tag.user.name } says...</div>
                 </div>
               </div>
               <div className='close-modal'>
-                <Button onClick={()=>props.openModal(null)}>close</Button>
+                <Button onClick={()=>props.openModal(null)}>back</Button>
               </div>
             </div>
             <div className='content'>{tag.content}</div>
             <div className='summary'>
-              <div className='total-reacts'>+{tag.reacts}</div>
               <div className='total-reacts'>date/time</div>
-              <div className='reactor-summary'></div>
+              <div className='total-reacts'>{tag.reacts} reacts</div>
+              <div className='tag-reactors'>
+                <UsersCarousel tagID={tag.id} style={'tag-view-reactor-icon'}/>
+              </div>
             </div>
             <div className='emoji-panel'>
               { emojis.map( view =>

@@ -27,10 +27,6 @@
 .top-react:hover {
     filter: grayscale(0%);
     cursor: pointer;
-    //-webkit-animation: swing 0.7s ease;
-    //animation: swing 0.7s ease;
-    //-webkit-animation-iteration-count: 1;
-    //animation-iteration-count: 1;
 }
 
 @-webkit-keyframes swing

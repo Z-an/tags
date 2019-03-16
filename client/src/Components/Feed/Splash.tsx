@@ -13,7 +13,6 @@ class ConnectedSplash extends PureComponent<any> {
   render() {
     return (
       <Fragment>
-      <Leaderboard className='leaderboard-icon'/>
       <div className='icons-container'>
         <BackArrow className='left-arrow' onClick={() => {window.location.href = "/"}}/>
       </div>

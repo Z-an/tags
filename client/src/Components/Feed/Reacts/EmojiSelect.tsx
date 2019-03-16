@@ -19,7 +19,7 @@ const mapStateToProps = (state,ownProps) => {
         , merchant: state.merchant
         , tagID: ownProps.tagID
         , userID: state.user.id
-        , emojiList: ['tongue','heart-eyes','shock','sleep','cry','angry']
+        , emojiList: [,'angry','cry','shock','heart-eyes','tongue','fire']
         , voted: voted
       }
 }
@@ -39,7 +39,7 @@ const ConnectedEmojiSelect: React.FC<any> = ({openModal, voted, merchant, tagID,
     toggleOpen(false)
     toggleReacted(true)
     setReact(emoji)
-    increment({tagID: tagID, age: merchant.age, rho: merchant.rho})
+    increment({tagID: tagID, age: merchant.age, rho: merchant.rho, reactor: {userId: userID, reactId: emoji}})
   }
 
   
@@ -51,7 +51,7 @@ const ConnectedEmojiSelect: React.FC<any> = ({openModal, voted, merchant, tagID,
 
   const unclicker = () => {
     toggleReacted(false)
-    decrement({tagID: tagID, age: merchant.age, rho: merchant.rho})
+    decrement({tagID: tagID, age: merchant.age, rho: merchant.rho, reactor: {userId: userID, reactId: emoji}})
     setReact('')
   }
 
@@ -71,9 +71,11 @@ const ConnectedEmojiSelect: React.FC<any> = ({openModal, voted, merchant, tagID,
   else if (reacted && (react!=='up' && react!=='')) {
     console.log('so confused')
       return(
-      <div className='react-add-container' onClick={() => unclicker()}>
-        <Emoji style='emoji-selected' emoji={react}/>
-      </div>)     
+        <div className='react-add-container' onClick={() => unclicker()}>
+          <div onClick={()=>toggleReact()}>
+            <Emoji style='emoji-selected' emoji={react} />
+          </div>
+        </div>)     
   }
   else {
     return (
