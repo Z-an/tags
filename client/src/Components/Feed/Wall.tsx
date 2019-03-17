@@ -33,7 +33,7 @@ function orderByUCB(hashMap,ucb) {
 
 const mapStateToProps = state => {
   let ordered = orderByUCB(state.tags,state.ucb)
-  return { merchant: state.merchant, tags: ordered }
+  return { merchant: state.merchant, tags: ordered, live: state.live }
 }
 
 function mapDispatchToProps(dispatch) {
@@ -41,25 +41,25 @@ function mapDispatchToProps(dispatch) {
         , newTag: tag => dispatch(newTag(tag)) }
 }
 
-const colors = ['color2', 'color3', 'color4', 'color5', 'color6']
+const colors = ['color1', 'color2', 'color3', 'color4', 'color5', 'color6']
 
 
 
 const ConnectedWall = (props) => {
   const [initialized,init] = useState(false)
-  const [moreToGet,reachedEnd] = useState(true)
-  const [tags, setTags] = useState([])
+  const [moreToGet,reachedEnd] = useState(false)
 
-  const { data, error, loading, fetchMore } = useQuery(GET_TAGS, {variables: {id: props.merchant.id}, pollInterval: 20000})
+  const { data, error, loading, fetchMore } = useQuery(GET_TAGS, {variables: {id: props.merchant.id}, pollInterval: props.live?1000:0})
     if (error) { console.log(`Error! ${error.message}`)
     } else if (loading) {
       return <div className='init-loading-container'><Loading style={'wall-loading'}/></div>
     } else if (!initialized) {init(true),props.addTags(data.merchantTags)}
 
+  console.log(data.merchantTags)
   return (
     <Fragment>
-      {props.tags.map((tag: any) => 
-        <Tag tagID={tag.id} content={tag.content} key={tag.id} color={colors[Math.floor(Math.random() * colors.length)]}/>
+      {data.merchantTags.map((tag: any) => 
+        <Tag tagID={tag.id} total={tag.reacts} content={tag.content} key={tag.id} color={colors[Math.floor(Math.random() * colors.length)]}/>
       )}
       { moreToGet && 
         <div onClick={() => fetchMore({ variables: {id: props.merchant.id}, 

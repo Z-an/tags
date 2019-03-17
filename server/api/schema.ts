@@ -11,8 +11,7 @@ export const typeDefs = gql`
     userId: String!
     merchantId: String!
     trounds: Int!
-    reactors: [EmojiReactors]
-    recentReactors: [TagReactor]
+    recentReactors: [TagReactor]!
   }
 
   type User {

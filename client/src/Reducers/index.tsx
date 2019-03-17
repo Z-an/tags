@@ -24,6 +24,11 @@ function rootReducer(state = initialState, action) {
             }, {})
         })
     }
+    else if (action.type === 'RESET') {
+        return { ...initialState,
+                    user: action.payload.user,
+                    merchant: action.payload.merchant }
+    }
     else if (action.type === 'NEW_TAG') {
         return {
             ...state,
@@ -51,6 +56,16 @@ function rootReducer(state = initialState, action) {
             merchant: action.payload
         })
     }
+    else if (action.type === 'TOGGLE_POLL') {
+        return Object.assign({}, state, {
+            poll: action
+        })
+    }
+    else if (action.type === 'TOGGLE_LIVE') {
+        return Object.assign({}, state, {
+            live: !state.live
+        })
+    }
     else if (action.type === 'SIGN_IN') {
         return Object.assign({}, state, {
             user: action.payload
@@ -64,7 +79,7 @@ function rootReducer(state = initialState, action) {
     else if (action.type === 'INCREMENT') {
         const tag = state.tags[action.payload.tagID]
         const newUCB = (ucb(tag.reacts + 1,tag.trounds,action.payload.age,action.payload.rho))
-        const newRecentReactors = tag.recentReactors===[null]? [action.payload.reactor]:[action.payload.reactor].concat(tag.recentReactors)
+        const newRecentReactors = tag.recentReactors===[null]? [action.payload.reactor]:tag.recentReactors.concat([action.payload.reactor])
         console.log(action.payload.reactor)
         return {
             ...state,
@@ -76,12 +91,13 @@ function rootReducer(state = initialState, action) {
                     user: tag.user,
                     trounds: tag.trounds,
                     content: tag.content,
-                    reacts: tag.reacts +1 ,
+                    reacts: newRecentReactors.length,
                     voted: true,
-                    ucb: (newUCB)<0? 1000:newUCB,
+                    ucb: tag.ucb/*(newUCB)<0? 1000:newUCB*/,
                     recentReactors: newRecentReactors
                 }
-            }
+            },
+            poll: true,
         }
     }
     else if (action.type === 'DECREMENT') {
@@ -98,12 +114,13 @@ function rootReducer(state = initialState, action) {
                     user: tag.user,
                     trounds: tag.trounds,
                     content: tag.content,
-                    reacts: tag.reacts -1 ,
+                    reacts: newRecentReactors.length,
                     voted: true,
-                    ucb: (newUCB)<0? 1000:newUCB,
+                    ucb: tag.ucb/*(newUCB)<0? 1000:newUCB*/,
                     recentReactors: newRecentReactors
                 }
-            }
+            },
+            poll: true,
         }
     }
     else if (action.type === 'OPEN_MODAL') {

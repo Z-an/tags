@@ -68,7 +68,7 @@ export async function updateUCB(merchantId) {
     })
 }
 
-export async function lapseMerchant(merchantId) {
+export async function lapseMerchant(merchantId, increment) {
   const merchantDocRef = await db.collection("merchantsQL").doc(merchantId)
   
   await db.runTransaction( transaction => {
@@ -76,7 +76,7 @@ export async function lapseMerchant(merchantId) {
       if (!merchant.exists) {
         throw "Document does not exist"
       }
-      const newAge = merchant.data().age + 1
+      const newAge = merchant.data().age + increment
 
       transaction.update(merchantDocRef, { age: newAge
                                          , freshness: new Date().getTime() })
@@ -94,8 +94,8 @@ export async function updateReacts(tagId,increment) {
       }
 
       const data = tag.data()
-      const newReacts = tag.data().reacts + increment
-
+      let newReacts = tag.data().reacts + increment
+      newReacts < 0? newReacts=0:null
       transaction.update(tagDocRef, { reacts: newReacts })
     })
   })
@@ -121,14 +121,13 @@ export async function updateRecentReactors(tagId, reactId, userId, unreact) {
           newRecentReactors = [{userId: userId, reactId: reactId}]
         } else {
           newRecentReactors = [{userId: userId, reactId: reactId}].concat(oldRecentReactors)
-        } if (newRecentReactors.length>15) { 
-          newRecentReactors = newRecentReactors[20]
         }
       }
       transaction.update(tagDocRef, { recentReactors: newRecentReactors })
     })
   })
 }
+
 
 export async function getUserDoc(ID,name,icon,authProvider) {
   let userDoc = null

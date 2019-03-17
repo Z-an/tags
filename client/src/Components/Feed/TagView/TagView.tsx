@@ -5,8 +5,8 @@ import Modal from 'react-awesome-modal'
 import Emoji from '../Reacts/Emoji'
 import { openModal } from '../../../Actions/index'
 import { updateReactors } from '../../../Actions'
-import ReactorUpdate from './ReactorUpdate'
 import { timeSince } from './timeSince'
+import ReporterButton from '../Report/ReporterButton'
 
 import Button from '@material-ui/core/Button'
 import { ReactorsList } from './ReactorsList'
@@ -17,9 +17,13 @@ const mapStateToProps = (state) => {
   else {
   const tagID = state.openModal.tagID
   const open = (state.openModal.type==='tagview' && state.openModal.tagID===tagID)
+  const emojis = ['angry','cry','shock','heart-eyes','tongue','fire','comment']
+  const reactors = state.tags[tagID].recentReactors
+  let emojiTotals = emojis.map( emoji => { return {emoji: emoji, total: reactors.filter(react => emoji===react.reactId).length }} )
+  console.log(emojiTotals)
   return {open: open
         , tag: {id: tagID, content: state.tags[tagID].content, user: state.tags[tagID].user, reacts: state.tags[tagID].reacts}
-        , emojis: [,'angry','cry','shock','heart-eyes','tongue','fire','comment']}
+        , emojis: emojiTotals }
   }
 }
 
@@ -38,9 +42,7 @@ const ConnectedTagView = (props) => {
 
     return (
       <Fragment>
-        <ReactorUpdate tagID={tag.id} updater={props.updateReactors}/>
-
-        <Modal visible={open} width="370" height="600" effect="fadeInUp">
+        <Modal visible={open} width="350" height="600" effect="fadeInUp">
           <div className='modal-container'>
             <div className='top'>
               <div className='header'>
@@ -64,10 +66,11 @@ const ConnectedTagView = (props) => {
             </div>
             <div className='emoji-panel'>
               { emojis.map( view =>
-                <div className='emoji-button' onClick={()=>setView(view)}><Emoji emoji={view} style={'emoji-button'}/></div>
+                <div className='emoji-button' onClick={()=>setView(view.emoji)}><Emoji emoji={view.emoji} style={'emoji-button'}/><div className='emoji-total'>{view.total}</div></div>
               )}
             </div>
             <ReactorsList tag={tag} view={view} tagID={tag.id}/>
+            <ReporterButton tagID={tag.id} toggleModal={props.openModal}/>
           </div>
         </Modal>
         )}

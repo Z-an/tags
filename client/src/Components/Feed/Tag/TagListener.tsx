@@ -11,6 +11,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 const ConnectedNewTag = (props) => {
+  console.log(typeof props.tagID,'tagId',props.tagID)
   const { data, error, loading } = useQuery(TAG, {
     variables: {id: props.tagID}
   })
@@ -20,21 +21,21 @@ const ConnectedNewTag = (props) => {
   return null
 }
 
+const NewTag = connect(null,mapDispatchToProps)(ConnectedNewTag)
+
 export const TagListener = (props) => {
   const [fetching,setFetcher] = useState(false)
-  const [tagID, setTagID] = useState('')
+  const [tagID, setTagID] = useState(null)
   const { data, error,loading } = useSubscription(TAG_SUBSCRIPTION, {
     variables: {merchantId: props.merchantID},
     onSubscriptionData: (({client,subscriptionData}) => {
-      console.log(subscriptionData.data.tagCreated.id)
+      console.log(subscriptionData.data.tagCreated)
+      setFetcher(false)
       setTagID(subscriptionData.data.tagCreated.id)
       setFetcher(true)
     })
   })
-  if (fetching) {
-    return <NewTag tagID={tagID} newTag={newTag}/>
-  setFetcher(false)}
-   else return null
+  if (fetching && tagID!==null) {
+    return <NewTag tagID={tagID} />}
+   else { return null}
 }
-
-const NewTag = connect(null,mapDispatchToProps)(ConnectedNewTag)

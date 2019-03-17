@@ -10,16 +10,15 @@ import { ReactComponent as Add} from '../../../Assets/Emoji/react-add.svg'
 import '../../../Styles/EmojiSelect.css'
 
 const mapStateToProps = (state,ownProps) => {
-  let reacts = state.tags[ownProps.tagID].reactors.map( doc => doc.reactors.includes(state.user.id)? doc.react:false)
+  let reacts = state.tags[ownProps.tagID].recentReactors.map( doc => doc.userId===state.user.id? doc.reactId:false)
   let filtered = reacts.filter(Boolean)
   let voted = filtered[0] as [string] || null
-  console.log(voted)
 
   return { openModal: state.openModal
         , merchant: state.merchant
         , tagID: ownProps.tagID
         , userID: state.user.id
-        , emojiList: [,'angry','cry','shock','heart-eyes','tongue','fire']
+        , emojiList: ['angry','cry','shock','heart-eyes','tongue','fire']
         , voted: voted
       }
 }
@@ -34,6 +33,11 @@ const ConnectedEmojiSelect: React.FC<any> = ({openModal, voted, merchant, tagID,
   const[open,toggleOpen] = useState(false)
   const[reacted,toggleReacted] = useState(voted===null? false:true)
   const[react,setReact] = useState(voted===null? '':voted)
+
+  const openner = () => {
+    toggleOpen(true)
+    setEmoji('fire')
+  }
 
   const clicker = () => {
     toggleOpen(false)
@@ -65,6 +69,7 @@ const ConnectedEmojiSelect: React.FC<any> = ({openModal, voted, merchant, tagID,
               </div>
           )}
         </div>
+        <div className='minimize-emoji' onClick={() => toggleOpen(false)}>Minimize</div>
       </div>
     )
   }
@@ -79,8 +84,8 @@ const ConnectedEmojiSelect: React.FC<any> = ({openModal, voted, merchant, tagID,
   }
   else {
     return (
-      <div className='react-add-container' onClick={() => toggleOpen(true)}>
-        <Add className='react-add' onClick={() => toggleOpen(true)}/>
+      <div className='react-add-container' onClick={() => openner()}>
+        <Add className='react-add' onClick={() => openner()}/>
       </div>
     )
   }

@@ -14,11 +14,6 @@ export const GET_TAGS = gql`
         handle
         name
       }
-      reactors {
-        react
-        reactors
-        total
-      }
       recentReactors {
         reactId
         userId
@@ -93,13 +88,12 @@ export const TAG = gql`
         id
         icon
         handle
+        name
       }
-      reactors {
-        react
-        reactors
-        total
+      recentReactors {
+        reactId
+        userId
       }
-      recentReactors
     }
   }
 `

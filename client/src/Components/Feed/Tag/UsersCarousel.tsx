@@ -7,7 +7,8 @@ import Loading from '../../Loading'
 import '../../../Styles/Tag.css'
 
 const mapStateToProps = (state,ownProps) => {
-  return {recentReactors: state.tags[ownProps.tagID].recentReactors}
+  const recentReactors = state.tags[ownProps.tagID].recentReactors
+  return {recentReactors: recentReactors===[]? [null]:(recentReactors.length>7? recentReactors.slice(recentReactors.length-7,recentReactors.length):recentReactors)}
 }
 
 export const ConnectedUsersCarousel = (props) => {

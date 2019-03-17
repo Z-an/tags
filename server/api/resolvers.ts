@@ -1,7 +1,9 @@
-import {ApolloError, ValidationError, UserInputError, PubSub, withFilter } from 'apollo-server'
+import {ApolloError, ValidationError, UserInputError, PubSub, withFilter } from 'apollo-server' 
 
 const firebase = require("firebase")
 const db = firebase.firestore()
+
+const uuidv1 = require('uuid/v1');
 
 import './types'
 
@@ -163,16 +165,23 @@ export const resolvers = {
                               , unreact: boolean }) {
       console.log('reacting',args.tagId,' with ',args.reactId)
       try {
-        const reactDoc = await 
+        const tagDoc = await 
           db.collection("tagsQL")
-          .doc(args.tagId).collection("reacts").doc(args.reactId)
+          .doc(args.tagId)
 
 // tslint:disable-next-line: no-floating-promises
         db.runTransaction( transaction => {
-          return transaction.get(reactDoc).then( react => {
-            const data = react.data()
-            const newTotal = data.total + 1
-            const newReactors = data.reactors.concat([args.userId])
+          return transaction.get(tagDoc).then( tag => {
+            const data = tag.data()
+            let newTotal = data.reacts
+            let newRecentReactors = data.recentReactors
+
+            if (args.unreact===false) {
+              const filtered = newRecentReactors.filter( react => react.userId!==args.userId)
+              newRecentReactors = filtered.concat([{userId: args.userId, reactId: args.reactId}])
+            } else {
+              newRecentReactors = newRecentReactors.filter( react => react.userId!==args.userId)
+            }
 
             const reaction = {tagId: args.tagId
                             , reactId: args.reactId
@@ -180,17 +189,15 @@ export const resolvers = {
                             , unreact: args.unreact } as Reaction | undefined
 
             pubsub.publish(NEW_REACT, {reaction: reaction})
-            
-            args.unreact? updateReacts(args.tagId, -1):
-                          updateReacts(args.tagId, 1)
-                          
-            updateRecentReactors(args.tagId, args.reactId, args.userId, args.unreact)
 
-            lapseMerchant(args.merchantId)
+            newTotal = newRecentReactors.length
+
+            args.unreact? lapseMerchant(args.merchantId,-1):lapseMerchant(args.merchantId,1)
             updateUCB(args.merchantId)
             
-            return transaction.update(reactDoc, {total: newTotal
-                                              , reactors: newReactors})
+            
+            return transaction.update(tagDoc, {reacts: newTotal
+                                              , recentReactors: newRecentReactors})
           })
         })
       } catch (error) {
@@ -202,55 +209,50 @@ export const resolvers = {
                                   , merchantId: string
                                   , content: string}) {
 
-      console.log('creating ',args.content)
-                                    
-      //const verdict = await duplicate(args.content,args.merchantId)
-      //if (verdict.outcome === true) {
-      //  return new UserInputError('Tag not unique', {match: verdict.tag} )
-      //}
+      /*const verdict = await duplicate(args.content,args.merchantId)
+      if (verdict.outcome === true) {
+        return new UserInputError('Tag not unique', {match: verdict.tag} )
+      }*/
 
       const merchant = await db.collection("merchantsQL").doc(args.merchantId).get()
       const age = merchant.data().age
+      const uid = uuidv1()
+      console.log(typeof uid)
 
       try {
-        const tagDoc = await 
-          db
-          .collection("tagsQL")
-          .add({ content: args.content
+        console.log('hmm')
+        let tagDoc = await 
+          db.collection("tagsQL")
+          .doc(uid).set({ 
+                content: args.content
+              , id: uid
               , culled: false
               , merchantId: args.merchantId
               , userId: args.userId
               , ucb: 1000
               , reacts: 0
-              , recentReactors: [null]
+              , recentReactors: []
               , trounds: age
               , created: new Date().getTime() })
-        tagDoc.collection("reacts").doc("fire").set({total: 0, reactors: [null]})
-        tagDoc.collection("reacts").doc("tongue").set({total: 0, reactors: [null]})
-        tagDoc.collection("reacts").doc("heart-eyes").set({total: 0, reactors: [null]})
-        tagDoc.collection("reacts").doc("shock").set({total: 0, reactors: [null]})
-        tagDoc.collection("reacts").doc("sleep").set({total: 0, reactors: [null]})
-        tagDoc.collection("reacts").doc("cry").set({total: 0, reactors: [null]})
-        tagDoc.collection("reacts").doc("angry").set({total: 0, reactors: [null]})
-        tagDoc.collection("reacts").doc("up").set({total: 0, reactors: [null]})
+          
+          console.log(tagDoc)
+          db.collection("tagsQL")
+          .doc(uid).collection("reports").doc("abuse").set({total: 0, reporters: [null]})
+          db.collection("tagsQL")
+          .doc(uid).collection("reports").doc("duplicacy").set({total: 0, reporters: [null]})
+          db.collection("tagsQL")
+          .doc(uid).collection("reports").doc("inaccuracy").set({total: 0, reporters: [null]})
 
-        tagDoc.collection("reports").doc("abuse").set({total: 0, reporters: [null]})
-        tagDoc.collection("reports").doc("duplicacy").set({total: 0, reporters: [null]})
-        tagDoc.collection("reports").doc("inaccuracy").set({total: 0, reporters: [null]})
+          const newTag = await db.collection("tagsQL").doc(uid).get()
+
+          const tag = newTag.data() as Tag | undefined
+
+          //Publish to subscribed clients; return to creator client.
         
-
-        const newTag = await tagDoc.get()
-        const id = newTag.id
-        await tagDoc.update({id: id})
-
-        const tagWithId = await tagDoc.get()
-        const tag = tagWithId.data() as Tag | undefined
-
-        //Publish to subscribed clients; return to creator client.
-        console.log('newtag',tag)
-        pubsub.publish(TAG_CREATED, {newTag: tag})
-
-        return tag || new ValidationError('Tag creation failed')
+          lapseMerchant(args.merchantId,1)
+          pubsub.publish(TAG_CREATED, {newTag: tag})
+        
+          return tag || new ValidationError('Tag creation failed')
 
       } catch (error) {
         throw new ApolloError(error)
@@ -368,28 +370,6 @@ export const resolvers = {
           .doc(`usersQL/${tag.userId}`)
           .get()
         return tagAuthor.data() as User
-      } catch (error) {
-        throw new ApolloError(error)
-      }
-    },
-
-    async reactors(tag) {
-      try {
-        const reactsCol = await 
-          db
-          .collection(`tagsQL/${tag.id}/reacts`)
-          .get()
-
-        const reactors = reactsCol.docs.map(react => 
-          ({react: react.id
-          , reactors: react.data().reactors
-          , total: react.data().total})) as EmojiReactors[]
-
-        var reactTotal = reactors.reduce(function(prev, cur) {
-          return prev + cur.total
-        }, 0)
-        return reactors
-
       } catch (error) {
         throw new ApolloError(error)
       }

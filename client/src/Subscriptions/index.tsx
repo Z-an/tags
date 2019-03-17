@@ -21,6 +21,20 @@ subscription
   tagCreated($merchantId: String!) {
     tagCreated(merchantId: $merchantId) {
       id
+      content
+      reacts
+      ucb
+      trounds
+      user {
+        id
+        icon
+        handle
+        name
+      }
+      recentReactors {
+        reactId
+        userId
+      }
     }
   }
 `

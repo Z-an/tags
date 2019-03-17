@@ -1,8 +1,5 @@
 
 .report-button {
-    position: absolute;
-    margin-top: 4rem;
-    margin-left: -2rem;
     opacity: 0.5;
     z-index:2;
 }

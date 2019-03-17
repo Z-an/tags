@@ -5,15 +5,15 @@ import { GET_USER } from '../../../Queries/index'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state,ownProps) => {
-  return {reactors: state.tags[ownProps.tagID].reactors}
+  return {reactors: state.tags[ownProps.tagID].recentReactors}
 }
 
 export const ConnectedReactorsList = (props) => (
   <div className='reactors-container'>
     <div>
       { props.reactors.map( reactDoc =>
-        reactDoc.react===props.view? (reactDoc.reactors.map( userID => (
-          <Query query={GET_USER} variables={{id: userID}}>
+        reactDoc.reactId===props.view? (
+          <Query query={GET_USER} variables={{id: reactDoc.userId}}>
             {({ loading, error, data}) => {
               if (loading) {return <div className='reactor'><Loading style={'loading-reactor'}/></div>}
               else if (error) {return null}
@@ -25,7 +25,7 @@ export const ConnectedReactorsList = (props) => (
               )
             }}}
           </Query>
-        ))):null 
+        ):null 
       )}
     </div>
   </div>

@@ -5,7 +5,7 @@ import ReporterButton from './Report/ReporterButton'
 import ReactsTotal from './Reacts/ReactsTotal'
 import EmojiSelect from './Reacts/EmojiSelect'
 import { Voter } from './Reacts/UpVoter'
-import { increment, decrement, openModal } from '../../Actions/index'
+import { increment, decrement, openModal, newTag } from '../../Actions/index'
 import { connect } from 'react-redux'
 import { NewReactIndicator } from './Reacts/NewReactIndicator'
 import { UsersCarousel } from './Tag/UsersCarousel'
@@ -13,13 +13,14 @@ import { UsersCarousel } from './Tag/UsersCarousel'
 import '../../Styles/Tag.css'
 
 const mapStateToProps = (state,ownProps) => {
-  return { user: state.user }
+  return { user: state.user, tags: state.tags }
 }
 
 function mapDispatchToProps(dispatch) {
   return { increment: tagID => { dispatch(increment(tagID))}
         , decrement: tagID => { dispatch(decrement(tagID))}
-        , openModal: payload => { dispatch(openModal(payload))}}
+        , openModal: payload => { dispatch(openModal(payload))}
+        , newTag: payload => {dispatch(newTag(payload))}}
 }
 
 const ConnectedTag: React.FC<any> = (props) =>  {
@@ -39,6 +40,8 @@ const ConnectedTag: React.FC<any> = (props) =>  {
     }
   }
 
+  if (props.tags[props.tagID] === undefined) { return null }
+
   return(
     <Fragment>
       <div className='tag-container'>
@@ -48,7 +51,7 @@ const ConnectedTag: React.FC<any> = (props) =>  {
               {props.content}
             </div>
             { showUpVote && <Voter tagID={id}/>}
-            <div className='tag-metadata'><ReactsTotal tagID={id} openModal={props.openModal}/><UsersCarousel tagID={id} style={'recent-reactors'}/>⠀...</div>
+            <div className='tag-metadata'><ReactsTotal tagID={id} total={props.total} openModal={props.openModal}/><UsersCarousel tagID={id} style={'recent-reactors'}/>⠀...</div>
           </div>
           <UserIcon tagID={id} color={color}/>
           { showReport && <ReporterButton tagID={id} toggleModal={props.openModal}/> }

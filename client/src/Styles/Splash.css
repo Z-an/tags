@@ -34,11 +34,11 @@
   -webkit-overflow-scrolling: touch;
   -webkit-overflow-scrolling: scroll;
 }
-
+/*
 .img-container::-webkit-scrollbar {
   display: none;
 }
-
+*/
 .img {
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);

@@ -7,14 +7,28 @@ const INCREMENT = 'INCREMENT'
 const DECREMENT = 'DECREMENT'
 const OPEN_MODAL = 'OPEN_MODAL'
 const UPDATE_REACTORS= 'UPDATE_REACTORS'
-
+const TOGGLE_POLL = 'TOGGLE_POLL'
+const TOGGLE_LIVE = 'TOGGLE_LIVE'
+const RESET = 'RESET'
 
 export function setMerchant(payload) {
     return { type: SET_MERCHANT, payload }
 }
 
+export function reset(payload) {
+    return { type: RESET, payload }
+}
+
+export function togglePoll(payload) {
+    return { type: TOGGLE_POLL, payload }
+}
+
 export function addTags(payload) {
     return { type: ADD_TAGS, payload }
+}
+
+export function toggleLive(payload) {
+    return {type: TOGGLE_LIVE, payload}
 }
 
 export function signIn(payload) {

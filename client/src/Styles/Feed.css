@@ -112,8 +112,9 @@ position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 2.2rem;
-  padding-top: 5rem;
+  margin-bottom: 1rem;
+  margin-bottom: 2.5rem;
+  padding-top: 3rem;
 }
 
 .wall {
@@ -151,4 +152,33 @@ position: absolute;
   
   .color6{
     color: #39547B;
+  }
+
+
+  .live-toggle{
+    position: relative;
+    color: white;
+    border: 1px solid white;
+    border-radius: 50px;
+    padding: 0.6rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    font-family: Futura;
+  font-size:16px;
+  letter-spacing: -1px;
+  word-spacing: 0px;
+  color: white;
+  font-weight: 400;
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none;
+  margin-top:3rem;
+
+  }
+
+  .live-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
