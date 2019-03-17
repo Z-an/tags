@@ -71,18 +71,33 @@ export const resolvers = {
       }
     },
 
-    async merchantTags(_: null, args: {id: string}) {
-      try {
-        const merchantTags = await 
-          db
-          .collection('tagsQL')
-          .where('merchantId', '==', args.id)
-          .where('culled', '==', false)
-          .orderBy("ucb", "desc")
-          .get()
-        return merchantTags.docs.map(tag => tag.data()) as Tag[]
-      } catch (error) {
-        throw new ApolloError(error)
+    async merchantTags(_: null, args: {id: string, ucb: boolean}) {
+      if (args.ucb) {
+        try {
+          const merchantTags = await 
+            db
+            .collection('tagsQL')
+            .where('merchantId', '==', args.id)
+            .where('culled', '==', false)
+            .orderBy("ucb", "desc")
+            .get()
+          return merchantTags.docs.map(tag => tag.data()) as Tag[]
+        } catch (error) {
+          throw new ApolloError(error)
+        }
+      } else {
+        try {
+          const merchantTags = await 
+            db
+            .collection('tagsQL')
+            .where('merchantId', '==', args.id)
+            .where('culled', '==', false)
+            .orderBy("reacts", "desc")
+            .get()
+          return merchantTags.docs.map(tag => tag.data()) as Tag[]
+        } catch (error) {
+          throw new ApolloError(error)
+        }
       }
     },
 

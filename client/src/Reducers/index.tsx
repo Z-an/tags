@@ -29,6 +29,11 @@ function rootReducer(state = initialState, action) {
                     user: action.payload.user,
                     merchant: action.payload.merchant }
     }
+    else if (action.type === 'TOGGLE_UCB') {
+        return Object.assign({}, state, {
+            ucb: !state.ucb
+        })
+    }
     else if (action.type === 'NEW_TAG') {
         return {
             ...state,

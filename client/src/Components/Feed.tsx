@@ -33,7 +33,7 @@ const ConnectedFeed: React.FC<any> = (props) => {
   return (
     <Fragment>
       <Header docked={docked}/>
-      <div onClick={()=> setOpen(!open)}><CreatorPanel open={open}/></div>
+      <div onClick={()=> setOpen(!open)}><CreatorPanel merchants={false} open={open}/></div>
       <Waypoint onEnter={() => toggleDocked(false)} onLeave={() => toggleDocked(true)}>
         <div><Splash/></div>
       </Waypoint>

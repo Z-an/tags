@@ -61,7 +61,7 @@ const ConnectedTagView = (props) => {
               <div className='total-reacts'>date/time</div>
               <div className='total-reacts'>{tag.reacts} reacts</div>
               <div className='tag-reactors'>
-                <UsersCarousel tagID={tag.id} style={'tag-view-reactor-icon'}/>
+                <UsersCarousel tagID={tag.id} style={'tag-view-reactor-icon'} tagView={true}/>
               </div>
             </div>
             <div className='emoji-panel'>
@@ -71,6 +71,7 @@ const ConnectedTagView = (props) => {
             </div>
             <ReactorsList tag={tag} view={view} tagID={tag.id}/>
             <ReporterButton tagID={tag.id} toggleModal={props.openModal}/>
+            <Button onClick={()=>props.openModal(null)}>back</Button>
           </div>
         </Modal>
         )}

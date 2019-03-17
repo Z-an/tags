@@ -1,23 +1,25 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { setMerchant } from '../Actions/index'
+import { setMerchant, reset } from '../Actions/index'
 import ButtonBases from './Select/ButtonBases'
 import { Query } from 'react-apollo'
 import { GET_MERCHANTS } from '../Queries/index'
 import '../Styles/Feed.css'
 import Loading from './Loading'
+import {CreatorPanel} from './Feed/Create/CreatorPanel'
 
 function mapDispatchToProps(dispatch) {
-  return {
-    setMerchant: merchant => dispatch(setMerchant(merchant))
-  }
+  return { setMerchant: merchant => dispatch(setMerchant(merchant)),
+          reset: payload => dispatch(reset(payload))}
 }
 
-class ConnectedSelect extends Component<any> {
+class ConnectedSelect extends Component<any, any> {
   state = {
-    highlighted: null
+    highlighted: null,
+    open: false
   }
+
 
   nullify = this.props.setMerchant(null)
   
@@ -32,6 +34,11 @@ class ConnectedSelect extends Component<any> {
     } else { this.setState({highlighted: merchant.id}) }
   }
 
+  toggle = () => {
+    this.setState(prevState => {open: !prevState.open})
+  }
+
+
   render() {
     return(      
       <Query query={GET_MERCHANTS}>
@@ -44,6 +51,7 @@ class ConnectedSelect extends Component<any> {
             <div className='background'>
             <ButtonBases merchants={data.merchants}
                          redirector={this.redirector}/>
+            <div onClick={()=>this.toggle()}><CreatorPanel open={this.state.open} merchants={true}/></div>
             </div>
           )
         }}

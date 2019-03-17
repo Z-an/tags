@@ -53,3 +53,10 @@ export const SUBMIT_TAG = gql`
     }
   }
 `
+export const ADD_MERCHANT = gql`
+  mutation addMerchant($name: String!) {
+    addMerchant(name: $name) {
+      id
+    }
+  }
+`

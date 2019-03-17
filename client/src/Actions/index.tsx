@@ -9,10 +9,15 @@ const OPEN_MODAL = 'OPEN_MODAL'
 const UPDATE_REACTORS= 'UPDATE_REACTORS'
 const TOGGLE_POLL = 'TOGGLE_POLL'
 const TOGGLE_LIVE = 'TOGGLE_LIVE'
+const TOGGLE_UCB = 'TOGGLE_UCB'
 const RESET = 'RESET'
 
 export function setMerchant(payload) {
     return { type: SET_MERCHANT, payload }
+}
+
+export function toggleUCB(payload) {
+    return { type: TOGGLE_UCB, payload }
 }
 
 export function reset(payload) {

@@ -4,7 +4,8 @@
   background: linear-gradient(#e66465, #ff4868 5%, #9198e5);
   background: -webkit-gradient(#e66465, #ff4868 5%, #9198e5);
   background: -moz-linear-gradient(#e66465, #ff4868 5%, #9198e5);
-  padding-bottom: 100px;
+  padding-bottom: 50px;
+  min-height: 100vh;
 }
 
 .merchant-name-container {

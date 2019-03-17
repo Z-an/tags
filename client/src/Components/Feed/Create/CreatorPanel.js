@@ -1,20 +1,22 @@
 import React, {useState} from 'react'
 import { connect } from 'react-redux'
-import { SUBMIT_TAG } from '../../../Mutations/index'
+import { SUBMIT_TAG, ADD_MERCHANT } from '../../../Mutations/index'
 import { Mutation } from 'react-apollo'
-import { useMutation } from 'react-apollo-hooks'
 import TextField from '@material-ui/core/TextField';
 import { ReactComponent as Twitter } from '../../../Assets/twitter.svg'
 
 import '../../../Styles/Creator.css'
 
-const mapStateToProps = state => {
+const mapStateToProps = (state,ownProps) => {
+  if (!ownProps.merchants) 
   return {user: state.user,
           merchant: {id: state.merchant.id},
-          openModal: state.openModal
-        }
+          openModal: state.openModal }
+   else 
+    return {user:state.user,
+          openModal:state.openModal}
+  
 }
-
 
 const CreatorButton = (props) => (
   <div className="circle">
@@ -25,18 +27,20 @@ const CreatorButton = (props) => (
 )
 
 export const ConnectedCreatorPanel = (props) => {
-  const[open,setOpen] = useState(props.open)
+  const[open,setOpen] = useState(false)
+  const merchants = props.merchants
 
-  console.log('open',open)
+  console.log('open',props.open)
 
   if (!open) {
     return <div className='creator-button' onClick={()=>setOpen(true)}><CreatorButton /></div>
   }
-
+  
   else {
-    if (props.openModal!==null) {setOpen(false)}
+    if (props.openModal!==null && !merchants) {setOpen(false)}
+    console.log('opennnn',open)
     return (
-      <Mutation mutation={SUBMIT_TAG}>
+      <Mutation mutation={merchants? ADD_MERCHANT:SUBMIT_TAG}>
       { createTag  => (
         <div className='creator-panel'>
           <div className='minimize'onClick={() => setOpen(false)}>Minimize</div>
@@ -45,14 +49,14 @@ export const ConnectedCreatorPanel = (props) => {
             <TextField
               id="new-tag-input"
               label=''
-              placeholder="Share something new"
+              placeholder={merchants? 'Add a new restaurant':"Share something new"}
               className='text-field'
               margin="normal"
               autoFocus
             />
           </div>
         <div className='post' onClick={() => (document.getElementById("new-tag-input").value !== '')? (
-          createTag({variables: {userId: props.user.id, merchantId: props.merchant.id, content: document.getElementById("new-tag-input").value}}),setOpen(false)):null}>
+          createTag({variables: merchants? {name: document.getElementById("new-tag-input").value}:{userId: props.user.id, merchantId: props.merchant.id, content: document.getElementById("new-tag-input").value}}),setOpen(false),window.scrollTo(0,0)):null}>
             POST
         </div>
       </div>

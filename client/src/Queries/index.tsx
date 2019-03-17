@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
 export const GET_TAGS = gql`
-  query merchantTags($id: String!) {
-    merchantTags(id: $id) {
+  query merchantTags($id: String!, $ucb: Boolean!) {
+    merchantTags(id: $id, ucb: $ucb) {
       id
       content
       reacts

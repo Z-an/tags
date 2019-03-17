@@ -69,7 +69,7 @@ export const typeDefs = gql`
     tag(id: String!): Tag
     merchant(id: String!): Merchant
 
-    merchantTags(id: String!): [Tag]!
+    merchantTags(id: String!, ucb: Boolean!): [Tag]!
     activeUsers(merchantId: String!): [User]!
 
     emojiReactors(tagId: String!): [EmojiReactors]

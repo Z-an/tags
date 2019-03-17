@@ -3,7 +3,7 @@ import { ReactComponent as Fire } from '../../Assets/Emoji/fire.svg'
 import { ReactComponent as Search } from '../../Assets/search.svg'
 import { ReactComponent as Filter } from '../../Assets/filter.svg'
 import Button from '@material-ui/core/Button'
-import { toggleLive } from '../../Actions'
+import { toggleLive, toggleUCB } from '../../Actions'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state) => {
@@ -11,7 +11,8 @@ const mapStateToProps = (state) => {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {toggleLive: payload => dispatch(toggleLive(payload))}
+  return {toggleLive: payload => dispatch(toggleLive(payload)),
+          toggleUCB: payload => dispatch(toggleUCB(payload))}
 }
 export const ConnectedWhatsHot: React.FC<any> = (props) => (
   <Fragment>
@@ -21,7 +22,7 @@ export const ConnectedWhatsHot: React.FC<any> = (props) => (
   <div className='whats-hot-container'>
     <div className='whats-hot'>What's hot</div>
     <div className='button-container'>
-      <Filter className='filter-button'/>
+      <Filter onClick={()=> props.toggleUCB()} className='filter-button'/>
       <Search className='search-button'/>
     </div>
   </div>
