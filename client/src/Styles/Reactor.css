@@ -70,3 +70,10 @@
     margin-left: 0rem;
     margin-top:0.3rem;
 }
+
+.sorted-by {
+    margin-top: -2rem;
+    margin-bottom: 2rem;
+    margin-left: -11rem;
+    color: white;
+}

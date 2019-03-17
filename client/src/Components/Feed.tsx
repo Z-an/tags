@@ -17,7 +17,7 @@ import { reset } from '../Actions'
 import '../Styles/Feed.css'
 
 const mapStateToProps = (state,ownProps) => {
-  return {merchant: state.merchant, user: state.user }
+  return {merchant: state.merchant, user: state.user, live: state.live }
 }
 
 function mapDispatchToProps(dispatch) {

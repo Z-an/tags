@@ -7,20 +7,22 @@ import { toggleLive, toggleUCB } from '../../Actions'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state) => {
-  return {live: state.live}
+  return {live: state.live, ucb: state.ucb}
 }
 
 function mapDispatchToProps(dispatch) {
   return {toggleLive: payload => dispatch(toggleLive(payload)),
           toggleUCB: payload => dispatch(toggleUCB(payload))}
 }
-export const ConnectedWhatsHot: React.FC<any> = (props) => (
+export const ConnectedWhatsHot = (props) => {
+  if (props.live) {
+  return (
   <Fragment>
   <div className='merchant-name-container'><div className='merchant-name'>{props.merchant.name}</div></div>
   <div className='live-container'>
   <div className='live-toggle' onClick={()=>props.toggleLive()}>Live: {props.live? 'ON':'OFF'} </div>
   <div className='whats-hot-container'>
-    <div className='whats-hot'>What's hot</div>
+    <div className='whats-hot'>{props.ucb? "What's hot":"What's top"}</div>
     <div className='button-container'>
       <Filter onClick={()=> props.toggleUCB()} className='filter-button'/>
       <Search className='search-button'/>
@@ -28,6 +30,8 @@ export const ConnectedWhatsHot: React.FC<any> = (props) => (
   </div>
   </div>
   </Fragment>
-)
+  )
+  }
+}
 
 export const WhatsHot = connect(mapStateToProps,mapDispatchToProps)(ConnectedWhatsHot)

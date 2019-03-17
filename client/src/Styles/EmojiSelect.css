@@ -1,7 +1,7 @@
 .react-add-container {
     position: absolute;
     margin-left:19rem;
-    margin-top:0.7rem;
+    margin-top:1.1rem;
 }
 
 .react-add-container:hover {
@@ -24,6 +24,7 @@
     height: 36px;
     width: 36px;
     position: absolute;
+    margin-top:-0.5rem;
     
 }
 

@@ -42,7 +42,7 @@ const ConnectedTagView = (props) => {
 
     return (
       <Fragment>
-        <Modal visible={open} width="350" height="600" effect="fadeInUp">
+        <Modal visible={open} width="350"  effect="fadeInUp">
           <div className='modal-container'>
             <div className='top'>
               <div className='header'>

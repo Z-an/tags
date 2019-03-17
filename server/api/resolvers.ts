@@ -321,10 +321,11 @@ export const resolvers = {
           .collection("merchantsQL")
           .add({name: args.name,
                 hrounds: 1,
-                rho: 0.8,
+                rho: 0.3,
                 url: null,
                 paramsId: 'default',
                 rewardsId: 'default',
+                age: 0, 
                 splash: [null]})
 
         const newMerchant = await merchantDoc.get()

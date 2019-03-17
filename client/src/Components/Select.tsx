@@ -48,7 +48,7 @@ class ConnectedSelect extends Component<any, any> {
           console.log(data.merchants)
         
           return (
-            <div className='background'>
+            <div className='background-tags'>
             <ButtonBases merchants={data.merchants}
                          redirector={this.redirector}/>
             <div onClick={()=>this.toggle()}><CreatorPanel open={this.state.open} merchants={true}/></div>
