@@ -43,7 +43,9 @@ const ConnectedSignIn = (props) => {
   if (user===null) {
     return (
       <div className='background'>
+        <div className='notsignedin'> 
           <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
+        </div>
       </div>
     )
   }

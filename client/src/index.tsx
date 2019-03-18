@@ -26,7 +26,7 @@ const dads = {address: `192.168.0.9`}
 import * as serviceWorker from './serviceWorker';
 
 const httpLink = new HttpLink({
-  uri: `http://${linux.address}3000/graphql`
+  uri: `http://${linux.address}:3000/graphql`
 });
 
 const wsLink = new WebSocketLink({
