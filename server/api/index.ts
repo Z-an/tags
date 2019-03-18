@@ -8,7 +8,7 @@ require('./config')
 import { typeDefs } from './schema'
 import { resolvers } from './resolvers'
 
-const PORT = process.env.PORT || 4000
+const PORT = process.env.PORT || 3000
 const path = require("path")  
 
 const app = express()
