@@ -9,7 +9,7 @@ import { typeDefs } from './schema'
 import { resolvers } from './resolvers'
 
 const PORT = process.env.PORT || 4000
-const path = require("path")
+const path = require("path")  
 
 const app = express()
 
